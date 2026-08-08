@@ -1,0 +1,3 @@
+run_uuid,opt_id,opt_name,timestamp,dataset,base_model,seq_len,label_len,token_len,pred_len,batch_size,learning_rate,epochs,total_time_s,gpu_time_s,wall_time_s,avg_latency_s_per_batch,peak_vram_gb,train_loss,val_loss,test_mse,test_mae,test_rmse,gpu_name,pytorch_version,extra_info
+85fe3c74955a,opt9,Opt_9_SMETimes,2026-07-30T23:12:07.038893,ETTh1,AutoTimes_Gpt2,672,576,96,96,256,0.0001,10,266.2936,266.2936,267.5336,3.474463,2.1065,0.0,0.0,0.3639765,0.39956397,0.6033047,AMD Radeon RX 9060 XT,2.9.1+rocmsdk20260116,
+db2e335174bc,opt10,Opt_10_Combo_Eficiencia,2026-07-30T23:29:52.810266,ETTh1,AutoTimes_Gpt2,672,576,96,96,256,0.0001,10,1043.6555,1043.6555,1043.9883,13.55829,5.3023,0.0,0.0,0.4308651,0.45082596,0.6564032,AMD Radeon RX 9060 XT,2.9.1+rocmsdk20260116,

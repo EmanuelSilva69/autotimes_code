@@ -20,7 +20,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         super(Exp_Long_Term_Forecast, self).__init__(args)
         
     def _build_model(self):
-        model = self.model_dict[self.args.model].Model(self.args)
+        model = self.model_dict[self.args.model](self.args)
         if self.args.use_multi_gpu:
             self.device = torch.device('cuda:{}'.format(self.args.local_rank))
             model = DDP(model.cuda(), device_ids=[self.args.local_rank])
@@ -61,22 +61,18 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         with torch.no_grad():
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(vali_loader):
                 iter_count += 1
-                batch_x = batch_x.float().to(self.device)
+                batch_x = batch_x.float().to(self.device, non_blocking=self.args.use_amp)
                 batch_y = batch_y.float()
-                batch_x_mark = batch_x_mark.float().to(self.device)
-                batch_y_mark = batch_y_mark.float().to(self.device)
+                batch_x_mark = batch_x_mark.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_y_mark = batch_y_mark.float().to(self.device, non_blocking=self.args.use_amp)
                 
-                if self.args.use_amp:
-                    with torch.cuda.amp.autocast():
-                        outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
-                else:
-                        outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
+                outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
                 if is_test:
                     outputs = outputs[:, -self.args.token_len:, :]
-                    batch_y = batch_y[:, -self.args.token_len:, :].to(self.device)
+                    batch_y = batch_y[:, -self.args.token_len:, :].to(self.device, non_blocking=self.args.use_amp)
                 else:
                     outputs = outputs[:, :, :]
-                    batch_y = batch_y[:, :, :].to(self.device)
+                    batch_y = batch_y[:, :, :].to(self.device, non_blocking=self.args.use_amp)
 
                 loss = criterion(outputs, batch_y)
 
@@ -132,22 +128,15 @@ class Exp_Long_Term_Forecast(Exp_Basic):
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(train_loader):
                 iter_count += 1
                 model_optim.zero_grad()
-                batch_x = batch_x.float().to(self.device)
-                batch_y = batch_y.float().to(self.device)
-                batch_x_mark = batch_x_mark.float().to(self.device)
-                batch_y_mark = batch_y_mark.float().to(self.device)
+                batch_x = batch_x.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_y = batch_y.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_x_mark = batch_x_mark.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_y_mark = batch_y_mark.float().to(self.device, non_blocking=self.args.use_amp)
 
-                if self.args.use_amp:
-                    with torch.cuda.amp.autocast():
-                        outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
-                        loss = criterion(outputs, batch_y)                        
-                        loss_val += loss.item()
-                        count += 1
-                else:
-                    outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
-                    loss = criterion(outputs, batch_y)
-                    loss_val += loss.item()
-                    count += 1
+                outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
+                loss = criterion(outputs, batch_y)
+                loss_val += loss.item()
+                count += 1
                 
                 if (i + 1) % 100 == 0:
                     if (self.args.use_multi_gpu and self.args.local_rank == 0) or not self.args.use_multi_gpu:
@@ -225,10 +214,10 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         with torch.no_grad():
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(test_loader):
                 iter_count += 1
-                batch_x = batch_x.float().to(self.device)
-                batch_y = batch_y.float().to(self.device)
-                batch_x_mark = batch_x_mark.float().to(self.device)
-                batch_y_mark = batch_y_mark.float().to(self.device)
+                batch_x = batch_x.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_y = batch_y.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_x_mark = batch_x_mark.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_y_mark = batch_y_mark.float().to(self.device, non_blocking=self.args.use_amp)
 
                 inference_steps = self.args.test_pred_len // self.args.token_len
                 dis = self.args.test_pred_len - inference_steps * self.args.token_len
@@ -241,16 +230,12 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                         tmp = batch_y_mark[:, j-1:j, :]
                         batch_x_mark = torch.cat([batch_x_mark[:, 1:, :], tmp], dim=1)
                         
-                    if self.args.use_amp:
-                        with torch.cuda.amp.autocast():
-                            outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
-                    else:
-                        outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
+                    outputs = self.model(batch_x, batch_x_mark, None, batch_y_mark)
                     pred_y.append(outputs[:, -self.args.token_len:, :])
                 pred_y = torch.cat(pred_y, dim=1)
                 if dis != 0:
                     pred_y = pred_y[:, :-(self.args.token_len - dis), :]
-                batch_y = batch_y[:, -self.args.test_pred_len:, :].to(self.device)
+                batch_y = batch_y[:, -self.args.test_pred_len:, :].to(self.device, non_blocking=self.args.use_amp)
                 outputs = pred_y.detach().cpu()
                 batch_y = batch_y.detach().cpu()
 
@@ -289,4 +274,4 @@ class Exp_Long_Term_Forecast(Exp_Basic):
         f.write('\n')
         f.write('\n')
         f.close()
-        return
+        return mse, mae, rmse

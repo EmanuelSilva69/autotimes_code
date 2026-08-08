@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('--is_training', type=int, required=True, default=1, help='status')
     parser.add_argument('--model_id', type=str, required=True, default='test', help='model id')
     parser.add_argument('--model', type=str, required=True, default='AutoTimes_Llama',
-                        help='model name, options: [AutoTimes_Llama, AutoTimes_Gpt2, AutoTimes_Opt1b]')
+                        help='model name, options: [AutoTimes_Llama, AutoTimes_Gpt2, AutoTimes_Opt_1b,AutoTimes_Qwen]')
 
     # data loader
     parser.add_argument('--data', type=str, required=True, default='ETTm1', help='dataset type')
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     parser.add_argument('--mlp_activation', type=str, default='tanh', help='mlp activation')
 
     # optimization
-    parser.add_argument('--num_workers', type=int, default=10, help='data loader num workers')
+    parser.add_argument('--num_workers', type=int, default=4, help='data loader num workers')
     parser.add_argument('--itr', type=int, default=1, help='experiments times')
     parser.add_argument('--train_epochs', type=int, default=10, help='train epochs')
     parser.add_argument('--batch_size', type=int, default=32, help='batch size of train input data')
@@ -61,7 +61,10 @@ if __name__ == '__main__':
     parser.add_argument('--des', type=str, default='test', help='exp description')
     parser.add_argument('--loss', type=str, default='MSE', help='loss function')
     parser.add_argument('--lradj', type=str, default='type1', help='adjust learning rate')
-    parser.add_argument('--use_amp', action='store_true', help='use automatic mixed precision training', default=False)
+    parser.add_argument('--use_amp', action='store_true', help='use automatic mixed precision training', default=True)
+    parser.add_argument('--mode', type=str, default='optimized', choices=['original', 'optimized'],
+                        help='original: fiel ao artigo (fp32, sem AMP/TF32/benchmark/non_blocking); optimized: base otimizada opt1/ROCm (padrao)')
+    parser.add_argument('--n_stat_feats', type=int, default=4, help='numero de features estatisticas (SMETimes/opt9)')
     parser.add_argument('--cosine', action='store_true', help='use cosine annealing lr', default=False)
     parser.add_argument('--tmax', type=int, default=10, help='tmax in cosine anealing lr')
     parser.add_argument('--weight_decay', type=float, default=0)
@@ -74,6 +77,9 @@ if __name__ == '__main__':
     parser.add_argument('--use_multi_gpu', action='store_true', help='use multiple gpus', default=False)
     parser.add_argument('--visualize', action='store_true', help='visualize', default=False)
     args = parser.parse_args()
+
+    if args.mode == 'original':
+        args.use_amp = False
 
     if args.use_multi_gpu:
         ip = os.environ.get("MASTER_ADDR", "127.0.0.1")
@@ -100,6 +106,7 @@ if __name__ == '__main__':
         Exp = Exp_Long_Term_Forecast
 
     if args.is_training:
+        print(f"DEBUG: Tentando carregar modelo: {args.model}")
         for ii in range(args.itr):
             # setting record of experiments
             exp = Exp(args)  # set experiments

@@ -1,0 +1,36 @@
+cuda:0
+>>>>>>>start training : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_ne8_tk2_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 55111
+val 19495
+test 19495
+Epoch: 1, Steps: 216 | Train Loss: 0.5326988 Vali Loss: 1.1120328 Test Loss: 0.7171821
+Validation loss decreased (inf --> 1.112033).
+next learning rate is 0.0001
+Epoch: 2, Steps: 216 | Train Loss: 0.5314837 Vali Loss: 1.1120328 Test Loss: 0.7171821
+Validation loss decreased (1.112033 --> 1.112033).
+next learning rate is 5e-05
+Epoch: 3, Steps: 216 | Train Loss: 0.5309822 Vali Loss: 1.1120328 Test Loss: 0.7171821
+EarlyStopping counter: 1 out of 3
+next learning rate is 2.5e-05
+Epoch: 4, Steps: 216 | Train Loss: 0.5313608 Vali Loss: 1.1120328 Test Loss: 0.7171821
+EarlyStopping counter: 2 out of 3
+next learning rate is 1.25e-05
+Epoch: 5, Steps: 216 | Train Loss: 0.5314373 Vali Loss: 1.1120328 Test Loss: 0.7171821
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_ne8_tk2_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 19495
+mse:0.7171823382377625, mae:0.5838770270347595
+test 19495
+
+=== Benchmark Results ===
+opt_id:        opt3
+opt_name:      Opt_3_MoE
+wall_time:     202.1408s
+gpu_time:      201.0764s
+test_mse:      0.71718234
+test_mae:      0.58387703
+test_rmse:     0.84686613
+=========================
+
+Logged: opt3 - Opt_3_MoE

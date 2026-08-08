@@ -1,5 +1,4 @@
-from models import AutoTimes_Llama, AutoTimes_Gpt2, AutoTimes_Opt_1b
-
+from models import AutoTimes_Llama, AutoTimes_Gpt2, AutoTimes_Gpt2_SMETimes, AutoTimes_Opt_1b, AutoTimes_Qwen
 
 class Exp_Basic(object):
     def __init__(self, args):
@@ -7,10 +6,11 @@ class Exp_Basic(object):
         self.model_dict = {
             'AutoTimes_Llama': AutoTimes_Llama,
             'AutoTimes_Gpt2': AutoTimes_Gpt2,
-            'AutoTimes_Opt_1b': AutoTimes_Opt_1b
+            'AutoTimes_Gpt2_SMETimes': AutoTimes_Gpt2_SMETimes,
+            'AutoTimes_Opt_1b': AutoTimes_Opt_1b,
+            'AutoTimes_Qwen': AutoTimes_Qwen  # Adicione esta linha
         }
         self.model = self._build_model()
-
     def _build_model(self):
         raise NotImplementedError
 

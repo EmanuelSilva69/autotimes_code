@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "seq_len": 672,
+    "label_len": 576,
+    "pred_len": 96,
+    "n_vars": 7,
+    "token_len": 96,
+    "d_model": 768,
+    "backbone": "gpt2-base (transformers, local: E:\\2026.1\\Viplab\\AutoTimes\\gpt2)",
+    "epochs": 1,
+    "lr_base": 0.001,
+    "lr_llm": 2e-05,
+    "lr_new": 0.001,
+    "mlp_hidden_dim": 256,
+    "mlp_hidden_layers": 2,
+    "mlp_activation": "tanh",
+    "unfreeze_layers": 0,
+    "hybrid_robust": "huber",
+    "hybrid_lambda": 0.5,
+    "hybrid_delta": 1.0,
+    "textual": false,
+    "text_step": 24,
+    "block_max": 128,
+    "use_amp": true,
+    "cosine": false,
+    "tmax": 10,
+    "device": "cuda",
+    "torch": "2.9.1+rocmsdk20260116",
+    "seed": 2021,
+    "data": "..\\dataset\\ETT-small/ETTh1.csv",
+    "timestamp": "2026-08-06T21:12:58"
+  },
+  "runs": {
+    "Run 0_Padrao": {
+      "name": "Run 0_Padrao",
+      "flags": {
+        "use_robust": false,
+        "use_vol_loss": false,
+        "use_overlap": false,
+        "use_disc_optim": false,
+        "use_vol_gate": false,
+        "use_unfreeze": false,
+        "use_hybrid_loss": false
+      },
+      "epochs": 1,
+      "total_time_s": 98.978,
+      "time_per_epoch_s": [
+        79.3081
+      ],
+      "train_loss": [
+        0.34988379284392956
+      ],
+      "val_loss": [
+        0.555885389337909
+      ],
+      "test_loss": [
+        0.36745896050498694
+      ],
+      "test_mse_per_epoch": [
+        0.36745887994766235
+      ],
+      "test_mae_per_epoch": [
+        0.4042513966560364
+      ],
+      "final_test_mse": 0.36745887994766235,
+      "final_test_mae": 0.4042513966560364,
+      "final_test_loss": 0.36745896050498694,
+      "best_val_loss": 0.555885389337909,
+      "best_epoch": 1,
+      "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-0_Padrao__ETTh1__20260806_211044.pt",
+      "early_stop": false,
+      "patience": 3,
+      "early_stop_epoch": null,
+      "grad_stats": {
+        "trainable": 8,
+        "missing": 0,
+        "nan": 0,
+        "inf": 0
+      }
+    },
+    "Run 3_OverlappingEmbed": {
+      "name": "Run 3_OverlappingEmbed",
+      "flags": {
+        "use_robust": false,
+        "use_vol_loss": false,
+        "use_overlap": true,
+        "use_disc_optim": false,
+        "use_vol_gate": false,
+        "use_unfreeze": false,
+        "use_hybrid_loss": false
+      },
+      "epochs": 1,
+      "total_time_s": 114.196,
+      "time_per_epoch_s": [
+        91.2403
+      ],
+      "train_loss": [
+        0.4743787520153578
+      ],
+      "val_loss": [
+        0.5284446561969406
+      ],
+      "test_loss": [
+        0.38602545358857826
+      ],
+      "test_mse_per_epoch": [
+        0.3860253095626831
+      ],
+      "test_mae_per_epoch": [
+        0.4111854135990143
+      ],
+      "final_test_mse": 0.3860253095626831,
+      "final_test_mae": 0.4111854135990143,
+      "final_test_loss": 0.38602545358857826,
+      "best_val_loss": 0.5284446561969406,
+      "best_epoch": 1,
+      "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-3_OverlappingEmbed__ETTh1__20260806_211236.pt",
+      "early_stop": false,
+      "patience": 3,
+      "early_stop_epoch": null,
+      "grad_stats": {
+        "trainable": 4,
+        "missing": 0,
+        "nan": 0,
+        "inf": 1
+      }
+    }
+  }
+}

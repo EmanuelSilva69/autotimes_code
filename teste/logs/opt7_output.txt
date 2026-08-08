@@ -1,0 +1,39 @@
+>>>>>>>start training : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_mtp1x2x4_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 55111
+val 19495
+test 19495
+cuda:0
+use mlp as tokenizer and detokenizer
+encoder.layers.0.weight torch.float32 torch.Size([256, 96])
+encoder.layers.0.bias torch.float32 torch.Size([256])
+encoder.layers.3.weight torch.float32 torch.Size([768, 256])
+encoder.layers.3.bias torch.float32 torch.Size([768])
+decoders.0.layers.0.weight torch.float32 torch.Size([256, 768])
+decoders.0.layers.0.bias torch.float32 torch.Size([256])
+decoders.0.layers.3.weight torch.float32 torch.Size([96, 256])
+decoders.0.layers.3.bias torch.float32 torch.Size([96])
+decoders.1.layers.0.weight torch.float32 torch.Size([256, 768])
+decoders.1.layers.0.bias torch.float32 torch.Size([256])
+decoders.1.layers.3.weight torch.float32 torch.Size([192, 256])
+decoders.1.layers.3.bias torch.float32 torch.Size([192])
+decoders.2.layers.0.weight torch.float32 torch.Size([256, 768])
+decoders.2.layers.0.bias torch.float32 torch.Size([256])
+decoders.2.layers.3.weight torch.float32 torch.Size([384, 256])
+decoders.2.layers.3.bias torch.float32 torch.Size([384])
+Epoch: 1 cost time: 6.30818510055542
+Epoch: 1 | Train Loss: 0.7807487 Vali Loss: 1.7114992
+Validation loss decreased (inf --> 1.711499).
+>>>>>>>testing : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_mtp1x2x4_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 19495
+mse:2.4362523555755615, mae:1.227506160736084, rmse:1.560849905014038
+
+=== Benchmark Results ===
+opt_id:        opt7
+opt_name:      Opt_7_MTP
+wall_time:     6.5003s
+gpu_time:      0.0000s
+test_mse:      2.43625236
+test_mae:      1.22750616
+test_rmse:     1.56084991
+=========================
+

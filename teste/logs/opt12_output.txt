@@ -1,0 +1,29 @@
+train 55111
+val 19495
+test 19495
+Epoch 1 train nan vali nan
+Validation loss decreased (inf --> nan).
+test 19495
+mse:nan mae:nan rmse:nan
+test 19495
+
+=== Benchmark Results ===
+opt_id:        opt12
+opt_name:      Opt_12_Ultimate
+wall_time:     22.5909s
+gpu_time:      7.9321s
+test_mse:      nan
+test_mae:      nan
+test_rmse:     nan
+=========================
+
+
+=== Benchmark Results ===
+opt_id:        opt12
+opt_name:      Opt_12_Ultimate
+total_time:    22.5909s
+test_mse:      nan
+test_mae:      nan
+test_rmse:     nan
+=========================
+

@@ -99,10 +99,10 @@ class Exp_In_Context_Forecast(Exp_Basic):
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(train_loader):
                 iter_count += 1
                 model_optim.zero_grad()
-                batch_x = batch_x.float().to(self.device) 
+                batch_x = batch_x.float().to(self.device, non_blocking=self.args.use_amp) 
 
-                batch_y = batch_y.float().to(self.device)
-                batch_y_mark = batch_y_mark.float().to(self.device)
+                batch_y = batch_y.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_y_mark = batch_y_mark.float().to(self.device, non_blocking=self.args.use_amp)
 
                 if self.args.use_amp:
                     with torch.cuda.amp.autocast():
@@ -189,11 +189,11 @@ class Exp_In_Context_Forecast(Exp_Basic):
         self.model.eval()
         with torch.no_grad():
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(vali_loader):
-                batch_x = batch_x.float().to(self.device)
+                batch_x = batch_x.float().to(self.device, non_blocking=self.args.use_amp)
                 batch_y = batch_y.float()
 
-                batch_x_mark = batch_x_mark.float().to(self.device)
-                batch_y_mark = batch_y_mark.float().to(self.device)
+                batch_x_mark = batch_x_mark.float().to(self.device, non_blocking=self.args.use_amp)
+                batch_y_mark = batch_y_mark.float().to(self.device, non_blocking=self.args.use_amp)
                 
                 if self.args.use_amp:
                     with torch.cuda.amp.autocast():
@@ -201,7 +201,7 @@ class Exp_In_Context_Forecast(Exp_Basic):
                 else:
                     outputs = self.model(batch_x, None, None, None)
 
-                batch_y = batch_y[:, -self.args.test_pred_len:, :].to(self.device)
+                batch_y = batch_y[:, -self.args.test_pred_len:, :].to(self.device, non_blocking=self.args.use_amp)
 
                 pred = outputs[:, -self.args.test_pred_len:, :].detach().cpu()
                 true = batch_y.detach().cpu()
@@ -222,7 +222,7 @@ class Exp_In_Context_Forecast(Exp_Basic):
         self.model.eval()
         with torch.no_grad():
             for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(test_loader):
-                batch_x = batch_x.float().to(self.device)
+                batch_x = batch_x.float().to(self.device, non_blocking=self.args.use_amp)
                 batch_y = batch_y.float()
 
                 if self.args.use_amp:
@@ -232,7 +232,7 @@ class Exp_In_Context_Forecast(Exp_Basic):
                     outputs = self.model(batch_x, None, None, None)
 
                 outputs = outputs[:, -self.args.test_pred_len:, :]
-                batch_y = batch_y[:, -self.args.test_pred_len:, :].to(self.device)
+                batch_y = batch_y[:, -self.args.test_pred_len:, :].to(self.device, non_blocking=self.args.use_amp)
 
                 pred = outputs.detach().cpu().numpy()
                 true = batch_y.detach().cpu().numpy()

@@ -48,14 +48,18 @@ def data_provider(args, flag):
         )
     if (args.use_multi_gpu and args.local_rank == 0) or not args.use_multi_gpu:
         print(flag, len(data_set))
+
+    workers = max(args.num_workers, 4)
+
     if args.use_multi_gpu:
         train_datasampler = DistributedSampler(data_set, shuffle=shuffle_flag)
         data_loader = DataLoader(data_set, 
             batch_size=batch_size,
             sampler=train_datasampler,
-            num_workers=args.num_workers,
+            num_workers=workers,
             persistent_workers=True,
             pin_memory=True,
+            prefetch_factor=2,
             drop_last=drop_last,
             )
     else:
@@ -63,6 +67,8 @@ def data_provider(args, flag):
             data_set,
             batch_size=batch_size,
             shuffle=shuffle_flag,
-            num_workers=args.num_workers,
+            num_workers=workers,
+            pin_memory=True,
+            prefetch_factor=2,
             drop_last=drop_last)
     return data_set, data_loader

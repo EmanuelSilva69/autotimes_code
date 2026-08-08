@@ -140,3 +140,28 @@ dmypy.json
 /m4_results/
 /models--gpt2/
 /models--facebook--opt-1.3b/
+
+# ---- Adicionado para o autotimes_code ---- #
+# Pesos locais de modelos (re-downloadaveis)
+/autotimes_env/
+/gpt2/
+/opt/
+/qwen-0.5b/
+/qwen-1.2b/
+/qwen-1.5b/
+/qwen-200m/
+/qwen-500m/
+/llama-212m/
+/pythia-410m/
+/smollm-360m/
+
+# Artefatos regeneraveis
+/checkpoints/
+/figures/
+/Testes_eficiencia/text_cache/
+/Testes_eficiencia/checkpoints/
+/teste/autotimes_kaggle.zip
+*.pt
+*.zip
+*.log
+__pycache__/

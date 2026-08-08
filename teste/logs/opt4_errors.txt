@@ -1,0 +1,11 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 148/148 [00:00<00:00, 1114.71it/s]
+Loading weights: 100%|██████████| 148/148 [00:00<00:00, 1106.38it/sTraceback (most recent call last):
+  File "E:\2026.1\Viplab\AutoTimes\teste\run_opt4.py", line 319, in <module>
+    exp.train(setting)
+  File "E:\2026.1\Viplab\AutoTimes\teste\run_opt4.py", line 138, in train
+    batch_x = batch_x.float().to(self.device, non_blocking=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

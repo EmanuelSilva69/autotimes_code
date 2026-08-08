@@ -1,0 +1,79 @@
+cuda:0
+use mlp as tokenizer and detokenizer
+>>>>>>> start training : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96 >>>>>>>>>
+train 55111
+val 19495
+test 19495
+encoder.layers.0.weight torch.float32 torch.Size([256, 96])
+encoder.layers.0.bias torch.float32 torch.Size([256])
+encoder.layers.3.weight torch.float32 torch.Size([768, 256])
+encoder.layers.3.bias torch.float32 torch.Size([768])
+decoder.layers.0.weight torch.float32 torch.Size([256, 768])
+decoder.layers.0.bias torch.float32 torch.Size([256])
+decoder.layers.3.weight torch.float32 torch.Size([96, 256])
+decoder.layers.3.bias torch.float32 torch.Size([96])
+next learning rate is 0.001
+	iters: 100, epoch: 1 | loss: 0.3331879
+	speed: 0.6381s/iter; left time: 1308.8014s
+	iters: 200, epoch: 1 | loss: 0.3279326
+	speed: 0.0886s/iter; left time: 172.9490s
+Epoch: 1 cost time: 75.77573084831238
+Epoch: 1, Steps: 215 | Train Loss: 0.3477454 Vali Loss: 0.5432642 Test Loss: 0.3653523
+Validation loss decreased (inf --> 0.543264).
+lr = 0.0009755285
+	iters: 100, epoch: 2 | loss: 0.2907027
+	speed: 1.6751s/iter; left time: 3075.5062s
+	iters: 200, epoch: 2 | loss: 0.2623922
+	speed: 0.0882s/iter; left time: 153.0742s
+Epoch: 2 cost time: 69.90313243865967
+Epoch: 2, Steps: 215 | Train Loss: 0.3038227 Vali Loss: 0.5403963 Test Loss: 0.3580800
+Validation loss decreased (0.543264 --> 0.540396).
+lr = 0.0009045095
+	iters: 100, epoch: 3 | loss: 0.2898535
+	speed: 1.6523s/iter; left time: 2678.3481s
+	iters: 200, epoch: 3 | loss: 0.3082289
+	speed: 0.0879s/iter; left time: 133.6614s
+Epoch: 3 cost time: 67.49732208251953
+Epoch: 3, Steps: 215 | Train Loss: 0.2920105 Vali Loss: 0.5355504 Test Loss: 0.3606875
+Validation loss decreased (0.540396 --> 0.535550).
+lr = 0.0007938947
+	iters: 100, epoch: 4 | loss: 0.2853647
+	speed: 1.6556s/iter; left time: 2327.7360s
+	iters: 200, epoch: 4 | loss: 0.2719525
+	speed: 0.0884s/iter; left time: 115.4691s
+Epoch: 4 cost time: 69.12494158744812
+Epoch: 4, Steps: 215 | Train Loss: 0.2848174 Vali Loss: 0.5436566 Test Loss: 0.3637623
+EarlyStopping counter: 1 out of 3
+lr = 0.0006545120
+	iters: 100, epoch: 5 | loss: 0.2731302
+	speed: 1.6629s/iter; left time: 1980.5571s
+	iters: 200, epoch: 5 | loss: 0.2771431
+	speed: 0.0879s/iter; left time: 95.9443s
+Epoch: 5 cost time: 68.4423098564148
+Epoch: 5, Steps: 215 | Train Loss: 0.2796950 Vali Loss: 0.5426740 Test Loss: 0.3633889
+EarlyStopping counter: 2 out of 3
+lr = 0.0005000050
+	iters: 100, epoch: 6 | loss: 0.2934521
+	speed: 1.6658s/iter; left time: 1625.7895s
+	iters: 200, epoch: 6 | loss: 0.2653770
+	speed: 0.0877s/iter; left time: 76.8059s
+Epoch: 6 cost time: 67.82940196990967
+Epoch: 6, Steps: 215 | Train Loss: 0.2759108 Vali Loss: 0.5402670 Test Loss: 0.3648422
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>> testing : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96 <<<<<<<<<
+test 19495
+info: 672 576 96 96
+mse:0.3606874644756317, mae:0.39870136976242065
+test 19495
+
+=== Benchmark Results ===
+opt_id:        base
+opt_name:      Base_Original
+wall_time:     1112.0775s
+gpu_time:      1110.9070s
+test_mse:      0.36068749
+test_mae:      0.39870137
+test_rmse:     0.60057259
+=========================
+

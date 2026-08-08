@@ -1,0 +1,40 @@
+Using GPU: cuda:0
+cuda:0
+use mlp as tokenizer and detokenizer
+>>>>>>>start training : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_sent768_caTrue_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 55111
+val 19495
+test 19495
+encoder.layers.0.weight torch.float32 torch.Size([256, 96])
+encoder.layers.0.bias torch.float32 torch.Size([256])
+encoder.layers.3.weight torch.float32 torch.Size([768, 256])
+encoder.layers.3.bias torch.float32 torch.Size([768])
+decoder.layers.0.weight torch.float32 torch.Size([256, 768])
+decoder.layers.0.bias torch.float32 torch.Size([256])
+decoder.layers.3.weight torch.float32 torch.Size([96, 256])
+decoder.layers.3.bias torch.float32 torch.Size([96])
+sentiment_adapter.cross_attn.in_proj_weight torch.float32 torch.Size([2304, 768])
+sentiment_adapter.cross_attn.in_proj_bias torch.float32 torch.Size([2304])
+sentiment_adapter.cross_attn.out_proj.weight torch.float32 torch.Size([768, 768])
+sentiment_adapter.cross_attn.out_proj.bias torch.float32 torch.Size([768])
+sentiment_adapter.norm.weight torch.float32 torch.Size([768])
+sentiment_adapter.norm.bias torch.float32 torch.Size([768])
+learning rate = 0.0001
+Epoch: 1 cost time: 5.907064437866211
+Epoch: 1, Steps: 216 | Train Loss: 0.6194667 Vali Loss: 1.4414661 Test Loss: 1.8296680
+Validation loss decreased (inf --> 1.441466).
+>>>>>>>testing : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_sent768_caTrue_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 19495
+mse:0.8643865585327148, mae:0.6422027945518494, rmse:0.9297239184379578
+test 19495
+
+=== Benchmark Results ===
+opt_id:        opt8
+opt_name:      Opt_8_FinGPT
+wall_time:     14.4854s
+gpu_time:      13.2761s
+test_mse:      0.86438656
+test_mae:      0.64220279
+test_rmse:     0.92972392
+=========================
+

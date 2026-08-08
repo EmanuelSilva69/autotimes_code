@@ -1,0 +1,76 @@
+Using GPU: cuda:0
+>>>>>>>start training : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 55111
+val 19495
+test 19495
+encoder.gate.weight torch.float32 torch.Size([4, 96])
+encoder.gate.bias torch.float32 torch.Size([4])
+encoder.experts.0.0.weight torch.float32 torch.Size([512, 96])
+encoder.experts.0.0.bias torch.float32 torch.Size([512])
+encoder.experts.0.3.weight torch.float32 torch.Size([96, 512])
+encoder.experts.0.3.bias torch.float32 torch.Size([96])
+encoder.experts.1.0.weight torch.float32 torch.Size([512, 96])
+encoder.experts.1.0.bias torch.float32 torch.Size([512])
+encoder.experts.1.3.weight torch.float32 torch.Size([96, 512])
+encoder.experts.1.3.bias torch.float32 torch.Size([96])
+encoder.experts.2.0.weight torch.float32 torch.Size([512, 96])
+encoder.experts.2.0.bias torch.float32 torch.Size([512])
+encoder.experts.2.3.weight torch.float32 torch.Size([96, 512])
+encoder.experts.2.3.bias torch.float32 torch.Size([96])
+encoder.experts.3.0.weight torch.float32 torch.Size([512, 96])
+encoder.experts.3.0.bias torch.float32 torch.Size([512])
+encoder.experts.3.3.weight torch.float32 torch.Size([96, 512])
+encoder.experts.3.3.bias torch.float32 torch.Size([96])
+enc_proj.weight torch.float32 torch.Size([768, 96])
+enc_proj.bias torch.float32 torch.Size([768])
+decoder.gate.weight torch.float32 torch.Size([4, 768])
+decoder.gate.bias torch.float32 torch.Size([4])
+decoder.experts.0.0.weight torch.float32 torch.Size([512, 768])
+decoder.experts.0.0.bias torch.float32 torch.Size([512])
+decoder.experts.0.3.weight torch.float32 torch.Size([768, 512])
+decoder.experts.0.3.bias torch.float32 torch.Size([768])
+decoder.experts.1.0.weight torch.float32 torch.Size([512, 768])
+decoder.experts.1.0.bias torch.float32 torch.Size([512])
+decoder.experts.1.3.weight torch.float32 torch.Size([768, 512])
+decoder.experts.1.3.bias torch.float32 torch.Size([768])
+decoder.experts.2.0.weight torch.float32 torch.Size([512, 768])
+decoder.experts.2.0.bias torch.float32 torch.Size([512])
+decoder.experts.2.3.weight torch.float32 torch.Size([768, 512])
+decoder.experts.2.3.bias torch.float32 torch.Size([768])
+decoder.experts.3.0.weight torch.float32 torch.Size([512, 768])
+decoder.experts.3.0.bias torch.float32 torch.Size([512])
+decoder.experts.3.3.weight torch.float32 torch.Size([768, 512])
+decoder.experts.3.3.bias torch.float32 torch.Size([768])
+dec_proj.weight torch.float32 torch.Size([96, 768])
+dec_proj.bias torch.float32 torch.Size([96])
+rag_proj.weight torch.float32 torch.Size([768, 1536])
+rag_proj.bias torch.float32 torch.Size([768])
+learning rate = 0.0001
+Epoch: 1 cost time: 30.10974383354187
+Epoch: 1, Steps: 216 | Train Loss: 0.9987270 Vali Loss: 1.5877864 Test Loss: 2.1719735
+Validation loss decreased (inf --> 1.587786).
+>>>>>>>testing : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 19495
+mse:0.7651625275611877, mae:0.6024007201194763, rmse:0.8747357130050659
+test 19495
+
+=== Benchmark Results ===
+opt_id:        opt11
+opt_name:      Opt_11_Combo_Preditor
+wall_time:     210.0314s
+gpu_time:      209.6484s
+test_mse:      0.76516259
+test_mae:      0.60240072
+test_rmse:     0.87473565
+=========================
+
+
+=== Benchmark Results ===
+opt_id:        opt11
+opt_name:      Opt_11_Combo_Preditor
+total_time:    210.0314s
+test_mse:      0.76516253
+test_mae:      0.60240072
+test_rmse:     0.87473571
+=========================
+

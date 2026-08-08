@@ -1,0 +1,218 @@
+Using GPU: cuda:0
+cuda:0
+use mlp as tokenizer and detokenizer
+>>>>>>>start training : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 55111
+val 19495
+test 19495
+gpt2.h.0.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.0.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.0.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.0.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.0.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.0.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.0.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.0.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.0.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.0.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.1.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.1.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.1.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.1.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.1.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.1.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.1.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.1.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.1.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.1.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.2.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.2.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.2.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.2.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.2.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.2.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.2.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.2.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.2.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.2.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.3.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.3.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.3.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.3.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.3.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.3.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.3.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.3.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.3.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.3.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.4.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.4.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.4.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.4.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.4.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.4.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.4.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.4.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.4.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.4.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.5.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.5.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.5.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.5.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.5.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.5.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.5.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.5.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.5.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.5.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.6.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.6.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.6.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.6.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.6.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.6.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.6.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.6.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.6.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.6.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.7.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.7.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.7.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.7.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.7.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.7.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.7.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.7.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.7.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.7.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.8.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.8.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.8.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.8.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.8.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.8.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.8.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.8.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.8.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.8.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.9.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.9.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.9.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.9.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.9.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.9.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.9.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.9.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.9.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.9.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.10.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.10.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.10.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.10.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.10.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.10.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.10.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.10.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.10.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.10.attn.o_proj.bias torch.float32 torch.Size([768])
+gpt2.h.11.attn.q_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.11.attn.q_proj.bias torch.float32 torch.Size([768])
+gpt2.h.11.attn.kv_proj.weight torch.float32 torch.Size([384, 768])
+gpt2.h.11.attn.kv_proj.bias torch.float32 torch.Size([384])
+gpt2.h.11.attn.k_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.11.attn.k_expand.bias torch.float32 torch.Size([768])
+gpt2.h.11.attn.v_expand.weight torch.float32 torch.Size([768, 384])
+gpt2.h.11.attn.v_expand.bias torch.float32 torch.Size([768])
+gpt2.h.11.attn.o_proj.weight torch.float32 torch.Size([768, 768])
+gpt2.h.11.attn.o_proj.bias torch.float32 torch.Size([768])
+encoder.layers.0.weight torch.float32 torch.Size([256, 96])
+encoder.layers.0.bias torch.float32 torch.Size([256])
+encoder.layers.3.weight torch.float32 torch.Size([768, 256])
+encoder.layers.3.bias torch.float32 torch.Size([768])
+decoder.layers.0.weight torch.float32 torch.Size([256, 768])
+decoder.layers.0.bias torch.float32 torch.Size([256])
+decoder.layers.3.weight torch.float32 torch.Size([96, 256])
+decoder.layers.3.bias torch.float32 torch.Size([96])
+learning rate = 0.0001
+	iters: 100, epoch: 1 | loss: 0.3719859
+	speed: 0.1774s/iter; left time: 365.7013s
+	iters: 200, epoch: 1 | loss: 0.3442447
+	speed: 0.1246s/iter; left time: 244.4022s
+Epoch: 1 cost time: 32.51765179634094
+Epoch: 1, Steps: 216 | Train Loss: 0.3839521 Vali Loss: 0.5547498 Test Loss: 0.3404315
+Validation loss decreased (inf --> 0.554750).
+	iters: 100, epoch: 2 | loss: 0.3061759
+	speed: 0.2712s/iter; left time: 500.2907s
+	iters: 200, epoch: 2 | loss: 0.3108706
+	speed: 0.1235s/iter; left time: 215.5716s
+Epoch: 2 cost time: 26.74924087524414
+Epoch: 2, Steps: 216 | Train Loss: 0.3101738 Vali Loss: 0.5346624 Test Loss: 0.3249725
+Validation loss decreased (0.554750 --> 0.534662).
+	iters: 100, epoch: 3 | loss: 0.2674558
+	speed: 0.2688s/iter; left time: 437.9406s
+	iters: 200, epoch: 3 | loss: 0.2975799
+	speed: 0.1234s/iter; left time: 188.7153s
+Epoch: 3 cost time: 26.87019920349121
+Epoch: 3, Steps: 216 | Train Loss: 0.2951266 Vali Loss: 0.5529779 Test Loss: 0.3229115
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 4 | loss: 0.2779977
+	speed: 0.2663s/iter; left time: 376.3215s
+	iters: 200, epoch: 4 | loss: 0.2939102
+	speed: 0.1231s/iter; left time: 161.6393s
+Epoch: 4 cost time: 26.70349621772766
+Epoch: 4, Steps: 216 | Train Loss: 0.2861731 Vali Loss: 0.5327624 Test Loss: 0.3216186
+Validation loss decreased (0.534662 --> 0.532762).
+	iters: 100, epoch: 5 | loss: 0.2746524
+	speed: 0.2672s/iter; left time: 319.7993s
+	iters: 200, epoch: 5 | loss: 0.2805375
+	speed: 0.1231s/iter; left time: 135.0172s
+Epoch: 5 cost time: 26.602237224578857
+Epoch: 5, Steps: 216 | Train Loss: 0.2791372 Vali Loss: 0.5293720 Test Loss: 0.3189482
+Validation loss decreased (0.532762 --> 0.529372).
+	iters: 100, epoch: 6 | loss: 0.2653470
+	speed: 0.2675s/iter; left time: 262.3696s
+	iters: 200, epoch: 6 | loss: 0.2788709
+	speed: 0.1236s/iter; left time: 108.8545s
+Epoch: 6 cost time: 26.605594158172607
+Epoch: 6, Steps: 216 | Train Loss: 0.2743368 Vali Loss: 0.5328630 Test Loss: 0.3221965
+EarlyStopping counter: 1 out of 3
+	iters: 100, epoch: 7 | loss: 0.2553676
+	speed: 0.2646s/iter; left time: 202.4070s
+	iters: 200, epoch: 7 | loss: 0.2605737
+	speed: 0.1228s/iter; left time: 81.6789s
+Epoch: 7 cost time: 26.665374279022217
+Epoch: 7, Steps: 216 | Train Loss: 0.2701290 Vali Loss: 0.5399611 Test Loss: 0.3209180
+EarlyStopping counter: 2 out of 3
+	iters: 100, epoch: 8 | loss: 0.2556683
+	speed: 0.2672s/iter; left time: 146.6678s
+	iters: 200, epoch: 8 | loss: 0.2538199
+	speed: 0.1236s/iter; left time: 55.5177s
+Epoch: 8 cost time: 26.69686484336853
+Epoch: 8, Steps: 216 | Train Loss: 0.2674067 Vali Loss: 0.5472947 Test Loss: 0.3204602
+EarlyStopping counter: 3 out of 3
+Early stopping
+>>>>>>>testing : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 19495
+mse:0.37105846405029297, mae:0.4068569242954254, rmse:0.6091457009315491
+test 19495
+
+=== Benchmark Results ===
+opt_id:        opt2
+opt_name:      Opt_2_MLA
+wall_time:     326.3089s
+gpu_time:      325.1492s
+test_mse:      0.37105849
+test_mae:      0.40685692
+test_rmse:     0.60914570
+=========================
+
+
+=== Benchmark Results ===
+opt_id:        opt2
+opt_name:      Opt_2_MLA
+total_time:    326.3089s
+test_mse:      0.37105846
+test_mae:      0.40685692
+test_rmse:     0.60914570
+=========================
+

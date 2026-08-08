@@ -1,0 +1,54 @@
+Using GPU: cuda:0
+>>>>>>>start training : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_test_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 55111
+val 19495
+test 19495
+encoder.layers.0.weight torch.float32 torch.Size([256, 96])
+encoder.layers.0.bias torch.float32 torch.Size([256])
+encoder.layers.3.weight torch.float32 torch.Size([768, 256])
+encoder.layers.3.bias torch.float32 torch.Size([768])
+fusion_gate.stats_proj.weight torch.float32 torch.Size([768, 4])
+fusion_gate.stats_proj.bias torch.float32 torch.Size([768])
+fusion_gate.gate.0.weight torch.float32 torch.Size([768, 772])
+fusion_gate.gate.0.bias torch.float32 torch.Size([768])
+rag_bank.proj.weight torch.float32 torch.Size([768, 1536])
+rag_bank.proj.bias torch.float32 torch.Size([768])
+fingpt_cross.cross_attn.in_proj_weight torch.float32 torch.Size([2304, 768])
+fingpt_cross.cross_attn.in_proj_bias torch.float32 torch.Size([2304])
+fingpt_cross.cross_attn.out_proj.weight torch.float32 torch.Size([768, 768])
+fingpt_cross.cross_attn.out_proj.bias torch.float32 torch.Size([768])
+fingpt_cross.norm.weight torch.float32 torch.Size([768])
+fingpt_cross.norm.bias torch.float32 torch.Size([768])
+decoder.layers.0.weight torch.float32 torch.Size([256, 768])
+decoder.layers.0.bias torch.float32 torch.Size([256])
+decoder.layers.3.weight torch.float32 torch.Size([96, 256])
+decoder.layers.3.bias torch.float32 torch.Size([96])
+learning rate = 0.0001
+Epoch: 1 cost time: 6.777745008468628
+Epoch: 1, Steps: 216 | Train Loss: 0.5991662 Vali Loss: 1.1597009 Test Loss: 1.6108097
+Validation loss decreased (inf --> 1.159701).
+>>>>>>>testing : long_term_forecast_test_AutoTimes_Gpt2_ETTh1_sl672_ll576_tl96_lr0.0001_bt256_wd0_hd256_hl2_cosTrue_mixFalse_test_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 19495
+mse:0.7550315856933594, mae:0.6012388467788696, rmse:0.8689255118370056
+test 19495
+
+=== Benchmark Results ===
+opt_id:        opt13
+opt_name:      Opt_13_Combo_SLM_Contextual
+wall_time:     15.7096s
+gpu_time:      15.3585s
+test_mse:      0.75503159
+test_mae:      0.60123885
+test_rmse:     0.86892551
+=========================
+
+
+=== Benchmark Results ===
+opt_id:        opt13
+opt_name:      Opt_13_Combo_SLM_Contextual
+total_time:    15.7096s
+test_mse:      0.75503159
+test_mae:      0.60123885
+test_rmse:     0.86892551
+=========================
+

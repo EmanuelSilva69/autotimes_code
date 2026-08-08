@@ -15,6 +15,7 @@ class Model(nn.Module):
             configs.llm_ckp_dir,
             device_map=self.device,
             torch_dtype=torch.float16,
+            low_cpu_mem_usage=True,
         )
         self.llama_tokenizer = LlamaTokenizer.from_pretrained(configs.llm_ckp_dir)
         self.llama_tokenizer.pad_token = self.llama_tokenizer.eos_token
