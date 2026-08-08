@@ -165,3 +165,4 @@ dmypy.json
 *.zip
 *.log
 __pycache__/
+*.pth
