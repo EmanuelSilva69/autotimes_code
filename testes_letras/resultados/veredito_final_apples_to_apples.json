@@ -1,0 +1,96 @@
+{
+  "fingerprint": "fad04df609b5f36d",
+  "config": {
+    "template": "pseudo_json_es",
+    "estrategia": "janela",
+    "checkpoint": "smetimes",
+    "escala": "z-score nativo (StandardScaler fit no treino)",
+    "splits": {
+      "train": [
+        0,
+        8640
+      ],
+      "val": [
+        7968,
+        11520
+      ],
+      "test": [
+        10848,
+        14400
+      ]
+    },
+    "janelas": {
+      "train": 55111,
+      "val": 19495,
+      "test": 19495
+    },
+    "epochs": 10,
+    "seeds": [
+      42,
+      1234
+    ],
+    "batch_size": 256,
+    "lr": 0.001,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "stride": 1,
+    "cache": "E:\\2026.1\\Viplab\\AutoTimes\\testes_letras\\cache_definitivo\\cf15f677bf6b4ca0",
+    "var_treino_hufl": 33.7877
+  },
+  "baseline": {
+    "artigo_z": 0.3539,
+    "medido_z": 0.353926,
+    "medido_mae_z": 0.39191
+  },
+  "recorde_harness": {
+    "mse_raw": 7.0336,
+    "mse_z_equiv": 0.20817042888388376,
+    "aviso": "7.03 medido no harness antigo (pool 192, escala raw, leakage 60/20/20); 0.2082 z remove so a escala - NAO e apples-to-apples."
+  },
+  "campeao_textual": {
+    "por_seed": {
+      "2021": {
+        "test_mse_z": 0.357134,
+        "test_mae_z": 0.397474,
+        "melhor_val_mse_z": 0.826789,
+        "melhor_epoca": 1,
+        "estouros": 0
+      },
+      "42": {
+        "test_mse_z": 0.371784,
+        "test_mae_z": 0.405011,
+        "melhor_val_mse_z": 0.809355,
+        "melhor_epoca": 2,
+        "estouros": 0
+      },
+      "1234": {
+        "test_mse_z": 0.371808,
+        "test_mae_z": 0.405238,
+        "melhor_val_mse_z": 0.827668,
+        "melhor_epoca": 1,
+        "estouros": 0
+      }
+    },
+    "test_mse_z_media": 0.366909,
+    "test_mse_z_desvio": 0.006912,
+    "test_mae_z_media": 0.402574,
+    "test_mae_z_desvio": 0.003608,
+    "test_mse_raw_equiv_hufl": 12.397,
+    "test_mae_raw_equiv_hufl": 2.340051,
+    "estouros_total": 0,
+    "delta_vs_baseline_pct": 3.67,
+    "val_mse_z_media_por_epoca": [
+      0.849027,
+      0.837596,
+      0.844451,
+      0.863539,
+      0.862697,
+      0.852655,
+      0.865556,
+      0.868196,
+      0.867692,
+      0.872568
+    ]
+  }
+}

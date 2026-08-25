@@ -1,0 +1,160 @@
+{
+  "timestamp": "2026-08-25 14:35:29",
+  "protocolo": "apples_to_apples_trio",
+  "escala": "zscore",
+  "config": {
+    "feats": [
+      0,
+      1
+    ],
+    "n_features": 2,
+    "splits_linhas": {
+      "train": [
+        0,
+        8640
+      ],
+      "val": [
+        7968,
+        11520
+      ],
+      "test": [
+        10848,
+        14400
+      ]
+    },
+    "janelas_por_split": {
+      "train": 15746,
+      "val": 5570,
+      "test": 5570
+    },
+    "scaler_fit": "[0, 8640) todas as colunas",
+    "scaler_mean_por_feat": [
+      7.937742,
+      2.021039,
+      5.079771,
+      0.746186,
+      2.781762,
+      0.788453,
+      17.128262
+    ],
+    "scaler_std_por_feat": [
+      5.812749,
+      2.090105,
+      5.518794,
+      1.926379,
+      1.023523,
+      0.630237,
+      9.176491
+    ],
+    "seeds": [
+      2021
+    ],
+    "epochs": 1,
+    "batch_size": 16,
+    "lr": 0.001,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-8_VolLoss+SMETimes__ETTh1__20260809_131904.pt",
+    "restore_best": true,
+    "decode_aplicado": false,
+    "amp": false,
+    "linhas_csv": 14400
+  },
+  "modelos": {
+    "numerico": {
+      "fonte": "log_numerico_base_stats.json",
+      "test_mse_media": 0.353926,
+      "test_mse_desvio": 0.0,
+      "test_mae_media": 0.39191,
+      "test_mae_desvio": 0.0,
+      "n_janelas_test": 19495,
+      "referencia_artigo": 0.3539
+    },
+    "pseudo_json_es": {
+      "test_mse_media": 0.5019,
+      "test_mse_desvio": 0.0,
+      "test_mae_media": 0.4914,
+      "test_mae_desvio": 0.0,
+      "melhor_val_mse_media": 0.7431,
+      "melhor_val_mse_desvio": 0.0,
+      "melhor_epoca_media": 1.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        0.743132
+      ],
+      "val_mse_desvio": [
+        0.0
+      ],
+      "test_mse_media_por_epoca": [
+        0.501902
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.0
+      ],
+      "por_seed": {
+        "2021": {
+          "test_mse": 0.501902,
+          "test_mae": 0.491427,
+          "melhor_val_mse": 0.743132,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            0.743132
+          ],
+          "test_mse_por_epoca": [
+            0.501902
+          ]
+        }
+      },
+      "template": "pseudo_json_es",
+      "estrategia": "janela",
+      "tokens_originais": 215702,
+      "tokens_retidos": 253284,
+      "paginas": 1979,
+      "paginas_descartadas": 1972
+    },
+    "char_by_char": {
+      "test_mse_media": 0.5089,
+      "test_mse_desvio": 0.0,
+      "test_mae_media": 0.5034,
+      "test_mae_desvio": 0.0,
+      "melhor_val_mse_media": 0.7362,
+      "melhor_val_mse_desvio": 0.0,
+      "melhor_epoca_media": 1.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        0.736179
+      ],
+      "val_mse_desvio": [
+        0.0
+      ],
+      "test_mse_media_por_epoca": [
+        0.508876
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.0
+      ],
+      "por_seed": {
+        "2021": {
+          "test_mse": 0.508876,
+          "test_mae": 0.503398,
+          "melhor_val_mse": 0.736179,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            0.736179
+          ],
+          "test_mse_por_epoca": [
+            0.508876
+          ]
+        }
+      },
+      "max_abs_media": null,
+      "max_abs_desvio": null,
+      "paginas_media": null,
+      "paginas_descartadas_media": null,
+      "decode_aplicado": false
+    }
+  }
+}

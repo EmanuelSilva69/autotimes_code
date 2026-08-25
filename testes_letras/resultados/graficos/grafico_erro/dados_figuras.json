@@ -1,0 +1,211 @@
+{
+  "ranking_21": {
+    "es_keywords__keywords": {
+      "nome": "Baseline ES Keywords  (controle)",
+      "tipo": "baseline",
+      "estrategia": "keywords",
+      "mse": 7.2445,
+      "dp": 0.1209,
+      "mae": 2.0669
+    },
+    "estrutural_en__janela": {
+      "nome": "Estrutural EN  ·  janela",
+      "tipo": "estrutural",
+      "estrategia": "janela",
+      "mse": 7.1509,
+      "dp": 0.1947,
+      "mae": 2.0334
+    },
+    "estrutural_en__keywords": {
+      "nome": "Estrutural EN  ·  keywords",
+      "tipo": "estrutural",
+      "estrategia": "keywords",
+      "mse": 7.2998,
+      "dp": 0.273,
+      "mae": 2.0707
+    },
+    "estrutural_pt__janela": {
+      "nome": "Estrutural PT  ·  janela",
+      "tipo": "estrutural",
+      "estrategia": "janela",
+      "mse": 7.1834,
+      "dp": 0.1393,
+      "mae": 2.0428
+    },
+    "estrutural_pt__keywords": {
+      "nome": "Estrutural PT  ·  keywords",
+      "tipo": "estrutural",
+      "estrategia": "keywords",
+      "mse": 7.2797,
+      "dp": 0.1591,
+      "mae": 2.0554
+    },
+    "estrutural_es__janela": {
+      "nome": "Estrutural ES  ·  janela",
+      "tipo": "estrutural",
+      "estrategia": "janela",
+      "mse": 7.1197,
+      "dp": 0.0748,
+      "mae": 2.0368
+    },
+    "estrutural_es__keywords": {
+      "nome": "Estrutural ES  ·  keywords",
+      "tipo": "estrutural",
+      "estrategia": "keywords",
+      "mse": 7.2567,
+      "dp": 0.0952,
+      "mae": 2.0667
+    },
+    "pseudo_json_en__janela": {
+      "nome": "Pseudo-JSON EN  ·  janela",
+      "tipo": "pseudo_json",
+      "estrategia": "janela",
+      "mse": 7.234,
+      "dp": 0.1766,
+      "mae": 2.0422
+    },
+    "pseudo_json_en__keywords": {
+      "nome": "Pseudo-JSON EN  ·  keywords",
+      "tipo": "pseudo_json",
+      "estrategia": "keywords",
+      "mse": 7.1699,
+      "dp": 0.3391,
+      "mae": 2.0303
+    },
+    "pseudo_json_pt__janela": {
+      "nome": "Pseudo-JSON PT  ·  janela",
+      "tipo": "pseudo_json",
+      "estrategia": "janela",
+      "mse": 7.2327,
+      "dp": 0.0444,
+      "mae": 2.0557
+    },
+    "pseudo_json_pt__keywords": {
+      "nome": "Pseudo-JSON PT  ·  keywords",
+      "tipo": "pseudo_json",
+      "estrategia": "keywords",
+      "mse": 7.4216,
+      "dp": 0.1133,
+      "mae": 2.087
+    },
+    "pseudo_json_es__janela": {
+      "nome": "Pseudo-JSON ES  ·  janela",
+      "tipo": "pseudo_json",
+      "estrategia": "janela",
+      "mse": 7.0336,
+      "dp": 0.0595,
+      "mae": 2.0137
+    },
+    "pseudo_json_es__keywords": {
+      "nome": "Pseudo-JSON ES  ·  keywords",
+      "tipo": "pseudo_json",
+      "estrategia": "keywords",
+      "mse": 7.2431,
+      "dp": 0.066,
+      "mae": 2.0668
+    },
+    "relacional_en__janela": {
+      "nome": "Relacional EN  ·  janela",
+      "tipo": "relacional",
+      "estrategia": "janela",
+      "mse": 7.4494,
+      "dp": 0.398,
+      "mae": 2.089
+    },
+    "relacional_en__keywords": {
+      "nome": "Relacional EN  ·  keywords",
+      "tipo": "relacional",
+      "estrategia": "keywords",
+      "mse": 7.4793,
+      "dp": 0.2085,
+      "mae": 2.0988
+    },
+    "relacional_pt__janela": {
+      "nome": "Relacional PT  ·  janela",
+      "tipo": "relacional",
+      "estrategia": "janela",
+      "mse": 7.2389,
+      "dp": 0.1208,
+      "mae": 2.0626
+    },
+    "relacional_pt__keywords": {
+      "nome": "Relacional PT  ·  keywords",
+      "tipo": "relacional",
+      "estrategia": "keywords",
+      "mse": 7.2364,
+      "dp": 0.1913,
+      "mae": 2.0437
+    },
+    "relacional_es__janela": {
+      "nome": "Relacional ES  ·  janela",
+      "tipo": "relacional",
+      "estrategia": "janela",
+      "mse": 7.5596,
+      "dp": 0.5372,
+      "mae": 2.1053
+    },
+    "relacional_es__keywords": {
+      "nome": "Relacional ES  ·  keywords",
+      "tipo": "relacional",
+      "estrategia": "keywords",
+      "mse": 7.1331,
+      "dp": 0.2282,
+      "mae": 2.0252
+    },
+    "temporal_delta_en__janela": {
+      "nome": "Temporal Delta EN  ·  janela",
+      "tipo": "temporal_delta",
+      "estrategia": "janela",
+      "mse": 7.3122,
+      "dp": 0.3202,
+      "mae": 2.0539
+    },
+    "temporal_delta_en__keywords": {
+      "nome": "Temporal Delta EN  ·  keywords",
+      "tipo": "temporal_delta",
+      "estrategia": "keywords",
+      "mse": 7.1051,
+      "dp": 0.0983,
+      "mae": 2.0216
+    }
+  },
+  "barreira_ln": 7.24,
+  "campeao": "pseudo_json_es__janela",
+  "baseline_oficial_z": 0.3539,
+  "var_treino_hufl": 33.788055693501256,
+  "nota_recalibracao": "Marcos textuais convertidos de raw->z por var_treino(HUFL); remove apenas o efeito de escala (volume/leakage seguem limitados ao harness de exploracao).",
+  "jornada": [
+    {
+      "titulo": "Numerico Base",
+      "subtitulo": "SMETimes, sem texto | protocolo oficial (z-score)",
+      "mse_z": 0.353926,
+      "dp_z": 0.0,
+      "mse_raw": 11.958471399378126,
+      "dp_raw": 0.0
+    },
+    {
+      "titulo": "PT Extenso Compacto",
+      "subtitulo": "pt_curto | janela",
+      "mse_z": 0.2165765342161276,
+      "dp_z": 0.005623288943392629,
+      "mse_raw": 7.3177,
+      "dp_raw": 0.19
+    },
+    {
+      "titulo": "ES Keywords",
+      "subtitulo": "Language Tuning",
+      "mse_z": 0.21441008816004162,
+      "dp_z": 0.0035781875434535205,
+      "mse_raw": 7.2445,
+      "dp_raw": 0.1209
+    },
+    {
+      "titulo": "ES Pseudo-JSON",
+      "subtitulo": "Structural Tuning",
+      "mse_z": 0.20816823743287577,
+      "dp_z": 0.001760977327009797,
+      "mse_raw": 7.0336,
+      "dp_raw": 0.0595
+    }
+  ]
+}

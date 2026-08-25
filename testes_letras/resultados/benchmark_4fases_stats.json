@@ -1,0 +1,441 @@
+{
+  "config": {
+    "template": "es_keywords",
+    "estrategia": "keywords",
+    "seeds": [
+      2021,
+      42,
+      1234
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "linhas": 2000,
+    "pool_janelas": 192,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.1,
+    "soft_prompt_n": 10,
+    "vocab": {
+      "palavras_unicas": 38,
+      "variantes_candidatas": 76,
+      "tokens_adicionados": 76,
+      "vocab_antes": 50257,
+      "vocab_depois": 50325,
+      "doc_tokens_base": 33438,
+      "doc_tokens_vocab": 27371,
+      "doc_reducao_x": 1.22
+    },
+    "frases_cot": {
+      "alcista": "Tendencia alcista. ",
+      "bajista": "Tendencia bajista. "
+    }
+  },
+  "cenarios": {
+    "baseline": {
+      "flags": {
+        "vocab": false,
+        "lora": false,
+        "softprompt": false,
+        "cot": false
+      },
+      "test_mse_media": 7.2445,
+      "test_mse_desvio": 0.1209,
+      "test_mae_media": 2.0669,
+      "test_mae_desvio": 0.0285,
+      "melhor_val_mse_media": 8.0339,
+      "melhor_val_mse_desvio": 0.2798,
+      "melhor_epoca_media": 9.0,
+      "estouros_total": 0,
+      "params_extra": 0,
+      "val_mse_media": [
+        9.590392,
+        9.393822,
+        9.380908,
+        8.974027,
+        9.271424,
+        8.652943,
+        8.282662,
+        8.32891,
+        8.228334,
+        8.151351
+      ],
+      "val_mse_desvio": [
+        0.640488,
+        0.712538,
+        1.015607,
+        0.747755,
+        0.288978,
+        0.214603,
+        0.4183,
+        0.349608,
+        0.273591,
+        0.256669
+      ],
+      "tokens_originais": 33438,
+      "tokens_retidos": 33390,
+      "paginas": 261,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.118741,
+          "test_mae": 2.034264,
+          "melhor_val_mse": 7.809657,
+          "melhor_epoca": 10,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 7.407701,
+          "test_mae": 2.103682,
+          "melhor_val_mse": 7.863662,
+          "melhor_epoca": 7,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.206923,
+          "test_mae": 2.062649,
+          "melhor_val_mse": 8.428276,
+          "melhor_epoca": 10,
+          "estouros": 0
+        }
+      }
+    },
+    "F1_VocabExpansao": {
+      "flags": {
+        "vocab": true,
+        "lora": false,
+        "softprompt": false,
+        "cot": false
+      },
+      "test_mse_media": 7.7089,
+      "test_mse_desvio": 0.644,
+      "test_mae_media": 2.1117,
+      "test_mae_desvio": 0.108,
+      "melhor_val_mse_media": 8.0331,
+      "melhor_val_mse_desvio": 0.6049,
+      "melhor_epoca_media": 7.33,
+      "estouros_total": 0,
+      "params_extra": 0,
+      "val_mse_media": [
+        9.758512,
+        9.337882,
+        9.719764,
+        8.804127,
+        9.568272,
+        8.676686,
+        8.320983,
+        8.773977,
+        8.345729,
+        8.431766
+      ],
+      "val_mse_desvio": [
+        0.857026,
+        0.369014,
+        0.611835,
+        0.731147,
+        0.779489,
+        1.123736,
+        0.611215,
+        0.876467,
+        0.863823,
+        0.852213
+      ],
+      "tokens_originais": 27371,
+      "tokens_retidos": 27275,
+      "paginas": 214,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.590798,
+          "test_mae": 2.102268,
+          "melhor_val_mse": 7.983333,
+          "melhor_epoca": 6,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 8.549941,
+          "test_mae": 2.248403,
+          "melhor_val_mse": 8.797487,
+          "melhor_epoca": 7,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 6.985885,
+          "test_mae": 1.984415,
+          "melhor_val_mse": 7.318377,
+          "melhor_epoca": 9,
+          "estouros": 0
+        }
+      }
+    },
+    "F2_LoRA": {
+      "flags": {
+        "vocab": false,
+        "lora": true,
+        "softprompt": false,
+        "cot": false
+      },
+      "test_mse_media": 7.3422,
+      "test_mse_desvio": 0.2844,
+      "test_mae_media": 2.0764,
+      "test_mae_desvio": 0.0509,
+      "melhor_val_mse_media": 7.7219,
+      "melhor_val_mse_desvio": 0.2229,
+      "melhor_epoca_media": 6.0,
+      "estouros_total": 0,
+      "params_extra": 294912,
+      "val_mse_media": [
+        10.313289,
+        8.931281,
+        9.450865,
+        8.26928,
+        8.393994,
+        8.180308,
+        8.145233,
+        8.420631,
+        7.897782,
+        7.956102
+      ],
+      "val_mse_desvio": [
+        0.751588,
+        0.4923,
+        1.162475,
+        0.025241,
+        0.43228,
+        0.312768,
+        0.091588,
+        0.421633,
+        0.361081,
+        0.305267
+      ],
+      "tokens_originais": 33438,
+      "tokens_retidos": 33390,
+      "paginas": 261,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.737604,
+          "test_mae": 2.147764,
+          "melhor_val_mse": 7.858049,
+          "melhor_epoca": 6,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 7.080982,
+          "test_mae": 2.048377,
+          "melhor_val_mse": 7.900024,
+          "melhor_epoca": 3,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.20787,
+          "test_mae": 2.032983,
+          "melhor_val_mse": 7.407646,
+          "melhor_epoca": 9,
+          "estouros": 0
+        }
+      }
+    },
+    "F3_SoftPrompt": {
+      "flags": {
+        "vocab": false,
+        "lora": false,
+        "softprompt": true,
+        "cot": false
+      },
+      "test_mse_media": 7.1443,
+      "test_mse_desvio": 0.2444,
+      "test_mae_media": 2.0385,
+      "test_mae_desvio": 0.0401,
+      "melhor_val_mse_media": 7.9742,
+      "melhor_val_mse_desvio": 0.1658,
+      "melhor_epoca_media": 8.33,
+      "estouros_total": 0,
+      "params_extra": 7680,
+      "val_mse_media": [
+        9.343671,
+        8.938987,
+        9.473922,
+        8.452521,
+        9.063929,
+        8.47985,
+        8.241198,
+        8.184952,
+        8.166145,
+        8.087712
+      ],
+      "val_mse_desvio": [
+        0.715155,
+        0.570275,
+        1.048901,
+        0.476277,
+        0.730012,
+        0.358215,
+        0.195145,
+        0.366816,
+        0.27132,
+        0.194944
+      ],
+      "tokens_originais": 33438,
+      "tokens_retidos": 33390,
+      "paginas": 261,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.486417,
+          "test_mae": 2.094665,
+          "melhor_val_mse": 8.152153,
+          "melhor_epoca": 8,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 6.930421,
+          "test_mae": 2.017369,
+          "melhor_val_mse": 7.752994,
+          "melhor_epoca": 8,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.016046,
+          "test_mae": 2.003551,
+          "melhor_val_mse": 8.017351,
+          "melhor_epoca": 9,
+          "estouros": 0
+        }
+      }
+    },
+    "F4_CoT": {
+      "flags": {
+        "vocab": false,
+        "lora": false,
+        "softprompt": false,
+        "cot": true
+      },
+      "test_mse_media": 7.1242,
+      "test_mse_desvio": 0.4222,
+      "test_mae_media": 2.0359,
+      "test_mae_desvio": 0.0747,
+      "melhor_val_mse_media": 7.9505,
+      "melhor_val_mse_desvio": 0.3877,
+      "melhor_epoca_media": 5.33,
+      "estouros_total": 0,
+      "params_extra": 0,
+      "val_mse_media": [
+        9.600079,
+        9.324509,
+        9.582857,
+        8.227381,
+        8.951709,
+        8.442807,
+        7.979069,
+        8.073549,
+        8.003768,
+        8.008869
+      ],
+      "val_mse_desvio": [
+        0.616016,
+        0.492296,
+        0.757525,
+        0.345447,
+        1.140877,
+        0.165176,
+        0.378045,
+        0.472521,
+        0.35785,
+        0.388717
+      ],
+      "tokens_originais": 33438,
+      "tokens_retidos": 33390,
+      "paginas": 261,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.481434,
+          "test_mae": 2.087267,
+          "melhor_val_mse": 8.179719,
+          "melhor_epoca": 7,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 6.531306,
+          "test_mae": 1.930249,
+          "melhor_val_mse": 7.4045,
+          "melhor_epoca": 5,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.359903,
+          "test_mae": 2.090099,
+          "melhor_val_mse": 8.267163,
+          "melhor_epoca": 4,
+          "estouros": 0
+        }
+      }
+    },
+    "combinada": {
+      "flags": {
+        "vocab": true,
+        "lora": true,
+        "softprompt": true,
+        "cot": true
+      },
+      "test_mse_media": 7.3273,
+      "test_mse_desvio": 0.2657,
+      "test_mae_media": 2.069,
+      "test_mae_desvio": 0.0477,
+      "melhor_val_mse_media": 8.0086,
+      "melhor_val_mse_desvio": 0.0403,
+      "melhor_epoca_media": 7.0,
+      "estouros_total": 0,
+      "params_extra": 302592,
+      "val_mse_media": [
+        10.297399,
+        9.259685,
+        9.880424,
+        9.06139,
+        8.870838,
+        8.450875,
+        8.008616,
+        8.932018,
+        8.289243,
+        8.364261
+      ],
+      "val_mse_desvio": [
+        0.551718,
+        1.032991,
+        0.682159,
+        0.425683,
+        0.613202,
+        0.079381,
+        0.040273,
+        0.30894,
+        0.157804,
+        0.186608
+      ],
+      "tokens_originais": 27371,
+      "tokens_retidos": 27275,
+      "paginas": 214,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.545275,
+          "test_mae": 2.111661,
+          "melhor_val_mse": 7.965798,
+          "melhor_epoca": 7,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 7.483347,
+          "test_mae": 2.092876,
+          "melhor_val_mse": 8.062551,
+          "melhor_epoca": 7,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 6.953176,
+          "test_mae": 2.002397,
+          "melhor_val_mse": 7.997499,
+          "melhor_epoca": 7,
+          "estouros": 0
+        }
+      }
+    }
+  }
+}

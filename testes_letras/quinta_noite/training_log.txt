@@ -1,0 +1,6 @@
+# Char-by-Char - training log
+# inicio: 2026-08-20 01:43:31
+[smetimes seed=2021] test_mse=7.314602 test_mae=2.074996 best_val=7.795023 (ep 10) estouros=0 | 7.5s
+[smetimes seed=42] test_mse=7.192809 test_mae=2.009791 best_val=8.000080 (ep 6) estouros=0 | 4.9s
+[smetimes seed=1234] test_mse=7.414901 test_mae=2.087939 best_val=8.629960 (ep 9) estouros=0 | 5.0s
+[ok] char_by_char__janela: MSE 7.3074 ± 0.0908 | MAE 2.0576 ± 0.0342 | estouros=0

@@ -1,0 +1,102 @@
+{
+  "pt_verboso": {
+    "template": "pt_verboso",
+    "nome": "T1 PT Verboso",
+    "text_step": 24,
+    "n_janelas": 192,
+    "n_blocos": 1344,
+    "pontos_por_bloco": 4,
+    "tokens_por_janela": {
+      "media": 808.5885416666666,
+      "mediana": 798.0,
+      "max": 896.0
+    },
+    "tokens_por_bloco": {
+      "media": 115.51264880952381,
+      "max": 128.0
+    },
+    "tokens_por_ponto": 28.878162202380953,
+    "taxa_truncamento": 0.08928571428571429,
+    "tempo_tokenizacao_s": 0.29,
+    "tempo_build_s": 0.85,
+    "n_janelas_train": 192,
+    "n_janelas_val": 64,
+    "n_janelas_test": 64,
+    "compressao_vs_t1": 1.0
+  },
+  "pt_curto": {
+    "template": "pt_curto",
+    "nome": "T2 PT Curto",
+    "text_step": 16,
+    "n_janelas": 192,
+    "n_blocos": 1344,
+    "pontos_por_bloco": 6,
+    "tokens_por_janela": {
+      "media": 716.0416666666666,
+      "mediana": 715.0,
+      "max": 721.0
+    },
+    "tokens_por_bloco": {
+      "media": 102.29166666666667,
+      "max": 108.0
+    },
+    "tokens_por_ponto": 17.04861111111111,
+    "taxa_truncamento": 0.0,
+    "tempo_tokenizacao_s": 0.271,
+    "tempo_build_s": 0.78,
+    "n_janelas_train": 192,
+    "n_janelas_val": 64,
+    "n_janelas_test": 64,
+    "compressao_vs_t1": 1.129
+  },
+  "en_curto": {
+    "template": "en_curto",
+    "nome": "T3 EN Curto",
+    "text_step": 16,
+    "n_janelas": 192,
+    "n_blocos": 1344,
+    "pontos_por_bloco": 6,
+    "tokens_por_janela": {
+      "media": 714.0,
+      "mediana": 714.0,
+      "max": 714.0
+    },
+    "tokens_por_bloco": {
+      "media": 102.0,
+      "max": 102.0
+    },
+    "tokens_por_ponto": 17.0,
+    "taxa_truncamento": 0.0,
+    "tempo_tokenizacao_s": 0.334,
+    "tempo_build_s": 0.88,
+    "n_janelas_train": 192,
+    "n_janelas_val": 64,
+    "n_janelas_test": 64,
+    "compressao_vs_t1": 1.132
+  },
+  "json": {
+    "template": "json",
+    "nome": "T4 JSON",
+    "text_step": 24,
+    "n_janelas": 192,
+    "n_blocos": 1344,
+    "pontos_por_bloco": 4,
+    "tokens_por_janela": {
+      "media": 602.0,
+      "mediana": 602.0,
+      "max": 602.0
+    },
+    "tokens_por_bloco": {
+      "media": 86.0,
+      "max": 86.0
+    },
+    "tokens_por_ponto": 21.5,
+    "taxa_truncamento": 0.0,
+    "tempo_tokenizacao_s": 0.276,
+    "tempo_build_s": 0.77,
+    "n_janelas_train": 192,
+    "n_janelas_val": 64,
+    "n_janelas_test": 64,
+    "compressao_vs_t1": 1.343
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "config": {
+    "cenarios": [
+      [
+        "es_keywords",
+        "keywords"
+      ],
+      [
+        "en_verboso",
+        "keywords"
+      ],
+      [
+        "pt_curto",
+        "janela"
+      ]
+    ],
+    "seeds": [
+      2021,
+      42,
+      1234
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "linhas": 2000,
+    "pool_janelas": 192,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15
+  },
+  "cenarios": {
+    "es_keywords": {
+      "template": "es_keywords",
+      "estrategia": "keywords",
+      "estrategia_nome": "Compressao por Palavras-Chave",
+      "test_mse_media": 7.2445,
+      "test_mse_desvio": 0.1209,
+      "test_mae_media": 2.0669,
+      "test_mae_desvio": 0.0285,
+      "melhor_val_mse_media": 8.0339,
+      "melhor_val_mse_desvio": 0.2798,
+      "melhor_epoca_media": 9.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        9.590392,
+        9.393822,
+        9.380908,
+        8.974027,
+        9.271424,
+        8.652943,
+        8.282662,
+        8.32891,
+        8.228334,
+        8.151351
+      ],
+      "val_mse_desvio": [
+        0.640488,
+        0.712538,
+        1.015607,
+        0.747755,
+        0.288978,
+        0.214603,
+        0.4183,
+        0.349608,
+        0.273591,
+        0.256669
+      ],
+      "tokens_originais": 33438,
+      "tokens_retidos": 33390,
+      "paginas": 261,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.118741,
+          "test_mae": 2.034264,
+          "melhor_val_mse": 7.809657,
+          "melhor_epoca": 10,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 7.407701,
+          "test_mae": 2.103682,
+          "melhor_val_mse": 7.863662,
+          "melhor_epoca": 7,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.206923,
+          "test_mae": 2.062649,
+          "melhor_val_mse": 8.428276,
+          "melhor_epoca": 10,
+          "estouros": 0
+        }
+      }
+    },
+    "en_verboso": {
+      "template": "en_verboso",
+      "estrategia": "keywords",
+      "estrategia_nome": "Compressao por Palavras-Chave",
+      "test_mse_media": 7.374,
+      "test_mse_desvio": 0.1956,
+      "test_mae_media": 2.0702,
+      "test_mae_desvio": 0.0372,
+      "melhor_val_mse_media": 8.1774,
+      "melhor_val_mse_desvio": 0.2929,
+      "melhor_epoca_media": 7.33,
+      "estouros_total": 0,
+      "val_mse_media": [
+        9.580435,
+        9.250062,
+        9.609578,
+        8.377725,
+        8.444647,
+        8.419231,
+        8.685081,
+        8.531653,
+        8.304332,
+        8.261322
+      ],
+      "val_mse_desvio": [
+        0.721467,
+        0.719735,
+        0.817405,
+        0.171546,
+        0.357858,
+        0.175653,
+        0.685922,
+        0.565394,
+        0.227834,
+        0.320393
+      ],
+      "tokens_originais": 33764,
+      "tokens_retidos": 25764,
+      "paginas": 202,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.583679,
+          "test_mae": 2.100956,
+          "melhor_val_mse": 8.029998,
+          "melhor_epoca": 10,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 7.112958,
+          "test_mae": 2.017972,
+          "melhor_val_mse": 7.915886,
+          "melhor_epoca": 8,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.425241,
+          "test_mae": 2.09182,
+          "melhor_val_mse": 8.586417,
+          "melhor_epoca": 4,
+          "estouros": 0
+        }
+      }
+    },
+    "pt_curto": {
+      "template": "pt_curto",
+      "estrategia": "janela",
+      "estrategia_nome": "Janela Deslizante + Overlap",
+      "test_mse_media": 7.3177,
+      "test_mse_desvio": 0.19,
+      "test_mae_media": 2.0549,
+      "test_mae_desvio": 0.0199,
+      "melhor_val_mse_media": 7.8982,
+      "melhor_val_mse_desvio": 0.2157,
+      "melhor_epoca_media": 7.67,
+      "estouros_total": 0,
+      "val_mse_media": [
+        9.500164,
+        9.123001,
+        9.151199,
+        8.167724,
+        9.065964,
+        8.467459,
+        8.134575,
+        8.234277,
+        8.09829,
+        8.105737
+      ],
+      "val_mse_desvio": [
+        0.65308,
+        0.40507,
+        0.833834,
+        0.396493,
+        0.578583,
+        0.080029,
+        0.136559,
+        0.443644,
+        0.037587,
+        0.143733
+      ],
+      "tokens_originais": 50178,
+      "tokens_retidos": 58918,
+      "paginas": 461,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.560508,
+          "test_mae": 2.082833,
+          "melhor_val_mse": 7.95115,
+          "melhor_epoca": 10,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 7.09669,
+          "test_mae": 2.043187,
+          "melhor_val_mse": 7.611621,
+          "melhor_epoca": 4,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.295781,
+          "test_mae": 2.038558,
+          "melhor_val_mse": 8.131904,
+          "melhor_epoca": 9,
+          "estouros": 0
+        }
+      }
+    }
+  }
+}

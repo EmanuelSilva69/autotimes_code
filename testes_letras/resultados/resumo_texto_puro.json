@@ -1,0 +1,736 @@
+{
+  "timestamp": "2026-08-12 23:44:06",
+  "config": {
+    "checkpoints": "smetimes",
+    "estrategias": "truncamento,janela,keywords",
+    "idiomas": "pt,en",
+    "epochs": 5,
+    "batch_size": 16,
+    "lr": 0.001,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "amostras_por_doc": 6,
+    "pool_janelas": 96,
+    "texto_pt": null,
+    "texto_en": null,
+    "tokenizer_path": null,
+    "amp": false,
+    "plots": true,
+    "seed": 2021
+  },
+  "tokenizador": "E:\\2026.1\\Viplab\\AutoTimes\\gpt2",
+  "inflacao_tokens": {
+    "taxa_media_inflacao": 2.1836,
+    "tokens_totais_pt": 2046,
+    "tokens_totais_en": 937,
+    "por_documento": [
+      {
+        "documento": "doc_1",
+        "tokens_pt": 371,
+        "tokens_en": 153,
+        "taxa_inflacao": 2.4248
+      },
+      {
+        "documento": "doc_2",
+        "tokens_pt": 370,
+        "tokens_en": 170,
+        "taxa_inflacao": 2.1765
+      },
+      {
+        "documento": "doc_3",
+        "tokens_pt": 327,
+        "tokens_en": 150,
+        "taxa_inflacao": 2.18
+      },
+      {
+        "documento": "doc_4",
+        "tokens_pt": 343,
+        "tokens_en": 156,
+        "taxa_inflacao": 2.1987
+      },
+      {
+        "documento": "doc_5",
+        "tokens_pt": 317,
+        "tokens_en": 152,
+        "taxa_inflacao": 2.0855
+      },
+      {
+        "documento": "doc_6",
+        "tokens_pt": 318,
+        "tokens_en": 156,
+        "taxa_inflacao": 2.0385
+      }
+    ]
+  },
+  "paginacao": {
+    "truncamento": {
+      "pt": {
+        "n_documentos": 6,
+        "tokens_originais_med": 341.0,
+        "tokens_retidos_med": 128.0,
+        "tokens_descartados_med": 213.0,
+        "paginas_med": 1.0,
+        "n_docs_excedem_contexto": 0,
+        "tempo_tokenizacao_doc_s": 0.0004833333333333334,
+        "sobreposicao_frac": 0.0
+      },
+      "en": {
+        "n_documentos": 6,
+        "tokens_originais_med": 156.16666666666666,
+        "tokens_retidos_med": 128.0,
+        "tokens_descartados_med": 28.166666666666668,
+        "paginas_med": 1.0,
+        "n_docs_excedem_contexto": 0,
+        "tempo_tokenizacao_doc_s": 0.0004833333333333333,
+        "sobreposicao_frac": 0.0
+      }
+    },
+    "janela": {
+      "pt": {
+        "n_documentos": 6,
+        "tokens_originais_med": 341.0,
+        "tokens_retidos_med": 385.3333333333333,
+        "tokens_descartados_med": 0.0,
+        "paginas_med": 3.3333333333333335,
+        "n_docs_excedem_contexto": 0,
+        "tempo_tokenizacao_doc_s": 0.0005833333333333333,
+        "sobreposicao_frac": 0.15
+      },
+      "en": {
+        "n_documentos": 6,
+        "tokens_originais_med": 156.16666666666666,
+        "tokens_retidos_med": 175.16666666666666,
+        "tokens_descartados_med": 0.0,
+        "paginas_med": 2.0,
+        "n_docs_excedem_contexto": 0,
+        "tempo_tokenizacao_doc_s": 0.0005166666666666667,
+        "sobreposicao_frac": 0.15
+      }
+    },
+    "keywords": {
+      "pt": {
+        "n_documentos": 6,
+        "tokens_originais_med": 341.0,
+        "tokens_retidos_med": 276.6666666666667,
+        "tokens_descartados_med": 64.33333333333333,
+        "paginas_med": 2.8333333333333335,
+        "n_docs_excedem_contexto": 0,
+        "tempo_tokenizacao_doc_s": 0.0011,
+        "sobreposicao_frac": 0.0
+      },
+      "en": {
+        "n_documentos": 6,
+        "tokens_originais_med": 156.16666666666666,
+        "tokens_retidos_med": 105.83333333333333,
+        "tokens_descartados_med": 50.333333333333336,
+        "paginas_med": 1.0,
+        "n_docs_excedem_contexto": 0,
+        "tempo_tokenizacao_doc_s": 0.0012666666666666666,
+        "sobreposicao_frac": 0.0
+      }
+    }
+  },
+  "estabilidade": {
+    "smetimes__truncamento__pt": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "train_loss": [
+          11.67045516,
+          8.59080583,
+          7.63798993,
+          6.97108571,
+          6.53888151
+        ],
+        "val_loss": [
+          28.08972931,
+          22.70998001,
+          20.68427277,
+          19.80233955,
+          19.62319565
+        ],
+        "val_mse": [
+          28.08973122,
+          22.70998001,
+          20.68427086,
+          19.80233955,
+          19.62319565
+        ],
+        "val_mae": [
+          4.05494976,
+          3.53419542,
+          3.42644262,
+          3.33939385,
+          3.32404947
+        ],
+        "val_mse_pred": [
+          35.91348267,
+          28.42160225,
+          24.8560524,
+          23.89665222,
+          23.81966591
+        ],
+        "val_mae_pred": [
+          4.52020788,
+          3.82236743,
+          3.63198209,
+          3.52112174,
+          3.51142931
+        ],
+        "test_mse_pred": [
+          36.26057816,
+          32.2954216,
+          29.72881126,
+          28.18216896,
+          28.09854126
+        ],
+        "test_mae_pred": [
+          4.66083479,
+          4.21571875,
+          4.21075058,
+          4.12759638,
+          4.12684298
+        ],
+        "tempo_epoca_s": [
+          2.6819,
+          0.1505,
+          0.1458,
+          0.1465,
+          0.1526
+        ],
+        "tempo_batch_ms": [
+          1313.65,
+          48.67,
+          46.57,
+          46.7,
+          50.98
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 5,
+      "melhor_val_mse_pred": 23.819665908813477,
+      "teste_final_mse_pred": 28.09854126,
+      "teste_final_mae_pred": 4.12684298,
+      "batches_estourados_total": 0,
+      "n_batches_total": 10,
+      "tokens_batches_epoca": 2,
+      "estrategia": "truncamento",
+      "idioma": "pt",
+      "tempo_batch_ms_medio": 48.23,
+      "tokens_originais_med": 341.0,
+      "paginas_med": 1.0
+    },
+    "smetimes__truncamento__en": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "train_loss": [
+          11.67177773,
+          8.59084527,
+          7.63223575,
+          6.97223974,
+          6.53885601
+        ],
+        "val_loss": [
+          28.07575989,
+          22.69531822,
+          20.69252205,
+          19.7944603,
+          19.62634468
+        ],
+        "val_mse": [
+          28.07575989,
+          22.69532013,
+          20.69252205,
+          19.7944603,
+          19.62634659
+        ],
+        "val_mae": [
+          4.05457115,
+          3.53399539,
+          3.43111134,
+          3.34343195,
+          3.328336
+        ],
+        "val_mse_pred": [
+          35.89707184,
+          28.41660881,
+          24.828619,
+          23.86952209,
+          23.83532715
+        ],
+        "val_mae_pred": [
+          4.51680756,
+          3.81783772,
+          3.63315034,
+          3.52516246,
+          3.51722598
+        ],
+        "test_mse_pred": [
+          36.2454834,
+          32.28168869,
+          29.69890022,
+          28.19659996,
+          28.11352539
+        ],
+        "test_mae_pred": [
+          4.6547637,
+          4.21370649,
+          4.21978807,
+          4.13832903,
+          4.13416481
+        ],
+        "tempo_epoca_s": [
+          0.1707,
+          0.1549,
+          0.1497,
+          0.1407,
+          0.1465
+        ],
+        "tempo_batch_ms": [
+          53.45,
+          48.55,
+          47.51,
+          45.9,
+          48.0
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 5,
+      "melhor_val_mse_pred": 23.8353271484375,
+      "teste_final_mse_pred": 28.11352539,
+      "teste_final_mae_pred": 4.13416481,
+      "batches_estourados_total": 0,
+      "n_batches_total": 10,
+      "tokens_batches_epoca": 2,
+      "estrategia": "truncamento",
+      "idioma": "en",
+      "tempo_batch_ms_medio": 47.49,
+      "tokens_originais_med": 156.16666666666666,
+      "paginas_med": 1.0
+    },
+    "smetimes__janela__pt": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "train_loss": [
+          11.68951421,
+          8.62520824,
+          7.7273162,
+          7.02187867,
+          6.6144267
+        ],
+        "val_loss": [
+          28.1219902,
+          22.73581886,
+          20.87509918,
+          19.91653824,
+          19.73154449
+        ],
+        "val_mse": [
+          28.1219902,
+          22.73582077,
+          20.87509918,
+          19.91653824,
+          19.73154449
+        ],
+        "val_mae": [
+          4.05912542,
+          3.53444552,
+          3.44134974,
+          3.34984469,
+          3.33608532
+        ],
+        "val_mse_pred": [
+          35.85178757,
+          28.29594421,
+          25.02519226,
+          23.81672668,
+          23.67162132
+        ],
+        "val_mae_pred": [
+          4.52626514,
+          3.81930351,
+          3.64327931,
+          3.53289723,
+          3.52396131
+        ],
+        "test_mse_pred": [
+          36.32439804,
+          32.4325676,
+          30.03581429,
+          28.31036568,
+          28.10766602
+        ],
+        "test_mae_pred": [
+          4.67604208,
+          4.21152973,
+          4.20813131,
+          4.12868071,
+          4.12279177
+        ],
+        "tempo_epoca_s": [
+          0.1854,
+          0.1457,
+          0.1613,
+          0.1573,
+          0.1468
+        ],
+        "tempo_batch_ms": [
+          59.31,
+          48.13,
+          46.83,
+          50.78,
+          47.22
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 5,
+      "melhor_val_mse_pred": 23.671621322631836,
+      "teste_final_mse_pred": 28.10766602,
+      "teste_final_mae_pred": 4.12279177,
+      "batches_estourados_total": 0,
+      "n_batches_total": 10,
+      "tokens_batches_epoca": 2,
+      "estrategia": "janela",
+      "idioma": "pt",
+      "tempo_batch_ms_medio": 48.24,
+      "tokens_originais_med": 341.0,
+      "paginas_med": 3.3333333333333335
+    },
+    "smetimes__janela__en": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "train_loss": [
+          11.68279153,
+          8.5965813,
+          7.64800771,
+          7.01413161,
+          6.60137892
+        ],
+        "val_loss": [
+          28.04163361,
+          22.71755981,
+          20.87277794,
+          19.93786812,
+          19.79205322
+        ],
+        "val_mse": [
+          28.04163361,
+          22.71755981,
+          20.87277794,
+          19.93786812,
+          19.79205513
+        ],
+        "val_mae": [
+          4.05451822,
+          3.53269482,
+          3.44562626,
+          3.35523987,
+          3.34226775
+        ],
+        "val_mse_pred": [
+          35.76031113,
+          28.32391739,
+          24.74593353,
+          23.68406868,
+          23.61918449
+        ],
+        "val_mae_pred": [
+          4.51314592,
+          3.81066847,
+          3.63940144,
+          3.54395556,
+          3.53379893
+        ],
+        "test_mse_pred": [
+          36.27789688,
+          32.30353165,
+          29.79576683,
+          28.3522625,
+          28.16587067
+        ],
+        "test_mae_pred": [
+          4.66106081,
+          4.20353317,
+          4.23586369,
+          4.16462231,
+          4.1518178
+        ],
+        "tempo_epoca_s": [
+          0.1877,
+          0.1464,
+          0.1379,
+          0.1537,
+          0.1599
+        ],
+        "tempo_batch_ms": [
+          62.0,
+          47.83,
+          46.11,
+          52.03,
+          50.82
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 5,
+      "melhor_val_mse_pred": 23.619184494018555,
+      "teste_final_mse_pred": 28.16587067,
+      "teste_final_mae_pred": 4.1518178,
+      "batches_estourados_total": 0,
+      "n_batches_total": 10,
+      "tokens_batches_epoca": 2,
+      "estrategia": "janela",
+      "idioma": "en",
+      "tempo_batch_ms_medio": 49.2,
+      "tokens_originais_med": 156.16666666666666,
+      "paginas_med": 2.0
+    },
+    "smetimes__keywords__pt": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "train_loss": [
+          11.69867765,
+          8.63635685,
+          7.71042,
+          7.02038057,
+          6.5967828
+        ],
+        "val_loss": [
+          28.1201458,
+          22.70650482,
+          20.87036324,
+          19.95051575,
+          19.76014137
+        ],
+        "val_mse": [
+          28.12014771,
+          22.70650291,
+          20.87036514,
+          19.95051384,
+          19.76014137
+        ],
+        "val_mae": [
+          4.06069422,
+          3.53241014,
+          3.44332027,
+          3.35291862,
+          3.33789778
+        ],
+        "val_mse_pred": [
+          35.75925446,
+          28.24511337,
+          24.90478516,
+          23.81233978,
+          23.71929169
+        ],
+        "val_mae_pred": [
+          4.51266575,
+          3.80349183,
+          3.63926983,
+          3.53212404,
+          3.52533174
+        ],
+        "test_mse_pred": [
+          36.21861267,
+          32.39755249,
+          29.7667675,
+          28.42490959,
+          28.26503944
+        ],
+        "test_mae_pred": [
+          4.65207148,
+          4.19823027,
+          4.19384909,
+          4.13529348,
+          4.13111067
+        ],
+        "tempo_epoca_s": [
+          0.1707,
+          0.1469,
+          0.1456,
+          0.1494,
+          0.1505
+        ],
+        "tempo_batch_ms": [
+          55.09,
+          47.72,
+          47.7,
+          49.05,
+          50.1
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 5,
+      "melhor_val_mse_pred": 23.71929168701172,
+      "teste_final_mse_pred": 28.26503944,
+      "teste_final_mae_pred": 4.13111067,
+      "batches_estourados_total": 0,
+      "n_batches_total": 10,
+      "tokens_batches_epoca": 2,
+      "estrategia": "keywords",
+      "idioma": "pt",
+      "tempo_batch_ms_medio": 48.64,
+      "tokens_originais_med": 341.0,
+      "paginas_med": 2.8333333333333335
+    },
+    "smetimes__keywords__en": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "train_loss": [
+          11.67075234,
+          8.58700582,
+          7.6308217,
+          6.96857561,
+          6.53224193
+        ],
+        "val_loss": [
+          28.03482056,
+          22.68187904,
+          20.68043709,
+          19.77625084,
+          19.60810661
+        ],
+        "val_mse": [
+          28.03482437,
+          22.68187904,
+          20.680439,
+          19.77625275,
+          19.60810471
+        ],
+        "val_mae": [
+          4.05338478,
+          3.53283453,
+          3.42920709,
+          3.3406508,
+          3.32533813
+        ],
+        "val_mse_pred": [
+          35.8592453,
+          28.3845787,
+          24.80198669,
+          23.85544777,
+          23.82509041
+        ],
+        "val_mae_pred": [
+          4.51758337,
+          3.81669807,
+          3.62932467,
+          3.52295256,
+          3.51517272
+        ],
+        "test_mse_pred": [
+          36.27561569,
+          32.27160263,
+          29.6287899,
+          28.17645264,
+          28.08936501
+        ],
+        "test_mae_pred": [
+          4.65993547,
+          4.21167421,
+          4.21449327,
+          4.13308382,
+          4.12938738
+        ],
+        "tempo_epoca_s": [
+          0.166,
+          0.1448,
+          0.1508,
+          0.2017,
+          0.1565
+        ],
+        "tempo_batch_ms": [
+          52.83,
+          46.53,
+          48.84,
+          66.59,
+          49.17
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 5,
+      "melhor_val_mse_pred": 23.825090408325195,
+      "teste_final_mse_pred": 28.08936501,
+      "teste_final_mae_pred": 4.12938738,
+      "batches_estourados_total": 0,
+      "n_batches_total": 10,
+      "tokens_batches_epoca": 2,
+      "estrategia": "keywords",
+      "idioma": "en",
+      "tempo_batch_ms_medio": 52.78,
+      "tokens_originais_med": 156.16666666666666,
+      "paginas_med": 1.0
+    }
+  }
+}

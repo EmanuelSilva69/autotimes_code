@@ -166,3 +166,6 @@ dmypy.json
 *.log
 __pycache__/
 *.pth
+
+# Caches de treino regeneraveis (apples-to-apples)
+*.npz

@@ -1,0 +1,99 @@
+{
+  "config": {
+    "template": "es_keywords",
+    "estrategia": "keywords",
+    "seeds": [
+      2021,
+      42,
+      1234
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "linhas": 2000,
+    "pool_janelas": 192,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "soft_prompt_n": 10,
+    "frases_cot": {
+      "alcista": "Tendencia alcista. ",
+      "bajista": "Tendencia bajista. "
+    },
+    "fases_ativas": [
+      "F3_SoftPrompt",
+      "F4_CoT"
+    ],
+    "fases_eliminadas": [
+      "F1_VocabExpansao",
+      "F2_LoRA"
+    ]
+  },
+  "cenarios": {
+    "F3_F4_Sinergia": {
+      "flags": {
+        "softprompt": true,
+        "cot": true
+      },
+      "test_mse_media": 7.3706,
+      "test_mse_desvio": 0.464,
+      "test_mae_media": 2.0725,
+      "test_mae_desvio": 0.0804,
+      "melhor_val_mse_media": 8.1407,
+      "melhor_val_mse_desvio": 0.4239,
+      "melhor_epoca_media": 6.0,
+      "estouros_total": 0,
+      "params_extra": 7680,
+      "val_mse_media": [
+        9.273602,
+        9.392562,
+        9.171521,
+        8.947884,
+        9.316809,
+        8.825158,
+        8.426048,
+        8.688488,
+        8.404223,
+        8.369699
+      ],
+      "val_mse_desvio": [
+        0.547881,
+        1.006647,
+        0.718147,
+        0.801796,
+        0.438206,
+        0.057345,
+        0.631532,
+        0.177687,
+        0.41594,
+        0.319078
+      ],
+      "tokens_originais": 33438,
+      "tokens_retidos": 33390,
+      "paginas": 261,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.84935,
+          "test_mae": 2.139411,
+          "melhor_val_mse": 8.531223,
+          "melhor_epoca": 1,
+          "estouros": 0
+        },
+        "42": {
+          "test_mse": 6.742663,
+          "test_mae": 1.959401,
+          "melhor_val_mse": 7.551523,
+          "melhor_epoca": 7,
+          "estouros": 0
+        },
+        "1234": {
+          "test_mse": 7.519852,
+          "test_mae": 2.118821,
+          "melhor_val_mse": 8.339476,
+          "melhor_epoca": 10,
+          "estouros": 0
+        }
+      }
+    }
+  }
+}

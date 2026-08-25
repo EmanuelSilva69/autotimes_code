@@ -1,0 +1,52 @@
+{
+  "config": {
+    "modo": "numerico_puro",
+    "protocolo": "original",
+    "vars": "all",
+    "escala": "zscore",
+    "escala_nome": "z-score global (StandardScaler fit no treino)",
+    "seeds": [
+      2021
+    ],
+    "epochs": 10,
+    "batch_size": 256,
+    "lr": 0.001,
+    "eval_only": true
+  },
+  "escala": {
+    "reportada": "zscore",
+    "var_treino": {
+      "HUFL": 33.7881,
+      "HULL": 4.3685,
+      "MUFL": 30.4571,
+      "MULL": 3.7109,
+      "LUFL": 1.0476,
+      "LULL": 0.3972,
+      "OT": 84.208
+    },
+    "fator_hufl_raw_para_z": 0.029596257596803312
+  },
+  "paridade": {
+    "train": 55111,
+    "val": 19495,
+    "test": 19495,
+    "referencia_artigo": {
+      "train": 55111,
+      "val": 19495,
+      "test": 19495,
+      "mse_run8_zscore": 0.3539
+    }
+  },
+  "modelos": {
+    "smetimes": {
+      "modo": "eval_only",
+      "test_mse_media": 0.353926,
+      "test_mae_media": 0.39191,
+      "test_mse_media_z": 0.353926,
+      "test_mae_media_z": 0.39191,
+      "test_mse_media_raw": null,
+      "n_janelas_test": 19495,
+      "referencia_artigo": 0.3539
+    }
+  }
+}

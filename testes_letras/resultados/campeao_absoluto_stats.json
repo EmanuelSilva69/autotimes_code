@@ -1,0 +1,435 @@
+{
+  "config": {
+    "top3": [
+      "pseudo_json_es__janela",
+      "temporal_delta_en__keywords"
+    ],
+    "baseline": "es_keywords__keywords",
+    "seeds": [
+      2021,
+      42,
+      1234
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "linhas": 2000,
+    "pool_janelas": 192,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15
+  },
+  "cenarios": {
+    "pseudo_json_es__janela": {
+      "template": "pseudo_json_es",
+      "template_nome": "Pseudo-JSON ES (janela)",
+      "tipo": "pseudo_json",
+      "idioma": "es",
+      "estrategia": "janela",
+      "test_mse_media": 7.0336,
+      "test_mse_desvio": 0.0595,
+      "test_mae_media": 2.0137,
+      "test_mae_desvio": 0.0041,
+      "melhor_val_mse_media": 7.9468,
+      "melhor_val_mse_desvio": 0.0621,
+      "melhor_epoca_media": 9.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        9.807993,
+        9.4728,
+        9.361277,
+        8.507579,
+        8.918486,
+        8.658834,
+        8.241056,
+        8.306604,
+        8.095493,
+        8.096444
+      ],
+      "val_mse_desvio": [
+        0.890663,
+        0.703745,
+        1.172536,
+        0.082505,
+        0.558753,
+        0.206963,
+        0.144933,
+        0.3243,
+        0.185829,
+        0.115317
+      ],
+      "tokens_originais": 51437,
+      "tokens_retidos": 60386,
+      "paginas": 472,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.088607,
+          "test_mae": 2.015573,
+          "melhor_val_mse": 8.034625,
+          "melhor_epoca": 10,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            8.556806,
+            9.30543,
+            9.172496,
+            8.617814,
+            9.051933,
+            8.739746,
+            8.09375,
+            8.322095,
+            8.035745,
+            8.034625
+          ],
+          "test_mse_por_epoca": [
+            8.905367,
+            9.291057,
+            9.022163,
+            8.233733,
+            8.389769,
+            8.416796,
+            7.272981,
+            7.424302,
+            7.081233,
+            7.088607
+          ]
+        },
+        "42": {
+          "test_mse": 7.061071,
+          "test_mae": 2.017482,
+          "melhor_val_mse": 7.9019,
+          "melhor_epoca": 8,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            10.307817,
+            8.706851,
+            8.028946,
+            8.419343,
+            8.177261,
+            8.861977,
+            8.438135,
+            7.9019,
+            8.347,
+            8.258048
+          ],
+          "test_mse_por_epoca": [
+            11.211514,
+            8.734884,
+            8.390106,
+            7.671536,
+            7.214715,
+            7.771049,
+            7.421325,
+            6.791954,
+            7.193713,
+            7.061071
+          ]
+        },
+        "1234": {
+          "test_mse": 6.950987,
+          "test_mae": 2.007898,
+          "melhor_val_mse": 7.903735,
+          "melhor_epoca": 9,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            10.559356,
+            10.406117,
+            10.882388,
+            8.48558,
+            9.526262,
+            8.37478,
+            8.191282,
+            8.695817,
+            7.903735,
+            7.99666
+          ],
+          "test_mse_por_epoca": [
+            10.341954,
+            10.837824,
+            10.320192,
+            8.031758,
+            8.780941,
+            7.465114,
+            7.255789,
+            7.780191,
+            6.845801,
+            6.950987
+          ]
+        }
+      }
+    },
+    "temporal_delta_en__keywords": {
+      "template": "temporal_delta_en",
+      "template_nome": "Temporal Delta EN (keywords)",
+      "tipo": "temporal_delta",
+      "idioma": "en",
+      "estrategia": "keywords",
+      "test_mse_media": 7.1051,
+      "test_mse_desvio": 0.0983,
+      "test_mae_media": 2.0216,
+      "test_mae_desvio": 0.0248,
+      "melhor_val_mse_media": 7.7212,
+      "melhor_val_mse_desvio": 0.1583,
+      "melhor_epoca_media": 5.67,
+      "estouros_total": 0,
+      "val_mse_media": [
+        9.458681,
+        8.783386,
+        8.644036,
+        8.044069,
+        8.886053,
+        8.482443,
+        7.805208,
+        8.145608,
+        7.944307,
+        7.969258
+      ],
+      "val_mse_desvio": [
+        0.761399,
+        0.522594,
+        0.776314,
+        0.192687,
+        0.3258,
+        0.216702,
+        0.223143,
+        0.064759,
+        0.280511,
+        0.246856
+      ],
+      "tokens_originais": 13873,
+      "tokens_retidos": 13873,
+      "paginas": 109,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.24208,
+          "test_mae": 2.056735,
+          "melhor_val_mse": 7.78447,
+          "melhor_epoca": 3,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            8.449873,
+            8.814027,
+            7.78447,
+            7.890201,
+            9.214974,
+            8.609693,
+            8.036417,
+            8.120481,
+            8.150829,
+            8.042295
+          ],
+          "test_mse_por_epoca": [
+            8.894262,
+            8.712303,
+            8.137424,
+            7.81001,
+            8.347264,
+            7.912593,
+            7.418661,
+            7.482752,
+            7.371401,
+            7.24208
+          ]
+        },
+        "42": {
+          "test_mse": 7.016105,
+          "test_mae": 2.003065,
+          "melhor_val_mse": 7.875604,
+          "melhor_epoca": 7,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            9.637014,
+            8.128571,
+            8.482333,
+            7.926232,
+            8.442171,
+            8.660262,
+            7.875604,
+            8.234442,
+            8.134375,
+            8.228384
+          ],
+          "test_mse_por_epoca": [
+            10.373272,
+            8.53881,
+            8.415482,
+            7.429283,
+            7.444596,
+            7.450987,
+            6.907239,
+            7.154495,
+            6.958016,
+            7.016105
+          ]
+        },
+        "1234": {
+          "test_mse": 7.057119,
+          "test_mae": 2.005099,
+          "melhor_val_mse": 7.503603,
+          "melhor_epoca": 7,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            10.289155,
+            9.407559,
+            9.665304,
+            8.315775,
+            9.001015,
+            8.177375,
+            7.503603,
+            8.081902,
+            7.547718,
+            7.637094
+          ],
+          "test_mse_por_epoca": [
+            9.838835,
+            9.642561,
+            8.449117,
+            7.95431,
+            8.549253,
+            7.463754,
+            7.127053,
+            7.610028,
+            6.923794,
+            7.057119
+          ]
+        }
+      }
+    },
+    "es_keywords__keywords": {
+      "template": "es_keywords",
+      "template_nome": "Baseline ES Keywords (LN)",
+      "tipo": "baseline",
+      "idioma": "es",
+      "estrategia": "keywords",
+      "test_mse_media": 7.2445,
+      "test_mse_desvio": 0.1209,
+      "test_mae_media": 2.0669,
+      "test_mae_desvio": 0.0285,
+      "melhor_val_mse_media": 8.0339,
+      "melhor_val_mse_desvio": 0.2798,
+      "melhor_epoca_media": 9.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        9.590392,
+        9.393822,
+        9.380908,
+        8.974027,
+        9.271424,
+        8.652943,
+        8.282662,
+        8.32891,
+        8.228334,
+        8.151351
+      ],
+      "val_mse_desvio": [
+        0.640488,
+        0.712538,
+        1.015607,
+        0.747755,
+        0.288978,
+        0.214603,
+        0.4183,
+        0.349608,
+        0.273591,
+        0.256669
+      ],
+      "tokens_originais": 33438,
+      "tokens_retidos": 33390,
+      "paginas": 261,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.118741,
+          "test_mae": 2.034264,
+          "melhor_val_mse": 7.809657,
+          "melhor_epoca": 10,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            8.685269,
+            8.818313,
+            9.352232,
+            8.299626,
+            8.91331,
+            8.408032,
+            8.130511,
+            7.857478,
+            7.863271,
+            7.809657
+          ],
+          "test_mse_por_epoca": [
+            9.024068,
+            8.875748,
+            9.641875,
+            7.896954,
+            8.159944,
+            8.307965,
+            7.776902,
+            7.172202,
+            7.183271,
+            7.118741
+          ]
+        },
+        "42": {
+          "test_mse": 7.407701,
+          "test_mae": 2.103682,
+          "melhor_val_mse": 7.863662,
+          "melhor_epoca": 7,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            10.072998,
+            8.965228,
+            8.151634,
+            8.605823,
+            9.621003,
+            8.930626,
+            7.863662,
+            8.435582,
+            8.29985,
+            8.216119
+          ],
+          "test_mse_por_epoca": [
+            10.5625,
+            10.03482,
+            8.096214,
+            8.267568,
+            9.212849,
+            8.505563,
+            7.184664,
+            7.761474,
+            7.521049,
+            7.407701
+          ]
+        },
+        "1234": {
+          "test_mse": 7.206923,
+          "test_mae": 2.062649,
+          "melhor_val_mse": 8.428276,
+          "melhor_epoca": 10,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            10.012908,
+            10.397926,
+            10.638857,
+            10.016631,
+            9.279959,
+            8.620171,
+            8.853813,
+            8.693669,
+            8.521881,
+            8.428276
+          ],
+          "test_mse_por_epoca": [
+            10.715675,
+            10.815252,
+            9.981758,
+            9.58083,
+            8.159365,
+            7.489981,
+            7.856452,
+            7.467384,
+            7.302047,
+            7.206923
+          ]
+        }
+      }
+    }
+  }
+}

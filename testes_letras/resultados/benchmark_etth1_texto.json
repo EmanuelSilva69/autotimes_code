@@ -1,0 +1,780 @@
+{
+  "timestamp": "2026-08-12 23:40:35",
+  "config": {
+    "checkpoints": "smetimes",
+    "estrategias": "truncamento,janela,keywords",
+    "idiomas": "pt,en",
+    "epochs": 6,
+    "batch_size": 16,
+    "lr": 0.001,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "linhas": 2000,
+    "pool_janelas": 192,
+    "csv": null,
+    "tokenizer_path": null,
+    "amp": false,
+    "plots": true,
+    "seed": 2021
+  },
+  "tokenizador": "E:\\2026.1\\Viplab\\AutoTimes\\gpt2",
+  "dataset": {
+    "csv": "E:\\2026.1\\Viplab\\AutoTimes\\dataset\\ETT-small\\ETTh1.csv",
+    "n_linhas_total": 17420,
+    "n_linhas_usadas": 2000,
+    "coluna": "HUFL"
+  },
+  "tokens_por_formato": {
+    "pt": 39262,
+    "en": 24006
+  },
+  "paginacao": {
+    "truncamento": {
+      "pt": {
+        "n_documentos": 1,
+        "tokens_originais_med": 39262.0,
+        "tokens_retidos_med": 128.0,
+        "tokens_descartados_med": 39134.0,
+        "paginas_med": 1.0,
+        "paginas_descartadas": 0,
+        "sobreposicao_frac": 0.0,
+        "tempo_tokenizacao_doc_s": 0.086
+      },
+      "en": {
+        "n_documentos": 1,
+        "tokens_originais_med": 24006.0,
+        "tokens_retidos_med": 128.0,
+        "tokens_descartados_med": 23878.0,
+        "paginas_med": 1.0,
+        "paginas_descartadas": 0,
+        "sobreposicao_frac": 0.0,
+        "tempo_tokenizacao_doc_s": 0.053
+      }
+    },
+    "janela": {
+      "pt": {
+        "n_documentos": 1,
+        "tokens_originais_med": 39262.0,
+        "tokens_retidos_med": 46102.0,
+        "tokens_descartados_med": 0.0,
+        "paginas_med": 361.0,
+        "paginas_descartadas": 354,
+        "sobreposicao_frac": 0.15,
+        "tempo_tokenizacao_doc_s": 0.0881
+      },
+      "en": {
+        "n_documentos": 1,
+        "tokens_originais_med": 24006.0,
+        "tokens_retidos_med": 28186.0,
+        "tokens_descartados_med": 0.0,
+        "paginas_med": 221.0,
+        "paginas_descartadas": 214,
+        "sobreposicao_frac": 0.15,
+        "tempo_tokenizacao_doc_s": 0.0533
+      }
+    },
+    "keywords": {
+      "pt": {
+        "n_documentos": 1,
+        "tokens_originais_med": 39262.0,
+        "tokens_retidos_med": 33262.0,
+        "tokens_descartados_med": 6000.0,
+        "paginas_med": 260.0,
+        "paginas_descartadas": 253,
+        "sobreposicao_frac": 0.0,
+        "tempo_tokenizacao_doc_s": 0.19
+      },
+      "en": {
+        "n_documentos": 1,
+        "tokens_originais_med": 24006.0,
+        "tokens_retidos_med": 24006.0,
+        "tokens_descartados_med": 0.0,
+        "paginas_med": 188.0,
+        "paginas_descartadas": 181,
+        "sobreposicao_frac": 0.0,
+        "tempo_tokenizacao_doc_s": 0.1193
+      }
+    }
+  },
+  "resultados": {
+    "smetimes__truncamento__pt": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "train_loss": [
+          10.96292478,
+          6.8557349,
+          5.98955637,
+          5.33996921,
+          4.94759752,
+          4.70449937
+        ],
+        "val_loss": [
+          7.20835467,
+          6.9482645,
+          6.94678906,
+          6.5719939,
+          6.42548318,
+          6.26103138
+        ],
+        "val_mse": [
+          7.20835495,
+          6.94826365,
+          6.94678879,
+          6.57199383,
+          6.42548323,
+          6.26103115
+        ],
+        "val_mae": [
+          2.08962703,
+          2.02311802,
+          2.00133109,
+          1.89897943,
+          1.89170897,
+          1.86553526
+        ],
+        "val_mse_pred": [
+          9.46814251,
+          9.08145523,
+          8.83070946,
+          9.3094101,
+          9.00462627,
+          8.75089264
+        ],
+        "val_mae_pred": [
+          2.52397394,
+          2.38261628,
+          2.36201334,
+          2.41262603,
+          2.35476422,
+          2.31061435
+        ],
+        "test_mse_pred": [
+          9.67625904,
+          9.09843636,
+          8.89999104,
+          9.21680546,
+          8.6917038,
+          8.24291515
+        ],
+        "test_mae_pred": [
+          2.4990716,
+          2.35228133,
+          2.30739617,
+          2.38318419,
+          2.27831769,
+          2.20878816
+        ],
+        "tempo_epoca_s": [
+          2.9318,
+          0.5683,
+          0.5716,
+          0.6213,
+          0.5847,
+          0.5658
+        ],
+        "tempo_batch_ms": [
+          345.19,
+          51.81,
+          51.01,
+          56.08,
+          52.68,
+          51.46
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 6,
+      "melhor_val_mse_pred": 8.750892639160156,
+      "teste_final_mse_pred": 8.24291515,
+      "teste_final_mae_pred": 2.20878816,
+      "batches_estourados_total": 0,
+      "n_batches_total": 48,
+      "tokens_batches_epoca": 8,
+      "estrategia": "truncamento",
+      "idioma": "pt",
+      "tempo_batch_ms_medio": 52.61,
+      "tokens_originais": 39262,
+      "tokens_retidos": 128,
+      "paginas": 1
+    },
+    "smetimes__truncamento__en": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "train_loss": [
+          10.94862384,
+          6.7583515,
+          5.90499957,
+          5.26322082,
+          4.90925073,
+          4.71504007
+        ],
+        "val_loss": [
+          7.03963493,
+          6.9293685,
+          7.22895931,
+          6.79799027,
+          6.48308222,
+          6.60163513
+        ],
+        "val_mse": [
+          7.0396347,
+          6.9293685,
+          7.22895908,
+          6.79799032,
+          6.48308277,
+          6.6016345
+        ],
+        "val_mae": [
+          2.05266666,
+          2.01136208,
+          2.0278933,
+          1.92844963,
+          1.89898396,
+          1.89892304
+        ],
+        "val_mse_pred": [
+          8.57124519,
+          9.20359421,
+          9.24464703,
+          9.56280231,
+          8.62689495,
+          9.03766632
+        ],
+        "val_mae_pred": [
+          2.38290405,
+          2.41153002,
+          2.43004775,
+          2.46265554,
+          2.27883482,
+          2.35217786
+        ],
+        "test_mse_pred": [
+          8.6320219,
+          9.26175213,
+          9.38696957,
+          9.56119347,
+          8.41120243,
+          8.83070374
+        ],
+        "test_mae_pred": [
+          2.30992174,
+          2.387146,
+          2.40430164,
+          2.46540403,
+          2.23538017,
+          2.31377888
+        ],
+        "tempo_epoca_s": [
+          0.6126,
+          0.6877,
+          0.7329,
+          0.5872,
+          0.5789,
+          0.5625
+        ],
+        "tempo_batch_ms": [
+          53.71,
+          63.17,
+          63.4,
+          53.88,
+          52.21,
+          50.46
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 1,
+      "melhor_val_mse_pred": 8.571245193481445,
+      "teste_final_mse_pred": 8.83070374,
+      "teste_final_mae_pred": 2.31377888,
+      "batches_estourados_total": 0,
+      "n_batches_total": 48,
+      "tokens_batches_epoca": 8,
+      "estrategia": "truncamento",
+      "idioma": "en",
+      "tempo_batch_ms_medio": 56.62,
+      "tokens_originais": 24006,
+      "tokens_retidos": 128,
+      "paginas": 1
+    },
+    "smetimes__janela__pt": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "train_loss": [
+          11.07037931,
+          6.79260513,
+          6.01148515,
+          5.46406763,
+          5.0716426,
+          4.84988698
+        ],
+        "val_loss": [
+          7.00252026,
+          6.59582073,
+          7.65303674,
+          6.93002523,
+          6.3375721,
+          6.41842087
+        ],
+        "val_mse": [
+          7.00252104,
+          6.59581995,
+          7.65303659,
+          6.9300251,
+          6.33757162,
+          6.41842175
+        ],
+        "val_mae": [
+          2.03944731,
+          1.96312678,
+          2.05750704,
+          1.94001019,
+          1.86562395,
+          1.86367488
+        ],
+        "val_mse_pred": [
+          8.67895889,
+          8.04553318,
+          10.68085003,
+          9.76657677,
+          8.82680988,
+          9.04503155
+        ],
+        "val_mae_pred": [
+          2.39451194,
+          2.24235678,
+          2.63182735,
+          2.49870658,
+          2.32795238,
+          2.35818529
+        ],
+        "test_mse_pred": [
+          8.92577457,
+          7.69657898,
+          10.75549698,
+          9.56236839,
+          8.38612366,
+          8.53494072
+        ],
+        "test_mae_pred": [
+          2.37092638,
+          2.13659143,
+          2.58009648,
+          2.45521069,
+          2.24076223,
+          2.25885272
+        ],
+        "tempo_epoca_s": [
+          0.5871,
+          0.559,
+          0.6599,
+          0.5949,
+          0.5992,
+          0.5592
+        ],
+        "tempo_batch_ms": [
+          53.82,
+          50.16,
+          60.42,
+          54.09,
+          55.04,
+          50.67
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 2,
+      "melhor_val_mse_pred": 8.045533180236816,
+      "teste_final_mse_pred": 8.53494072,
+      "teste_final_mae_pred": 2.25885272,
+      "batches_estourados_total": 0,
+      "n_batches_total": 48,
+      "tokens_batches_epoca": 8,
+      "estrategia": "janela",
+      "idioma": "pt",
+      "tempo_batch_ms_medio": 54.08,
+      "tokens_originais": 39262,
+      "tokens_retidos": 46102,
+      "paginas": 361
+    },
+    "smetimes__janela__en": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "train_loss": [
+          11.04471552,
+          6.99144892,
+          5.94338835,
+          5.31989401,
+          4.93315243,
+          4.69625715
+        ],
+        "val_loss": [
+          6.93465077,
+          6.73022627,
+          6.988293,
+          6.46642577,
+          6.39370173,
+          6.14176597
+        ],
+        "val_mse": [
+          6.93464994,
+          6.73022604,
+          6.98829269,
+          6.4664259,
+          6.39370155,
+          6.14176607
+        ],
+        "val_mae": [
+          2.04119563,
+          1.98181677,
+          1.99699652,
+          1.88417184,
+          1.87424481,
+          1.83233058
+        ],
+        "val_mse_pred": [
+          8.15771484,
+          8.80744648,
+          9.32749367,
+          8.53428268,
+          9.07973671,
+          8.48179436
+        ],
+        "val_mae_pred": [
+          2.32087207,
+          2.40097046,
+          2.43752575,
+          2.28071785,
+          2.34442925,
+          2.24769402
+        ],
+        "test_mse_pred": [
+          8.31808853,
+          9.00192165,
+          9.42844772,
+          7.86036396,
+          8.71903801,
+          7.87742615
+        ],
+        "test_mae_pred": [
+          2.24802446,
+          2.39368844,
+          2.38386154,
+          2.16955185,
+          2.27353263,
+          2.14637876
+        ],
+        "tempo_epoca_s": [
+          0.6505,
+          0.6085,
+          0.6328,
+          0.6296,
+          0.6055,
+          0.6084
+        ],
+        "tempo_batch_ms": [
+          60.2,
+          54.23,
+          57.49,
+          57.29,
+          54.43,
+          56.31
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 1,
+      "melhor_val_mse_pred": 8.15771484375,
+      "teste_final_mse_pred": 7.87742615,
+      "teste_final_mae_pred": 2.14637876,
+      "batches_estourados_total": 0,
+      "n_batches_total": 48,
+      "tokens_batches_epoca": 8,
+      "estrategia": "janela",
+      "idioma": "en",
+      "tempo_batch_ms_medio": 55.95,
+      "tokens_originais": 24006,
+      "tokens_retidos": 28186,
+      "paginas": 221
+    },
+    "smetimes__keywords__pt": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "train_loss": [
+          11.04762385,
+          6.95730706,
+          5.8324404,
+          5.30557732,
+          4.86252008,
+          4.69372778
+        ],
+        "val_loss": [
+          7.08235701,
+          6.86449764,
+          7.32272133,
+          6.47681869,
+          6.48975872,
+          6.2497272
+        ],
+        "val_mse": [
+          7.08235693,
+          6.86449718,
+          7.322721,
+          6.47681904,
+          6.48975897,
+          6.24972725
+        ],
+        "val_mae": [
+          2.0500021,
+          1.98701191,
+          2.04979324,
+          1.88323164,
+          1.89115536,
+          1.84817433
+        ],
+        "val_mse_pred": [
+          8.6394949,
+          9.22986603,
+          9.56312943,
+          8.90796757,
+          9.22512722,
+          8.82085514
+        ],
+        "val_mae_pred": [
+          2.39557743,
+          2.4311738,
+          2.44570923,
+          2.32496929,
+          2.34816694,
+          2.27888298
+        ],
+        "test_mse_pred": [
+          8.86417389,
+          9.43727779,
+          9.93996048,
+          8.48619461,
+          8.75923443,
+          7.99196196
+        ],
+        "test_mae_pred": [
+          2.37182832,
+          2.43467593,
+          2.424541,
+          2.25031662,
+          2.25569391,
+          2.13943768
+        ],
+        "tempo_epoca_s": [
+          0.5887,
+          0.5953,
+          0.5709,
+          0.5541,
+          0.5629,
+          0.5951
+        ],
+        "tempo_batch_ms": [
+          53.85,
+          51.7,
+          51.47,
+          50.58,
+          50.18,
+          54.32
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 1,
+      "melhor_val_mse_pred": 8.639494895935059,
+      "teste_final_mse_pred": 7.99196196,
+      "teste_final_mae_pred": 2.13943768,
+      "batches_estourados_total": 0,
+      "n_batches_total": 48,
+      "tokens_batches_epoca": 8,
+      "estrategia": "keywords",
+      "idioma": "pt",
+      "tempo_batch_ms_medio": 51.65,
+      "tokens_originais": 39262,
+      "tokens_retidos": 33262,
+      "paginas": 260
+    },
+    "smetimes__keywords__en": {
+      "historico": {
+        "epoch": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "train_loss": [
+          11.03644329,
+          6.91005065,
+          5.86314793,
+          5.31254855,
+          4.91891907,
+          4.70719318
+        ],
+        "val_loss": [
+          6.91943103,
+          6.80834474,
+          7.15889328,
+          6.59355756,
+          6.25524104,
+          6.11347736
+        ],
+        "val_mse": [
+          6.91943121,
+          6.80834532,
+          7.15889311,
+          6.59355736,
+          6.25524092,
+          6.11347628
+        ],
+        "val_mae": [
+          2.02998161,
+          1.98458135,
+          2.01515055,
+          1.90151358,
+          1.86550725,
+          1.83301413
+        ],
+        "val_mse_pred": [
+          8.34710217,
+          9.1014719,
+          9.47199631,
+          8.84028339,
+          8.50940895,
+          8.35311413
+        ],
+        "val_mae_pred": [
+          2.33509898,
+          2.42379546,
+          2.44204116,
+          2.35208964,
+          2.28850007,
+          2.25485277
+        ],
+        "test_mse_pred": [
+          8.55833721,
+          9.45512295,
+          9.67376518,
+          8.59078789,
+          8.50064468,
+          8.12212753
+        ],
+        "test_mae_pred": [
+          2.31859231,
+          2.44916248,
+          2.4129281,
+          2.30143881,
+          2.25820351,
+          2.19634795
+        ],
+        "tempo_epoca_s": [
+          0.594,
+          0.571,
+          0.5502,
+          0.5639,
+          0.5637,
+          0.565
+        ],
+        "tempo_batch_ms": [
+          53.71,
+          49.26,
+          49.48,
+          50.25,
+          49.74,
+          51.4
+        ],
+        "batches_estourados_epoca": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "melhor_epoca": 1,
+      "melhor_val_mse_pred": 8.347102165222168,
+      "teste_final_mse_pred": 8.12212753,
+      "teste_final_mae_pred": 2.19634795,
+      "batches_estourados_total": 0,
+      "n_batches_total": 48,
+      "tokens_batches_epoca": 8,
+      "estrategia": "keywords",
+      "idioma": "en",
+      "tempo_batch_ms_medio": 50.03,
+      "tokens_originais": 24006,
+      "tokens_retidos": 24006,
+      "paginas": 188
+    }
+  }
+}

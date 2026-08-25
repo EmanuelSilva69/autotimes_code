@@ -1,0 +1,131 @@
+{
+  "veredito": {
+    "mse_harness_raw": 5.7988,
+    "mse_ablation_zscore": 0.3539,
+    "comparaveis": false,
+    "causa_principal": "escala (raw vs StandardScaler z-score)",
+    "causa_secundaria": "volume (115 vs 55.111 janelas de treino)",
+    "causa_agravante": "leakage temporal no split 60/20/20 do pool"
+  },
+  "stats_standardscaler": {
+    "feat_names": [
+      "HUFL",
+      "HULL",
+      "MUFL",
+      "MULL",
+      "LUFL",
+      "LULL",
+      "OT"
+    ],
+    "n_vars": 7,
+    "n_total": 17420,
+    "bounds": {
+      "train": [
+        0,
+        8640
+      ],
+      "val": [
+        7968,
+        11520
+      ],
+      "test": [
+        10848,
+        14400
+      ]
+    },
+    "media_treino": {
+      "HUFL": 7.937742245659508,
+      "HULL": 2.0210386567335163,
+      "MUFL": 5.079770601157927,
+      "MULL": 0.7461858799957015,
+      "LUFL": 2.781762386375555,
+      "LULL": 0.7884531235540096,
+      "OT": 17.1282616982271
+    },
+    "std_treino": {
+      "HUFL": 5.812749409143771,
+      "HULL": 2.0901046504076,
+      "MUFL": 5.518793579036245,
+      "MULL": 1.926379274132982,
+      "LUFL": 1.0235226594952194,
+      "LULL": 0.6302366362251923,
+      "OT": 9.176491024944335
+    },
+    "var_treino": {
+      "HUFL": 33.788055693501256,
+      "HULL": 4.368537449655475,
+      "MUFL": 30.45708256801169,
+      "MULL": 3.7109371078091145,
+      "LUFL": 1.0475986345001667,
+      "LULL": 0.3971982176404454,
+      "OT": 84.20798753088393
+    },
+    "janelas_por_feature": {
+      "train": 7873,
+      "val": 2785,
+      "test": 2785
+    }
+  },
+  "batch_original": {
+    "tensor": "original (load_real_split, z-score)",
+    "shape": [
+      16,
+      672,
+      1
+    ],
+    "media_x": 0.5890271067619324,
+    "std_x": 0.5280072689056396,
+    "var_x": 0.2787916660308838,
+    "media_y": 0.7989304065704346,
+    "std_y": 0.6283906102180481,
+    "var_y": 0.3948747515678406
+  },
+  "batch_harness": {
+    "tensor": "harness (pool_janelas_etth1, raw)",
+    "shape": [
+      16,
+      672,
+      1
+    ],
+    "media_x": 11.905720710754395,
+    "std_x": 3.2472734451293945,
+    "var_x": 10.544785499572754,
+    "media_y": 12.514001846313477,
+    "std_y": 3.769446849822998,
+    "var_y": 14.208728790283203
+  },
+  "paridade": {
+    "janelas_original": {
+      "train": 55111,
+      "val": 19495,
+      "test": 19495
+    },
+    "janelas_harness": {
+      "train": 115,
+      "val": 38,
+      "test": 39
+    },
+    "leakage_temporal": "harness: teste dentro de 0..2000 (mesma regiao do treino); original: teste em [11520,14400)"
+  },
+  "conversao": {
+    "formula": "mse_z = mse_raw / var_treino(feature)",
+    "var_treino_HUFL": 33.788055693501256,
+    "mse_raw_5.80_equiv_z": 0.171623,
+    "mse_raw_7.03_textual_equiv_z": 0.208168,
+    "ressalva": "a conversao por variancia so remove o efeito de escala; o volume de dados e o leakage continuam viciando o 5.80/7.03. A base publicavel exige o protocolo original (z-score, dataset completo, split temporal disjunto)."
+  },
+  "eval_empirico": {
+    "raw": {
+      "escala": "raw",
+      "mse_pred": 21.209760665893555,
+      "mae_pred": 3.7623417377471924
+    },
+    "zscore": {
+      "escala": "zscore",
+      "mse_pred": 0.6277198195457458,
+      "mae_pred": 0.6472504734992981
+    },
+    "razao_mse_raw_sobre_z": 33.7886,
+    "var_treino_esperada": 33.7881
+  }
+}

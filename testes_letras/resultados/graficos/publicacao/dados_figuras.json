@@ -1,0 +1,96 @@
+{
+  "jornada": {
+    "marcos": [
+      {
+        "titulo": "Numerico Base",
+        "legenda": "SMETimes, sem texto",
+        "fonte": "numerico_base_stats.json",
+        "mse": 5.7988,
+        "dp": 0.0951,
+        "mae": 1.7911
+      },
+      {
+        "titulo": "PT Extenso Isolado",
+        "legenda": "pt_curto | janela",
+        "fonte": "top3_validacao_stats.json",
+        "mse": 7.3177,
+        "dp": 0.19,
+        "mae": 2.0549
+      },
+      {
+        "titulo": "ES Keywords",
+        "legenda": "Language Tuning",
+        "fonte": "campeao_absoluto_stats.json",
+        "mse": 7.2445,
+        "dp": 0.1209,
+        "mae": 2.0669
+      },
+      {
+        "titulo": "ES Pseudo-JSON",
+        "legenda": "Structural Tuning",
+        "fonte": "campeao_absoluto_stats.json",
+        "mse": 7.0336,
+        "dp": 0.0595,
+        "mae": 2.0137
+      }
+    ]
+  },
+  "comparativo": {
+    "linguagem_natural": {
+      "nomes": [
+        "EN Verboso (keywords)",
+        "PT Curto (janela)",
+        "ES Keywords (keywords)"
+      ],
+      "mse": [
+        7.374,
+        7.3177,
+        7.2445
+      ],
+      "dp": [
+        0.1956,
+        0.19,
+        0.1209
+      ]
+    },
+    "estruturados": {
+      "nomes": [
+        "Pseudo-JSON ES (janela)",
+        "Temporal Delta EN (keywords)",
+        "Estrutural ES (janela)",
+        "Relacional ES (keywords)",
+        "Estrutural EN (janela)",
+        "Pseudo-JSON EN (keywords)",
+        "Estrutural PT (janela)",
+        "Pseudo-JSON PT (janela)",
+        "Relacional PT (keywords)",
+        "Relacional EN (janela)"
+      ],
+      "mse": [
+        7.0336,
+        7.1051,
+        7.1197,
+        7.1331,
+        7.1509,
+        7.1699,
+        7.1834,
+        7.2327,
+        7.2364,
+        7.4494
+      ],
+      "dp": [
+        0.0595,
+        0.0983,
+        0.0748,
+        0.2282,
+        0.1947,
+        0.3391,
+        0.1393,
+        0.0444,
+        0.1913,
+        0.398
+      ]
+    },
+    "barreira_ln": 7.2445
+  }
+}

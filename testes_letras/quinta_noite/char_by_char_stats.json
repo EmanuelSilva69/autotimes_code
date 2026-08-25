@@ -1,0 +1,193 @@
+{
+  "config": {
+    "experimento": "char_by_char",
+    "template": "char_by_char",
+    "estrategia": "janela",
+    "seeds": [
+      2021,
+      42,
+      1234
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "linhas": 2000,
+    "pool_janelas": 192,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "decode_aplicado": false,
+    "amp": false,
+    "referencia_campeao_json": "E:\\2026.1\\Viplab\\AutoTimes\\testes_letras\\resultados\\estruturas_avancadas_stats.json",
+    "referencia_campeao_chave": "pseudo_json_es__janela",
+    "referencia_baseline_ln_chave": "es_keywords__keywords"
+  },
+  "cenarios": {
+    "char_by_char__janela": {
+      "template": "char_by_char",
+      "template_nome": "Char-by-Char",
+      "tipo": "char_by_char",
+      "idioma": "pt",
+      "estrategia": "janela",
+      "estrategia_nome": "Janela Deslizante + Overlap",
+      "test_mse_media": 7.3074,
+      "test_mse_desvio": 0.0908,
+      "test_mae_media": 2.0576,
+      "test_mae_desvio": 0.0342,
+      "melhor_val_mse_media": 8.1417,
+      "melhor_val_mse_desvio": 0.3553,
+      "melhor_epoca_media": 8.33,
+      "estouros_total": 0,
+      "val_mse_media": [
+        9.79429,
+        9.412673,
+        9.139792,
+        9.238317,
+        9.433194,
+        8.717272,
+        8.479839,
+        8.631755,
+        8.320799,
+        8.300343
+      ],
+      "val_mse_desvio": [
+        1.051447,
+        0.751087,
+        1.081365,
+        0.743825,
+        0.569418,
+        0.554264,
+        0.514823,
+        0.539781,
+        0.314072,
+        0.385522
+      ],
+      "test_mse_media_por_epoca": [
+        9.844677,
+        9.459991,
+        9.040605,
+        8.684076,
+        8.760789,
+        7.845573,
+        7.519982,
+        7.629964,
+        7.356378,
+        7.307437
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.742212,
+        0.807521,
+        0.954357,
+        0.513083,
+        0.750204,
+        0.643221,
+        0.165593,
+        0.395604,
+        0.075578,
+        0.09081
+      ],
+      "tokens_originais": 10707.4,
+      "tokens_retidos": 12561.4,
+      "paginas": 98.6,
+      "paginas_descartadas": 91.6,
+      "max_abs_media": 22.961177,
+      "max_abs_desvio": 0.770909,
+      "decode_aplicado": false,
+      "por_seed": {
+        "2021": {
+          "test_mse": 7.314602,
+          "test_mae": 2.074996,
+          "melhor_val_mse": 7.795023,
+          "melhor_epoca": 10,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            8.557262,
+            8.93285,
+            8.612864,
+            8.187504,
+            9.584785,
+            8.801935,
+            7.924288,
+            8.152668,
+            7.890036,
+            7.795023
+          ],
+          "test_mse_por_epoca": [
+            8.81934,
+            8.547337,
+            8.491923,
+            7.958805,
+            9.443291,
+            8.501245,
+            7.424012,
+            7.854875,
+            7.457236,
+            7.314602
+          ]
+        },
+        "42": {
+          "test_mse": 7.192809,
+          "test_mae": 2.009791,
+          "melhor_val_mse": 8.00008,
+          "melhor_epoca": 6,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            9.698216,
+            8.831899,
+            8.159961,
+            9.805655,
+            8.672474,
+            8.00008,
+            8.350078,
+            8.356611,
+            8.442402,
+            8.375718
+          ],
+          "test_mse_por_epoca": [
+            10.551847,
+            9.321817,
+            8.247047,
+            9.065907,
+            7.71608,
+            6.971687,
+            7.38297,
+            7.07387,
+            7.275309,
+            7.192809
+          ]
+        },
+        "1234": {
+          "test_mse": 7.414901,
+          "test_mae": 2.087939,
+          "melhor_val_mse": 8.62996,
+          "melhor_epoca": 9,
+          "estouros": 0,
+          "val_mse_por_epoca": [
+            11.12739,
+            10.47327,
+            10.646553,
+            9.721791,
+            10.042322,
+            9.349801,
+            9.165151,
+            9.385984,
+            8.62996,
+            8.730288
+          ],
+          "test_mse_por_epoca": [
+            10.162843,
+            10.510819,
+            10.382844,
+            9.027516,
+            9.122996,
+            8.063788,
+            7.752963,
+            7.961147,
+            7.336588,
+            7.414901
+          ]
+        }
+      }
+    }
+  }
+}
