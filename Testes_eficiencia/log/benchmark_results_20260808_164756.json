@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "seq_len": 672,
+    "label_len": 576,
+    "pred_len": 96,
+    "n_vars": 7,
+    "token_len": 96,
+    "d_model": 768,
+    "backbone": "gpt2-base (transformers, local: E:\\2026.1\\Viplab\\AutoTimes\\gpt2)",
+    "epochs": 20,
+    "lr_base": 0.001,
+    "lr_llm": 2e-05,
+    "lr_new": 0.001,
+    "mlp_hidden_dim": 256,
+    "mlp_hidden_layers": 2,
+    "mlp_activation": "tanh",
+    "unfreeze_layers": 2,
+    "hybrid_robust": "huber",
+    "hybrid_lambda": 0.5,
+    "hybrid_delta": 1.0,
+    "textual": true,
+    "text_step": 24,
+    "block_max": 128,
+    "use_amp": true,
+    "cosine": true,
+    "tmax": 10,
+    "device": "cuda",
+    "torch": "2.9.1+rocmsdk20260116",
+    "seed": 2021,
+    "data": "E:\\2026.1\\Viplab\\AutoTimes\\dataset\\ETT-small/ETTh1.csv",
+    "timestamp": "2026-08-08T17:14:39"
+  },
+  "runs": {
+    "Run 2_VolatilityLoss": {
+      "name": "Run 2_VolatilityLoss",
+      "flags": {
+        "use_robust": false,
+        "use_vol_loss": true,
+        "use_overlap": false,
+        "use_disc_optim": false,
+        "use_vol_gate": false,
+        "use_unfreeze": false,
+        "use_hybrid_loss": false
+      },
+      "epochs": 20,
+      "total_time_s": 293.923,
+      "time_per_epoch_s": [
+        75.0427,
+        73.743,
+        70.5688,
+        59.5556
+      ],
+      "train_loss": [
+        0.08225036201088927,
+        0.0765752169108668,
+        0.07458360053079073,
+        0.07301582106670668
+      ],
+      "val_loss": [
+        0.06533469568654249,
+        0.06538260824009527,
+        0.06560914121046528,
+        0.06534428587056759
+      ],
+      "test_loss": [
+        0.08044245147512408,
+        0.08009163726528373,
+        0.08029076500201321,
+        0.08045386063752587
+      ],
+      "test_mse_per_epoch": [
+        8.087530136108398,
+        8.329765319824219,
+        8.392112731933594,
+        8.461819648742676
+      ],
+      "test_mae_per_epoch": [
+        1.544501781463623,
+        1.5747522115707397,
+        1.5866093635559082,
+        1.5896538496017456
+      ],
+      "final_test_mse": 8.087530136108398,
+      "final_test_mae": 1.544501781463623,
+      "final_test_loss": 0.08044245147512408,
+      "best_val_loss": 0.06533469568654249,
+      "best_epoch": 1,
+      "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-2_VolatilityLoss__ETTh1__20260808_165529.pt",
+      "early_stop": true,
+      "patience": 3,
+      "early_stop_epoch": 4,
+      "grad_stats": {
+        "trainable": 12,
+        "missing": 0,
+        "nan": 0,
+        "inf": 0
+      }
+    },
+    "Run 6_Frankenstein": {
+      "name": "Run 6_Frankenstein",
+      "flags": {
+        "use_robust": true,
+        "use_vol_loss": true,
+        "use_overlap": true,
+        "use_disc_optim": true,
+        "use_vol_gate": true,
+        "use_unfreeze": false,
+        "use_hybrid_loss": false
+      },
+      "epochs": 20,
+      "total_time_s": 422.767,
+      "time_per_epoch_s": [
+        81.1695,
+        81.0986,
+        80.7618,
+        80.6804,
+        80.8679
+      ],
+      "train_loss": [
+        0.09388979638731756,
+        0.07471149584581685,
+        0.06958261879031048,
+        0.06639587044022804,
+        0.06453829378236171
+      ],
+      "val_loss": [
+        0.06310151685741076,
+        0.06140832460711601,
+        0.0634458742988021,
+        0.06325490247973206,
+        0.06337818340112931
+      ],
+      "test_loss": [
+        0.08321033640479857,
+        0.08262058622139826,
+        0.08332250343366228,
+        0.08361930181954534,
+        0.08428277630811037
+      ],
+      "test_mse_per_epoch": [
+        10.684155464172363,
+        10.412985801696777,
+        10.208539962768555,
+        10.373482704162598,
+        10.350508689880371
+      ],
+      "test_mae_per_epoch": [
+        1.5415669679641724,
+        1.543837547302246,
+        1.5479013919830322,
+        1.5659574270248413,
+        1.5673688650131226
+      ],
+      "final_test_mse": 10.412985801696777,
+      "final_test_mae": 1.543837547302246,
+      "final_test_loss": 0.08262058622139826,
+      "best_val_loss": 0.06140832460711601,
+      "best_epoch": 2,
+      "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-6_Frankenstein__ETTh1__20260808_170303.pt",
+      "early_stop": true,
+      "patience": 3,
+      "early_stop_epoch": 5,
+      "grad_stats": {
+        "trainable": 16,
+        "missing": 0,
+        "nan": 0,
+        "inf": 0
+      }
+    },
+    "Run 7_RobustRevIN+VolLoss+Overlap": {
+      "name": "Run 7_RobustRevIN+VolLoss+Overlap",
+      "flags": {
+        "use_robust": true,
+        "use_vol_loss": true,
+        "use_overlap": true,
+        "use_disc_optim": false,
+        "use_vol_gate": false,
+        "use_unfreeze": false,
+        "use_hybrid_loss": false
+      },
+      "epochs": 20,
+      "total_time_s": 423.715,
+      "time_per_epoch_s": [
+        80.7496,
+        81.3176,
+        81.4556,
+        81.212,
+        81.019
+      ],
+      "train_loss": [
+        0.08618218437876812,
+        0.07344354547040408,
+        0.07118011700899102,
+        0.0699218702870746,
+        0.06896886506745982
+      ],
+      "val_loss": [
+        0.06178806911916053,
+        0.059764877649248184,
+        0.059843219405842245,
+        0.06059046049902579,
+        0.0601695190210332
+      ],
+      "test_loss": [
+        0.08073729369618916,
+        0.08069343182092799,
+        0.08086881040942875,
+        0.08188310599735517,
+        0.08161841258870153
+      ],
+      "test_mse_per_epoch": [
+        10.029888153076172,
+        10.237140655517578,
+        10.320801734924316,
+        10.214997291564941,
+        10.191323280334473
+      ],
+      "test_mae_per_epoch": [
+        1.5106364488601685,
+        1.5329331159591675,
+        1.5406948328018188,
+        1.548159122467041,
+        1.534630537033081
+      ],
+      "final_test_mse": 10.237140655517578,
+      "final_test_mae": 1.5329331159591675,
+      "final_test_loss": 0.08069343182092799,
+      "best_val_loss": 0.059764877649248184,
+      "best_epoch": 2,
+      "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-7_RobustRevIN+VolLoss+Overlap__ETTh1__20260808_171008.pt",
+      "early_stop": true,
+      "patience": 3,
+      "early_stop_epoch": 5,
+      "grad_stats": {
+        "trainable": 10,
+        "missing": 0,
+        "nan": 0,
+        "inf": 0
+      }
+    },
+    "Run 8_VolLoss+SMETimes": {
+      "name": "Run 8_VolLoss+SMETimes",
+      "flags": {
+        "use_robust": false,
+        "use_vol_loss": true,
+        "use_overlap": false,
+        "use_disc_optim": false,
+        "use_vol_gate": true,
+        "use_unfreeze": false,
+        "use_hybrid_loss": false
+      },
+      "epochs": 20,
+      "total_time_s": 253.477,
+      "time_per_epoch_s": [
+        59.899,
+        59.4936,
+        59.6092,
+        59.4594
+      ],
+      "train_loss": [
+        0.0862392308060513,
+        0.07611545390167902,
+        0.0706300461015036,
+        0.06606728211045265
+      ],
+      "val_loss": [
+        0.06764801390532134,
+        0.06829624310705289,
+        0.07131866701835851,
+        0.07342691711468034
+      ],
+      "test_loss": [
+        0.08386882399000176,
+        0.08279672658472521,
+        0.08409985466858355,
+        0.08624714473790057
+      ],
+      "test_mse_per_epoch": [
+        8.246213912963867,
+        8.507119178771973,
+        8.714622497558594,
+        8.935715675354004
+      ],
+      "test_mae_per_epoch": [
+        1.5689393281936646,
+        1.5997687578201294,
+        1.6262917518615723,
+        1.6461774110794067
+      ],
+      "final_test_mse": 8.246213912963867,
+      "final_test_mae": 1.5689393281936646,
+      "final_test_loss": 0.08386882399000176,
+      "best_val_loss": 0.06764801390532134,
+      "best_epoch": 1,
+      "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-8_VolLoss+SMETimes__ETTh1__20260808_171424.pt",
+      "early_stop": true,
+      "patience": 3,
+      "early_stop_epoch": 4,
+      "grad_stats": {
+        "trainable": 18,
+        "missing": 0,
+        "nan": 0,
+        "inf": 0
+      }
+    }
+  }
+}

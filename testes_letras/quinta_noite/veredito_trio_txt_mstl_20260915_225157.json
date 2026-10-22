@@ -1,0 +1,420 @@
+{
+  "timestamp": "2026-09-16 14:18:43",
+  "protocolo": "apples_to_apples_trio",
+  "escala": "zscore",
+  "config": {
+    "variante_arquitetura": "original",
+    "dual_fusao": null,
+    "decomp_mode": "none",
+    "texto_decomp": "mstl",
+    "mstl_info": {
+      "minutos_timestep": 60.0,
+      "passos_por_hora": 1.0,
+      "periodo_diario": 24,
+      "periodo_semanal": 168,
+      "periodos_tupla": [
+        24,
+        168
+      ]
+    },
+    "feats": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "n_features": 7,
+    "splits_linhas": {
+      "train": [
+        0,
+        8640
+      ],
+      "val": [
+        7968,
+        11520
+      ],
+      "test": [
+        10848,
+        14400
+      ]
+    },
+    "janelas_por_split": {
+      "train": 55111,
+      "val": 19495,
+      "test": 19495
+    },
+    "scaler_fit": "[0, 8640) todas as colunas",
+    "scaler_mean_por_feat": [
+      7.937742,
+      2.021039,
+      5.079771,
+      0.746186,
+      2.781762,
+      0.788453,
+      17.128262
+    ],
+    "scaler_std_por_feat": [
+      5.812749,
+      2.090105,
+      5.518794,
+      1.926379,
+      1.023523,
+      0.630237,
+      9.176491
+    ],
+    "seeds": [
+      2021,
+      42,
+      1234
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-8_VolLoss+SMETimes__ETTh1__20260809_131904.pt",
+    "checkpoint_dir": "E:\\2026.1\\Viplab\\AutoTimes\\testes_letras\\quinta_noite\\checkpoints",
+    "restore_best": true,
+    "decode_aplicado": false,
+    "amp": false,
+    "linhas_csv": 14400
+  },
+  "modelos": {
+    "numerico": {
+      "fonte": "log_numerico_base_stats.json",
+      "test_mse_media": 0.353926,
+      "test_mse_desvio": 0.0,
+      "test_mae_media": 0.39191,
+      "test_mae_desvio": 0.0,
+      "n_janelas_test": 19495,
+      "referencia_artigo": 0.3539
+    },
+    "pseudo_json_es": {
+      "test_mse_media": 0.3609,
+      "test_mse_desvio": 0.0031,
+      "test_mae_media": 0.3999,
+      "test_mae_desvio": 0.0035,
+      "melhor_val_mse_media": 0.7631,
+      "melhor_val_mse_desvio": 0.0251,
+      "melhor_epoca_media": 1.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        0.763051,
+        0.810611,
+        0.814816,
+        0.812654,
+        0.824196,
+        0.833772,
+        0.822236,
+        0.839534,
+        0.834367,
+        0.835988
+      ],
+      "val_mse_desvio": [
+        0.025094,
+        0.008347,
+        0.009405,
+        0.013958,
+        0.020583,
+        0.011546,
+        0.015739,
+        0.022769,
+        0.023022,
+        0.020233
+      ],
+      "test_mse_media_por_epoca": [
+        0.360893,
+        0.3663,
+        0.373694,
+        0.375164,
+        0.378929,
+        0.385739,
+        0.388003,
+        0.390933,
+        0.390815,
+        0.391053
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.003066,
+        0.004128,
+        0.005634,
+        0.006469,
+        0.002923,
+        0.009119,
+        0.002796,
+        0.001908,
+        0.002458,
+        0.002592
+      ],
+      "por_seed": {
+        "2021": {
+          "test_mse": 0.358102,
+          "test_mae": 0.396382,
+          "melhor_val_mse": 0.730871,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "checkpoint": "model_txt_mstl_20260916_100103_seed2021.pt",
+          "val_mse_por_epoca": [
+            0.730871,
+            0.81009,
+            0.806385,
+            0.8159,
+            0.808732,
+            0.844837,
+            0.803651,
+            0.817369,
+            0.80875,
+            0.814899
+          ],
+          "test_mse_por_epoca": [
+            0.358102,
+            0.370598,
+            0.373447,
+            0.378576,
+            0.380327,
+            0.385809,
+            0.389332,
+            0.392219,
+            0.387914,
+            0.392536
+          ]
+        },
+        "42": {
+          "test_mse": 0.365162,
+          "test_mae": 0.404699,
+          "melhor_val_mse": 0.792098,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "checkpoint": "model_txt_mstl_20260916_100103_seed42.pt",
+          "val_mse_por_epoca": [
+            0.792098,
+            0.800658,
+            0.827941,
+            0.827892,
+            0.853284,
+            0.838638,
+            0.842137,
+            0.870845,
+            0.864579,
+            0.863281
+          ],
+          "test_mse_por_epoca": [
+            0.365162,
+            0.367575,
+            0.380715,
+            0.380809,
+            0.3816,
+            0.396872,
+            0.390564,
+            0.392344,
+            0.393922,
+            0.393215
+          ]
+        },
+        "1234": {
+          "test_mse": 0.359416,
+          "test_mae": 0.398565,
+          "melhor_val_mse": 0.766185,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "checkpoint": "model_txt_mstl_20260916_100103_seed1234.pt",
+          "val_mse_por_epoca": [
+            0.766185,
+            0.821085,
+            0.810121,
+            0.794169,
+            0.81057,
+            0.81784,
+            0.82092,
+            0.830388,
+            0.829772,
+            0.829785
+          ],
+          "test_mse_por_epoca": [
+            0.359416,
+            0.360729,
+            0.36692,
+            0.366106,
+            0.374862,
+            0.374535,
+            0.384114,
+            0.388235,
+            0.390608,
+            0.387408
+          ]
+        }
+      },
+      "template": "pseudo_json_es",
+      "estrategia": "janela",
+      "tokens_originais": 215702,
+      "tokens_retidos": 253284,
+      "paginas": 1979,
+      "paginas_descartadas": 1972
+    },
+    "char_by_char": {
+      "test_mse_media": 0.3641,
+      "test_mse_desvio": 0.0054,
+      "test_mae_media": 0.4026,
+      "test_mae_desvio": 0.0049,
+      "melhor_val_mse_media": 0.7752,
+      "melhor_val_mse_desvio": 0.0266,
+      "melhor_epoca_media": 1.33,
+      "estouros_total": 0,
+      "val_mse_media": [
+        0.793896,
+        0.787617,
+        0.80014,
+        0.812699,
+        0.820618,
+        0.829332,
+        0.824485,
+        0.837175,
+        0.836669,
+        0.838442
+      ],
+      "val_mse_desvio": [
+        0.036207,
+        0.029215,
+        0.00796,
+        0.019166,
+        0.026372,
+        0.024467,
+        0.029028,
+        0.028614,
+        0.029604,
+        0.02851
+      ],
+      "test_mse_media_por_epoca": [
+        0.362252,
+        0.366908,
+        0.374025,
+        0.373593,
+        0.381144,
+        0.384162,
+        0.385673,
+        0.387764,
+        0.389716,
+        0.389812
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.004783,
+        0.002931,
+        0.00112,
+        0.004075,
+        0.003734,
+        0.006176,
+        0.001769,
+        0.001786,
+        0.000433,
+        0.001431
+      ],
+      "por_seed": {
+        "2021": {
+          "test_mse": 0.356519,
+          "test_mae": 0.395774,
+          "melhor_val_mse": 0.743959,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "checkpoint": "model_txt_mstl_20260916_121055_seed2021.pt",
+          "val_mse_por_epoca": [
+            0.743959,
+            0.761743,
+            0.791462,
+            0.787539,
+            0.783868,
+            0.797015,
+            0.783439,
+            0.797049,
+            0.795346,
+            0.798944
+          ],
+          "test_mse_por_epoca": [
+            0.356519,
+            0.370089,
+            0.374967,
+            0.370218,
+            0.385279,
+            0.379874,
+            0.386902,
+            0.385763,
+            0.389179,
+            0.391582
+          ]
+        },
+        "42": {
+          "test_mse": 0.367617,
+          "test_mae": 0.405663,
+          "melhor_val_mse": 0.772658,
+          "melhor_epoca": 2,
+          "estouros": 0,
+          "checkpoint": "model_txt_mstl_20260916_121055_seed42.pt",
+          "val_mse_por_epoca": [
+            0.828673,
+            0.772658,
+            0.798268,
+            0.81655,
+            0.833491,
+            0.834781,
+            0.844437,
+            0.861768,
+            0.851509,
+            0.85118
+          ],
+          "test_mse_por_epoca": [
+            0.362009,
+            0.367617,
+            0.374655,
+            0.379326,
+            0.376233,
+            0.392896,
+            0.383171,
+            0.387429,
+            0.390239,
+            0.388079
+          ]
+        },
+        "1234": {
+          "test_mse": 0.368227,
+          "test_mae": 0.406457,
+          "melhor_val_mse": 0.809055,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "checkpoint": "model_txt_mstl_20260916_121055_seed1234.pt",
+          "val_mse_por_epoca": [
+            0.809055,
+            0.82845,
+            0.810689,
+            0.83401,
+            0.844496,
+            0.8562,
+            0.845579,
+            0.852708,
+            0.863153,
+            0.865201
+          ],
+          "test_mse_por_epoca": [
+            0.368227,
+            0.363016,
+            0.372452,
+            0.371234,
+            0.381922,
+            0.379716,
+            0.386946,
+            0.3901,
+            0.38973,
+            0.389774
+          ]
+        }
+      },
+      "max_abs_media": 1.11417,
+      "max_abs_desvio": 1.282418,
+      "paginas_media": 7.0,
+      "paginas_descartadas_media": 576.37,
+      "decode_aplicado": false
+    }
+  }
+}

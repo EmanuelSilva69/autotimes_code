@@ -118,17 +118,24 @@ def _compute_token_stats(patches: Tensor) -> Tensor:
 #  Decomposicao Tendencia-Oscilacao (diferenciavel, semloops)           #
 # --------------------------------------------------------------------- #
 class _MediaMovel(nn.Module):
-    """Decomposicao Autoformer-style: trend = AvgPool1d(kernel, stride=1, padding replicado)."""
+    """Decomposicao Autoformer-style: trend = AvgPool1d(kernel, stride=1,
+    padding replicado nas bordas."""
 
     def __init__(self, kernel: int = 25):
         super().__init__()
+        assert kernel % 2 == 1, "kernel precisa ser impar"
         self.kernel = kernel
 
-    def forward(self, x: Tensor) -> Tensor:          # x: (B, L) ou (B, L, 1)
-        front = x[..., :1].repeat_interleave((self.kernel - 1) // 2, dim=-2)
-        end   = x[..., -1:].repeat_interleave((self.kernel - 1) // 2, dim=-2)
-        xp = torch.cat([front, x, end], dim=-2)
-        return torch.mean(xp.unfold(-2, self.kernel, 1), dim=-1, keepdim=True)
+    def forward(self, x: Tensor) -> Tensor:
+        """x: (B, L) ou (B, L, C) -> trend (B, L, C)."""
+        if x.dim() == 2:
+            x = x.unsqueeze(-1)                              # (B,L,1)
+        pad = (self.kernel - 1) // 2
+        front = x[:, :1, :].repeat_interleave(pad, dim=1)
+        end = x[:, -1:, :].repeat_interleave(pad, dim=1)
+        xp = torch.cat([front, x, end], dim=1)               # (B,L+2p,C)
+        win = xp.unfold(dimension=1, size=self.kernel, step=1)  # (B,L,C,k)
+        return win.mean(dim=-1)                               # (B,L,C)
 
 
 def _extrair_tendencia(x: Tensor) -> Tensor:
@@ -200,6 +207,7 @@ class AutoTimesDualModel(nn.Module):
         textual: bool = False,
         block_max: int = 128,
         fusao: str = "glu",
+        decomp: str = "linear",
     ) -> None:
         super().__init__()
         self.seq_len = seq_len
@@ -213,6 +221,13 @@ class AutoTimesDualModel(nn.Module):
         if fusao not in ("glu", "soma"):
             raise ValueError(f"fusao invalida: {fusao!r} (use 'glu' ou 'soma')")
         self.fusao = fusao
+        if decomp not in ("linear", "stl_simple"):
+            raise ValueError(
+                f"decomp invalida: {decomp!r} (use 'linear' ou 'stl_simple')"
+            )
+        self.decomp = decomp
+        # MA-k25 Autoformer-style (sem parametros); usada so em stl_simple
+        self._media_movel = _MediaMovel(kernel=25)
 
         # ---- GPT-2 (100% congelado, fp32 + sdpa) ----
         gpt2_dir = Path(gpt2_dir or caminhos.ROOT_DIR / "gpt2")
@@ -315,6 +330,21 @@ class AutoTimesDualModel(nn.Module):
         # dtype do backbone congelado, cacheado (evita next(parameters()) por forward)
         self._gpt2_dtype: torch.dtype = next(self.gpt2.parameters()).dtype
 
+    def _decompor(self, sinal: Tensor) -> Tuple[Tensor, Tensor]:
+        """Decompoem sinal (N, L) em (trend, osc), ambos destacados do grafo.
+
+        decomp='linear': regressao linear global por janela.
+        decomp='stl_simple': media movel convolucional k=25, padding
+            replicado (Autoformer-style); osc = x - trend.
+        """
+        if self.decomp == "stl_simple":
+            trend = self._media_movel(sinal).squeeze(-1)          # (N,L)
+        else:
+            trend = _extrair_tendencia(sinal.unsqueeze(-1)).squeeze(-1)
+        osc = sinal - trend
+        # Decomposicao parameter-free: grafo desnecessario a jusante
+        return trend.detach(), osc.detach()
+
     def forward(
         self,
         x_enc: Optional[Tensor] = None,
@@ -328,11 +358,7 @@ class AutoTimesDualModel(nn.Module):
         x_norm = self.revin.normalize(x_enc)
         flat = x_norm.permute(0, 2, 1).reshape(b * v, l)
 
-        trend = _extrair_tendencia(flat.unsqueeze(-1)).squeeze(-1)  # (N, L)
-        osc = flat - trend
-        # Decomposicao parameter-free: grafo desnecessario a jusante
-        trend = trend.detach()
-        osc = osc.detach()
+        trend, osc = self._decompor(flat)                           # (N,L)x2
 
         if self.use_overlap:
             trend_tokens = self.trend_embedding(trend)
@@ -389,12 +415,8 @@ class AutoTimesDualModel(nn.Module):
         x_norm = self.revin.normalize(x_enc)                     # (B,L,1)
         flat = x_norm.permute(0, 2, 1).reshape(b, self.seq_len) # (B,L)
 
-        # Decomposicao
-        trend = _extrair_tendencia(x_norm).squeeze(-1)           # (B,L)
-        osc = flat - trend                                       # (B,L)
-        # Decomposicao parameter-free: grafo desnecessario a jusante
-        trend = trend.detach()
-        osc = osc.detach()
+        # Decomposicao (linear ou stl_simple, ver _decompor)
+        trend, osc = self._decompor(flat)                        # (B,L)x2
 
         # Dual embeddings
         if self.use_overlap:
@@ -544,6 +566,7 @@ def montar_modelo_dual(
     gpt2_dir: Optional[Path] = None,
     block_max: int = 128,
     fusao: str = "glu",
+    decomp: str = "linear",
 ) -> Tuple[torch.nn.Module, Dict]:
     """Reconstroi o AutoTimesDualModel a partir do checkpoint de ablacao.
 
@@ -589,6 +612,7 @@ def montar_modelo_dual(
         textual=True,
         block_max=block_max,
         fusao=fusao,
+        decomp=decomp,
     ).to(device)
 
     # Carrega pesos do checkpoint (ignora chaves novas = dual embeddings)
@@ -629,6 +653,6 @@ def montar_modelo_dual(
         "gpt2_backbone_congelado": bool(gpt2_ok),
         "missing_keys": sorted(missing),
         "unexpected_keys": sorted(unexpected),
-        "arquitetura": f"AutoTimesDualModel (trend+osc, fusao={fusao})",
+        "arquitetura": f"AutoTimesDualModel (fusao={fusao}, decomp={decomp})",
     }
     return model, info

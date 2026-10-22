@@ -99,6 +99,9 @@ $UseCosine = $true
 $EarlyStop = $true
 $Patience = 3
 
+# Log por batch (CSV com loss/grad_norm/status por batch); menu pergunta
+$LogBatches = $false
+
 # Backbone: GPT-2 base REAL (transformers) do diretorio local do projeto
 $Gpt2Dir = Join-Path $ProjectRoot "gpt2"
 
@@ -186,6 +189,7 @@ function Invoke-Bench {
     }
     Write-Host "  LR base/llm/new : $LRBase / $LRLLm / $LRNew   WD=$WeightDecay"
     Write-Host "  AMP=$UseAmp  Cosine=$UseCosine (tmax=$TMax)  T0=$T0  TMult=$TMult  Beta=$Beta"
+    Write-Host "  Log por batch (CSV): $(if ($script:LogBatches) { 'SIM' } else { 'NAO' })"
     Write-Host "=======================================================" -ForegroundColor Cyan
 
     $benchArgs = @(
@@ -217,6 +221,7 @@ function Invoke-Bench {
         $benchArgs += @("--textual", "--text-step", $TextStep, "--block-max", $BlockMax)
     }
     if ($UseAmp) { $benchArgs += "--use-amp" }
+    if ($script:LogBatches) { $benchArgs += "--log-batches" }
     if ($UseCosine) { $benchArgs += @("--cosine", "--tmax", $TMax) }
     if ($EarlyStop) {
         $benchArgs += @("--early_stopping", "--patience", $Patience)
@@ -297,12 +302,17 @@ function Invoke-Menu {
     # 5) AMP / mixed precision (igual bateria modo Otimizada)
     $ampRaw = Ask-Default "Usar AMP / mixed precision? [S/N]" "S" "S padrao (bateria Otimizada)"
 
+    # 5b) Log por batch (CSV com loss/grad_norm/status por batch)
+    $lbDefault = $(if ($script:LogBatches) { "S" } else { "N" })
+    $lbRaw = Ask-Default "Gravar log por batch (CSV)? [S/N]" $lbDefault "S grava log/batches_<sessao>.csv"
+
     # Conversao com fallback para os defaults (entradas invalidas nao quebram)
     $tmp = 0
     if ([int]::TryParse($b, [ref]$tmp))  { $script:BatchSize   = $tmp } else { $script:BatchSize = 256 }
     if ([int]::TryParse($s, [ref]$tmp))  { $script:WindowStride = $tmp } else { $script:WindowStride = 1 }
     if ([int]::TryParse($e, [ref]$tmp))  { $script:Epochs       = $tmp } else { $script:Epochs = 10 }
     if ([int]::TryParse($pa, [ref]$tmp)) { $script:Patience     = $tmp } else { $script:Patience = 3 }
+    $script:LogBatches = ($lbRaw -match "^(s|S)")
     $script:EarlyStop = $esOn
     $script:UseAmp = ($ampRaw -match "^(s|S)")
 
@@ -320,8 +330,8 @@ function Invoke-Menu {
     if ($c -match "\S") { $script:Combos = @($c -split "," | ForEach-Object { $_.Trim() } | Where-Object { $_ }) }
 
     Write-Host ""
-    Write-Host ("  Resumo -> batch={0}  stride={1}  epocas={2}  early_stop={3}  patience={4}  amp={5}" -f `
-        $script:BatchSize, $script:WindowStride, $script:Epochs, $(if ($script:EarlyStop) { "SIM" } else { "NAO" }), $script:Patience, $(if ($script:UseAmp) { "SIM" } else { "NAO" })) -ForegroundColor Green
+    Write-Host ("  Resumo -> batch={0}  stride={1}  epocas={2}  early_stop={3}  patience={4}  amp={5}  log_batches={6}" -f `
+        $script:BatchSize, $script:WindowStride, $script:Epochs, $(if ($script:EarlyStop) { "SIM" } else { "NAO" }), $script:Patience, $(if ($script:UseAmp) { "SIM" } else { "NAO" }), $(if ($script:LogBatches) { "SIM" } else { "NAO" })) -ForegroundColor Green
     Write-Host ("            dataset={0}  representacao={1}  combos={2}" -f $script:DataPath, $(if ($script:TextoPuro) {"TEXTO PURO"} else {"NUMERICO (normal)"}), ($script:Combos -join ",")) -ForegroundColor Green
     Write-Host ""
     $go = Read-Host "  Rodar agora? [R]odar / [X]ancelar"

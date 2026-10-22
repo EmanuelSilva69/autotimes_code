@@ -1,0 +1,30 @@
+[tokenizer] carregado de: E:\2026.1\Viplab\AutoTimes\gpt2 (vocab=50,257)
+
+====================================================================================================
+POOL Z-SCORE CANONICO (Channel Independence, 7 features: [0, 1, 2, 3, 4, 5, 6])
+borders de linhas: train [0,8640) | val [7968,11520) | test [10848,14400) (b1s=(0, 7968, 10848) b2s=(8640, 11520, 14400))
+====================================================================================================
+[cache] pool z-score carregado: E:\2026.1\Viplab\AutoTimes\testes_letras\quinta_noite\cache_trio\pool_z_v2_linhas14400_featsall.npz
+[pool] janelas z-score: train=55111 val=19495 test=19495 (total=94101)
+[zscore] StandardScaler ajustado nas linhas [0, 8640) (todas as colunas, por coluna)
+[decode] OFF (padrao): o modelo ja devolve a reconstrucao na escala de entrada (z-score, RevIN interno denormaliza). --decode deslocaria as metricas para fora do espaco z.
+
+====================================================================================================
+MODELO 1 - BASELINE NUMERICO (Run-8 VolLoss + SMETimes)
+====================================================================================================
+[numerico] carregado do log: test_mse=0.3539 | test_mae=0.3919 | n_janelas_test=19495
+
+====================================================================================================
+TEXTOS - PSEUDO-JSON ES (documento fixo do treino) e CHAR-BY-CHAR (documento por janela)
+====================================================================================================
+
+====================================================================================================
+MSTL - PERIODOS CUSTOM (--mstl-periods)
+====================================================================================================
+  CSV: E:\2026.1\Viplab\AutoTimes\dataset\ETT-small\ETTh1.csv
+  Timestep: 60 minutos (1.0 passos/hora)
+  Periodos: (12, 24)
+  Desc: MSTL( periods=(12, 24) ) -> T + S + R
+  Window: 672 pontos | todos cabem: True
+====================================================================================================
+  [pseudo-json mstl+ceemdan] periodos=(12, 24)

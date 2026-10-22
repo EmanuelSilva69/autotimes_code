@@ -1,0 +1,411 @@
+{
+  "timestamp": "2026-09-15 16:56:23",
+  "protocolo": "apples_to_apples_trio",
+  "escala": "zscore",
+  "config": {
+    "variante_arquitetura": "original",
+    "dual_fusao": null,
+    "decomp_mode": "none",
+    "texto_decomp": "none",
+    "mstl_info": null,
+    "feats": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "n_features": 7,
+    "splits_linhas": {
+      "train": [
+        0,
+        8640
+      ],
+      "val": [
+        7968,
+        11520
+      ],
+      "test": [
+        10848,
+        14400
+      ]
+    },
+    "janelas_por_split": {
+      "train": 55111,
+      "val": 19495,
+      "test": 19495
+    },
+    "scaler_fit": "[0, 8640) todas as colunas",
+    "scaler_mean_por_feat": [
+      7.937742,
+      2.021039,
+      5.079771,
+      0.746186,
+      2.781762,
+      0.788453,
+      17.128262
+    ],
+    "scaler_std_por_feat": [
+      5.812749,
+      2.090105,
+      5.518794,
+      1.926379,
+      1.023523,
+      0.630237,
+      9.176491
+    ],
+    "seeds": [
+      2021,
+      42,
+      1234
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-8_VolLoss+SMETimes__ETTh1__20260809_131904.pt",
+    "checkpoint_dir": "E:\\2026.1\\Viplab\\AutoTimes\\testes_letras\\quinta_noite\\checkpoints",
+    "restore_best": true,
+    "decode_aplicado": false,
+    "amp": false,
+    "linhas_csv": 14400
+  },
+  "modelos": {
+    "numerico": {
+      "fonte": "log_numerico_base_stats.json",
+      "test_mse_media": 0.353926,
+      "test_mse_desvio": 0.0,
+      "test_mae_media": 0.39191,
+      "test_mae_desvio": 0.0,
+      "n_janelas_test": 19495,
+      "referencia_artigo": 0.3539
+    },
+    "pseudo_json_es": {
+      "test_mse_media": 0.404,
+      "test_mse_desvio": 0.0156,
+      "test_mae_media": 0.4286,
+      "test_mae_desvio": 0.011,
+      "melhor_val_mse_media": 0.8188,
+      "melhor_val_mse_desvio": 0.0255,
+      "melhor_epoca_media": 3.33,
+      "estouros_total": 0,
+      "val_mse_media": [
+        0.835554,
+        0.840781,
+        0.882893,
+        0.877441,
+        0.856604,
+        0.869047,
+        0.872147,
+        0.870886,
+        0.860196,
+        0.862384
+      ],
+      "val_mse_desvio": [
+        0.032036,
+        0.02502,
+        0.036772,
+        0.042037,
+        0.032781,
+        0.036044,
+        0.031069,
+        0.034226,
+        0.023893,
+        0.027097
+      ],
+      "test_mse_media_por_epoca": [
+        0.4317,
+        0.410933,
+        0.414848,
+        0.427534,
+        0.409703,
+        0.416742,
+        0.414676,
+        0.413495,
+        0.406845,
+        0.407461
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.023548,
+        0.033002,
+        0.009906,
+        0.028109,
+        0.0032,
+        0.003626,
+        0.005102,
+        0.003162,
+        0.001649,
+        0.001999
+      ],
+      "por_seed": {
+        "2021": {
+          "test_mse": 0.41569,
+          "test_mae": 0.437506,
+          "melhor_val_mse": 0.790591,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "checkpoint": "model__20260915_134045_seed2021.pt",
+          "val_mse_por_epoca": [
+            0.790591,
+            0.835005,
+            0.832028,
+            0.824419,
+            0.811154,
+            0.834997,
+            0.848079,
+            0.827079,
+            0.830909,
+            0.832361
+          ],
+          "test_mse_por_epoca": [
+            0.41569,
+            0.393811,
+            0.406108,
+            0.393943,
+            0.412966,
+            0.421779,
+            0.421039,
+            0.416776,
+            0.406243,
+            0.409196
+          ]
+        },
+        "42": {
+          "test_mse": 0.414441,
+          "test_mae": 0.435065,
+          "melhor_val_mse": 0.852346,
+          "melhor_epoca": 7,
+          "estouros": 0,
+          "checkpoint": "model__20260915_134045_seed42.pt",
+          "val_mse_por_epoca": [
+            0.862854,
+            0.8739,
+            0.9177,
+            0.88067,
+            0.871418,
+            0.853221,
+            0.852346,
+            0.874962,
+            0.860244,
+            0.856771
+          ],
+          "test_mse_por_epoca": [
+            0.464994,
+            0.457095,
+            0.409737,
+            0.46274,
+            0.405357,
+            0.415055,
+            0.414441,
+            0.409224,
+            0.409098,
+            0.408527
+          ]
+        },
+        "1234": {
+          "test_mse": 0.381895,
+          "test_mae": 0.41309,
+          "melhor_val_mse": 0.813437,
+          "melhor_epoca": 2,
+          "estouros": 0,
+          "checkpoint": "model__20260915_134045_seed1234.pt",
+          "val_mse_por_epoca": [
+            0.853216,
+            0.813437,
+            0.898952,
+            0.927235,
+            0.88724,
+            0.918923,
+            0.916017,
+            0.910618,
+            0.889434,
+            0.898018
+          ],
+          "test_mse_por_epoca": [
+            0.414417,
+            0.381895,
+            0.428699,
+            0.425918,
+            0.410787,
+            0.413393,
+            0.408548,
+            0.414484,
+            0.405195,
+            0.40466
+          ]
+        }
+      },
+      "template": "pseudo_json_es",
+      "estrategia": "janela",
+      "tokens_originais": 215702,
+      "tokens_retidos": 253284,
+      "paginas": 1979,
+      "paginas_descartadas": 1972
+    },
+    "char_by_char": {
+      "test_mse_media": 0.4006,
+      "test_mse_desvio": 0.017,
+      "test_mae_media": 0.4275,
+      "test_mae_desvio": 0.0102,
+      "melhor_val_mse_media": 0.8105,
+      "melhor_val_mse_desvio": 0.017,
+      "melhor_epoca_media": 2.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        0.83855,
+        0.810516,
+        0.883776,
+        0.900954,
+        0.87962,
+        0.88081,
+        0.883039,
+        0.874053,
+        0.872904,
+        0.872422
+      ],
+      "val_mse_desvio": [
+        0.016019,
+        0.017038,
+        0.039178,
+        0.053433,
+        0.053495,
+        0.045027,
+        0.037003,
+        0.036175,
+        0.04204,
+        0.041336
+      ],
+      "test_mse_media_por_epoca": [
+        0.443856,
+        0.400611,
+        0.431976,
+        0.442603,
+        0.422511,
+        0.441246,
+        0.435466,
+        0.43076,
+        0.431336,
+        0.43018
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.023417,
+        0.017028,
+        0.007441,
+        0.020646,
+        0.013508,
+        0.003548,
+        0.003688,
+        0.014902,
+        0.013977,
+        0.009313
+      ],
+      "por_seed": {
+        "2021": {
+          "test_mse": 0.399884,
+          "test_mae": 0.425864,
+          "melhor_val_mse": 0.796534,
+          "melhor_epoca": 2,
+          "estouros": 0,
+          "checkpoint": "model__20260915_151827_seed2021.pt",
+          "val_mse_por_epoca": [
+            0.819874,
+            0.796534,
+            0.860775,
+            0.869267,
+            0.815944,
+            0.85591,
+            0.866524,
+            0.840557,
+            0.833423,
+            0.836656
+          ],
+          "test_mse_por_epoca": [
+            0.440693,
+            0.399884,
+            0.430046,
+            0.413624,
+            0.423527,
+            0.44494,
+            0.433213,
+            0.424084,
+            0.415995,
+            0.425325
+          ]
+        },
+        "42": {
+          "test_mse": 0.42182,
+          "test_mae": 0.440822,
+          "melhor_val_mse": 0.800511,
+          "melhor_epoca": 2,
+          "estouros": 0,
+          "checkpoint": "model__20260915_151827_seed42.pt",
+          "val_mse_por_epoca": [
+            0.858992,
+            0.800511,
+            0.851624,
+            0.857387,
+            0.876079,
+            0.842505,
+            0.848293,
+            0.857312,
+            0.854148,
+            0.850261
+          ],
+          "test_mse_por_epoca": [
+            0.473987,
+            0.42182,
+            0.4419,
+            0.460179,
+            0.405484,
+            0.436458,
+            0.432519,
+            0.416786,
+            0.428211,
+            0.422005
+          ]
+        },
+        "1234": {
+          "test_mse": 0.380129,
+          "test_mae": 0.415884,
+          "melhor_val_mse": 0.834501,
+          "melhor_epoca": 2,
+          "estouros": 0,
+          "checkpoint": "model__20260915_151827_seed1234.pt",
+          "val_mse_por_epoca": [
+            0.836783,
+            0.834501,
+            0.93893,
+            0.976208,
+            0.946837,
+            0.944017,
+            0.934299,
+            0.92429,
+            0.93114,
+            0.930349
+          ],
+          "test_mse_por_epoca": [
+            0.41689,
+            0.380129,
+            0.423983,
+            0.454006,
+            0.438524,
+            0.442341,
+            0.440666,
+            0.451409,
+            0.449802,
+            0.443211
+          ]
+        }
+      },
+      "max_abs_media": null,
+      "max_abs_desvio": null,
+      "paginas_media": null,
+      "paginas_descartadas_media": null,
+      "decode_aplicado": false
+    }
+  }
+}

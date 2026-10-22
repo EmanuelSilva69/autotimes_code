@@ -1,0 +1,35 @@
+{
+  "success": true,
+  "checks": {
+    "loss_reasonable": true,
+    "gradient_finite": true,
+    "gradient_norm_healthy": true
+  },
+  "results": {
+    "epoch_losses": [
+      {
+        "epoch": 1,
+        "train": 0.4066693644921894,
+        "val": 0.32206112059586606,
+        "test": 0.4281504600613597
+      },
+      {
+        "epoch": 2,
+        "train": 0.3764886171231875,
+        "val": 0.3338464312316776,
+        "test": 0.4425706134905945
+      },
+      {
+        "epoch": 3,
+        "train": 0.3655416743929768,
+        "val": 0.3210392667250271,
+        "test": 0.4272896731175372
+      }
+    ],
+    "has_nan": false,
+    "has_inf": false,
+    "max_grad_norm": 6.976571083068848,
+    "final_train_loss": 0.3655416743929768,
+    "final_val_loss": 0.3210392667250271
+  }
+}
