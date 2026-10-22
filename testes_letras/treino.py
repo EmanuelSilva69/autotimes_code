@@ -189,6 +189,8 @@ def rodar_convergencia(
     restore_best: bool = False,
     decode_fn: Optional[Callable] = None,
     pred_len: int = 96,
+    unfreeze_encoder_epoch: int = 0,
+    lr_unfreeze: float = 1e-5,
 ) -> Dict:
     """Mini-loop de convergencia para um (checkpoint, template).
 
@@ -237,6 +239,25 @@ def rodar_convergencia(
     n_batches = max(len(train_loader), 1)
 
     for ep in range(1, epochs + 1):
+        # ---- Two-phase: descongela encoder na epoca definida -----------
+        if unfreeze_encoder_epoch > 0 and ep == unfreeze_encoder_epoch:
+            n_unfrozen = 0
+            for p in model.encoder.parameters():
+                if not p.requires_grad:
+                    p.requires_grad = True
+                    n_unfrozen += 1
+            if n_unfrozen > 0:
+                # Reconstrui otimizador com NOVOS parametros (encoder + existentes)
+                params = [p for p in model.parameters() if p.requires_grad]
+                optimizer = torch.optim.Adam(params, lr=lr_unfreeze, weight_decay=0.0)
+                scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+                    optimizer, T_max=max(epochs - ep + 1, 1), eta_min=1e-8
+                )
+                trainable_keys.update({k for k, p in model.named_parameters() if p.requires_grad})
+                n_opt = sum(p.numel() for p in params)
+                print(f"  [two-phase] epoca {ep}: encoder descongelado! "
+                      f"Novo optimizer com {n_opt / 1e6:.3f}M params (lr={lr_unfreeze})")
+
         t0 = time.perf_counter()
         tl, tempos, estouros = treinar_epoca(
             model, train_loader, optimizer, criterion, scaler, device, amp_on,

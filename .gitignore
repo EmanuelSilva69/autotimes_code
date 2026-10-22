@@ -167,5 +167,15 @@ dmypy.json
 __pycache__/
 *.pth
 
+# Estado de execucao (Self-Refine: memoria episodica - reprodutivel, nao e resultado)
+/.runtime/
+
+# Ferramenta interna do harness (config local)
+/.opencode/
+
+# Acervo de PDFs do arXiv (redistribuicao nao permitida; regeneravel via
+# pesquisas/baixararquivo.py -- o manifesto CSV versiona o catalogo)
+pesquisas/acervo_arxiv_autotimes_2026/**/*.pdf
+
 # Caches de treino regeneraveis (apples-to-apples)
 *.npz

@@ -1,0 +1,208 @@
+{
+  "timestamp": "2026-10-15 00:47:15",
+  "protocolo": "apples_to_apples_trio",
+  "escala": "zscore",
+  "config": {
+    "variante_arquitetura": "original",
+    "dual_fusao": null,
+    "decomp_mode": "none",
+    "texto_decomp": "vmd",
+    "vmd": {
+      "usado": {
+        "k": 7,
+        "alpha": 2000.0,
+        "tau": 0.0,
+        "tol": 1e-07,
+        "init": 0,
+        "trend_ma": "auto~L/7"
+      },
+      "padrao": {
+        "k": 7,
+        "alpha": 2000.0,
+        "tau": 0.0,
+        "tol": 1e-07,
+        "init": 0,
+        "trend_ma": "auto~L/7"
+      },
+      "fora_do_padrao": [],
+      "screen": {
+        "k": "S%: K=7 97.9 (154 ms/janela, padrao) | K=8 97.9 (246) | K=10 98.0 (328) | K=12 98.7 (405) | K=5 96.0 (rodada antiga, PJ 0.3615) | K=3 fraco; CEEMDAN=97.6",
+        "alpha": "com init=0 (padrao) 1000..5000 tudo bom (2000=97.87, 3000=97.88, 5000=98.75); <=500 piora (S%=95.3, T%=3.3, R%=1.4); com init=1 alpha>=3000 COLAPSA (S%=87+-25)"
+      }
+    },
+    "mstl_info": null,
+    "feats": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "n_features": 7,
+    "splits_linhas": {
+      "train": [
+        0,
+        8640
+      ],
+      "val": [
+        7968,
+        11520
+      ],
+      "test": [
+        10848,
+        14400
+      ]
+    },
+    "janelas_por_split": {
+      "train": 55111,
+      "val": 19495,
+      "test": 19495
+    },
+    "scaler_fit": "[0, 8640) todas as colunas",
+    "scaler_mean_por_feat": [
+      7.937742,
+      2.021039,
+      5.079771,
+      0.746186,
+      2.781762,
+      0.788453,
+      17.128262
+    ],
+    "scaler_std_por_feat": [
+      5.812749,
+      2.090105,
+      5.518794,
+      1.926379,
+      1.023523,
+      0.630237,
+      9.176491
+    ],
+    "seeds": [
+      2021
+    ],
+    "epochs": 10,
+    "batch_size": 16,
+    "lr": 0.001,
+    "block_max": 128,
+    "n_paginas_max": 7,
+    "overlap": 0.15,
+    "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-8_VolLoss+SMETimes__ETTh1__20260809_131904.pt",
+    "checkpoint_dir": "E:\\2026.1\\Viplab\\AutoTimes\\testes_letras\\quinta_noite\\checkpoints",
+    "restore_best": true,
+    "decode_aplicado": false,
+    "amp": false,
+    "linhas_csv": 14400,
+    "so_modelo": "pj"
+  },
+  "modelos": {
+    "numerico": {
+      "fonte": "log_numerico_base_stats.json",
+      "test_mse_media": 0.353926,
+      "test_mse_desvio": 0.0,
+      "test_mae_media": 0.39191,
+      "test_mae_desvio": 0.0,
+      "n_janelas_test": 19495,
+      "referencia_artigo": 0.3539
+    },
+    "pseudo_json_es": {
+      "test_mse_media": 0.3569,
+      "test_mse_desvio": 0.0,
+      "test_mae_media": 0.3985,
+      "test_mae_desvio": 0.0,
+      "melhor_val_mse_media": 0.765,
+      "melhor_val_mse_desvio": 0.0,
+      "melhor_epoca_media": 1.0,
+      "estouros_total": 0,
+      "val_mse_media": [
+        0.764958,
+        0.835623,
+        0.863621,
+        0.832668,
+        0.864923,
+        0.878271,
+        0.87979,
+        0.879146,
+        0.875471,
+        0.884338
+      ],
+      "val_mse_desvio": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "test_mse_media_por_epoca": [
+        0.356939,
+        0.367739,
+        0.372911,
+        0.369594,
+        0.380304,
+        0.380808,
+        0.389021,
+        0.387217,
+        0.387567,
+        0.391011
+      ],
+      "test_mse_desvio_por_epoca": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "por_seed": {
+        "2021": {
+          "test_mse": 0.356939,
+          "test_mae": 0.398518,
+          "melhor_val_mse": 0.764958,
+          "melhor_epoca": 1,
+          "estouros": 0,
+          "checkpoint": "model_txt_vmd_txtdnenhuma_pj_20261015_001631_seed2021.pt",
+          "val_mse_por_epoca": [
+            0.764958,
+            0.835623,
+            0.863621,
+            0.832668,
+            0.864923,
+            0.878271,
+            0.87979,
+            0.879146,
+            0.875471,
+            0.884338
+          ],
+          "test_mse_por_epoca": [
+            0.356939,
+            0.367739,
+            0.372911,
+            0.369594,
+            0.380304,
+            0.380808,
+            0.389021,
+            0.387217,
+            0.387567,
+            0.391011
+          ]
+        }
+      },
+      "template": "pseudo_json_es",
+      "estrategia": "janela",
+      "tokens_originais": 141411,
+      "tokens_retidos": 166054,
+      "paginas": 1298,
+      "paginas_descartadas": 1291
+    }
+  }
+}

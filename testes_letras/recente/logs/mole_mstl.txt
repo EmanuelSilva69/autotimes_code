@@ -1,0 +1,187 @@
+[tokenizer] carregado de: E:\2026.1\Viplab\AutoTimes\gpt2 (vocab=50,257)
+
+====================================================================================================
+POOL Z-SCORE CANONICO (Channel Independence, 7 features: [0, 1, 2, 3, 4, 5, 6])
+borders de linhas: train [0,8640) | val [7968,11520) | test [10848,14400) (b1s=(0, 7968, 10848) b2s=(8640, 11520, 14400))
+====================================================================================================
+[cache] pool z-score carregado: E:\2026.1\Viplab\AutoTimes\testes_letras\quinta_noite\cache_trio\pool_z_v2_linhas14400_featsall.npz
+[pool] janelas z-score: train=55111 val=19495 test=19495 (total=94101)
+[zscore] StandardScaler ajustado nas linhas [0, 8640) (todas as colunas, por coluna)
+[decode] OFF (padrao): o modelo ja devolve a reconstrucao na escala de entrada (z-score, RevIN interno denormaliza). --decode deslocaria as metricas para fora do espaco z.
+
+====================================================================================================
+MODELO 1 - BASELINE NUMERICO (Run-8 VolLoss + SMETimes)
+====================================================================================================
+[numerico] carregado do log: test_mse=0.3539 | test_mae=0.3919 | n_janelas_test=19495
+
+====================================================================================================
+TEXTOS - PSEUDO-JSON ES (documento fixo do treino) e CHAR-BY-CHAR (documento por janela)
+====================================================================================================
+
+====================================================================================================
+MSTL - PERIODOS CUSTOM (--mstl-periods)
+====================================================================================================
+  CSV: E:\2026.1\Viplab\AutoTimes\dataset\ETT-small\ETTh1.csv
+  Timestep: 60 minutos (1.0 passos/hora)
+  Periodos: (12, 24)
+  Desc: MSTL( periods=(12, 24) ) -> T + S + R
+  Window: 672 pontos | todos cabem: True
+====================================================================================================
+[cache] pseudo-json ids/lens (por feature): E:\2026.1\Viplab\AutoTimes\testes_letras\quinta_noite\cache_trio\pseudo_json_63691488bba7.npz
+[pseudo-json MSTL] doc do treino: 254,590 tokens originais -> 298,955 retidos | 2336 paginas
+[mstl] periodos detectados: diario=12 (60min/timestep), semanal=24 | tupla=(12, 24)
+[cache] char-by-char tensores: E:\2026.1\Viplab\AutoTimes\testes_letras\quinta_noite\cache_trio\char_by_char_2cc9e7c2f576.npz
+
+====================================================================================================
+BATERIA TEXTUAL - 10 EPOCAS x 3 SEEDS (isolamento estrito, restore_best por validacao)
+  [variante] AutoTimesModel original + texto MSTL (Tendencia/Sazonalidade/Residuos, periodos dinamicos) + MoLE Residual Adapter (MLP frozen, order=2, alpha=0.1)
+====================================================================================================
+
+--- Pseudo-JSON ES ---
+  [debug] load_state_dict concluido
+  [debug] freeze concluido
+  [mole-residual] MLP congelado + adapter | 370,723 params total (149,186 adapter + 1 alpha)
+  [debug] model.eval() concluido
+  [model] Parametros Treinaveis: 2.517 milhoes | Parametros Congelados: 124.884 milhoes (1.98% treinaveis)
+  [model] backbone GPT-2 100%% congelado: True
+  [mount seed=2021] treinaveis=2,516,931
+  [otimizador] Adam recebe APENAS treinaveis: 17 tensores (2.517M de 127.400M)
+    [ep 1/10] train=0.366143 | val_mse_pred=0.778347 val_mae_pred=0.591233 | test_mse_pred=0.367188 | 226.0s (48.21 ms/batch)
+    [ep 2/10] train=0.318280 | val_mse_pred=0.814249 val_mae_pred=0.608440 | test_mse_pred=0.373207 | 222.3s (47.34 ms/batch)
+    [ep 3/10] train=0.298429 | val_mse_pred=0.825938 val_mae_pred=0.619625 | test_mse_pred=0.381768 | 223.2s (47.51 ms/batch)
+    [ep 4/10] train=0.282029 | val_mse_pred=0.856546 val_mae_pred=0.629353 | test_mse_pred=0.393490 | 221.8s (47.23 ms/batch)
+    [ep 5/10] train=0.268640 | val_mse_pred=0.882815 val_mae_pred=0.641285 | test_mse_pred=0.410424 | 221.8s (47.14 ms/batch)
+    [ep 6/10] train=0.257442 | val_mse_pred=0.863695 val_mae_pred=0.630844 | test_mse_pred=0.401442 | 221.3s (47.03 ms/batch)
+    [ep 7/10] train=0.247564 | val_mse_pred=0.874639 val_mae_pred=0.637362 | test_mse_pred=0.425144 | 220.0s (46.8 ms/batch)
+    [ep 8/10] train=0.238614 | val_mse_pred=0.870938 val_mae_pred=0.637304 | test_mse_pred=0.418468 | 224.0s (47.58 ms/batch)
+    [ep 9/10] train=0.232660 | val_mse_pred=0.877884 val_mae_pred=0.640161 | test_mse_pred=0.422270 | 223.4s (47.47 ms/batch)
+    [ep 10/10] train=0.229667 | val_mse_pred=0.876427 val_mae_pred=0.640797 | test_mse_pred=0.427585 | 221.8s (47.12 ms/batch)
+    [restore_best] estado da epoca 1 restaurado -> test_mse_pred=0.367188 test_mae_pred=0.404495
+    [checkpoint] salvo: model_txt_mstl_20260917_191040_seed2021.pt
+    [seed=2021] test_mse=0.3672 | test_mae=0.4045 | best_val=0.7783 (ep 1) | estouros=0 | 2256.6s
+  [debug] load_state_dict concluido
+  [debug] freeze concluido
+  [mole-residual] MLP congelado + adapter | 370,723 params total (149,186 adapter + 1 alpha)
+  [debug] model.eval() concluido
+  [model] Parametros Treinaveis: 2.517 milhoes | Parametros Congelados: 124.884 milhoes (1.98% treinaveis)
+  [model] backbone GPT-2 100%% congelado: True
+  [mount seed=42] treinaveis=2,516,931
+  [otimizador] Adam recebe APENAS treinaveis: 17 tensores (2.517M de 127.400M)
+    [ep 1/10] train=0.369447 | val_mse_pred=0.864189 val_mae_pred=0.630385 | test_mse_pred=0.386087 | 222.4s (47.31 ms/batch)
+    [ep 2/10] train=0.326383 | val_mse_pred=0.853189 val_mae_pred=0.627665 | test_mse_pred=0.398892 | 221.1s (47.03 ms/batch)
+    [ep 3/10] train=0.305501 | val_mse_pred=0.878318 val_mae_pred=0.633175 | test_mse_pred=0.412548 | 222.5s (47.31 ms/batch)
+    [ep 4/10] train=0.289585 | val_mse_pred=0.875417 val_mae_pred=0.638087 | test_mse_pred=0.429103 | 220.8s (46.98 ms/batch)
+    [ep 5/10] train=0.275625 | val_mse_pred=0.892502 val_mae_pred=0.649140 | test_mse_pred=0.434197 | 222.0s (47.34 ms/batch)
+    [ep 6/10] train=0.264071 | val_mse_pred=0.927708 val_mae_pred=0.658114 | test_mse_pred=0.442681 | 221.9s (47.34 ms/batch)
+    [ep 7/10] train=0.254488 | val_mse_pred=0.927519 val_mae_pred=0.659177 | test_mse_pred=0.429696 | 221.0s (46.91 ms/batch)
+    [ep 8/10] train=0.246966 | val_mse_pred=0.940064 val_mae_pred=0.665305 | test_mse_pred=0.443246 | 221.1s (47.09 ms/batch)
+    [ep 9/10] train=0.241200 | val_mse_pred=0.952259 val_mae_pred=0.667839 | test_mse_pred=0.453255 | 219.2s (46.6 ms/batch)
+    [ep 10/10] train=0.238299 | val_mse_pred=0.949538 val_mae_pred=0.667965 | test_mse_pred=0.450142 | 220.5s (46.84 ms/batch)
+    [restore_best] estado da epoca 2 restaurado -> test_mse_pred=0.398892 test_mae_pred=0.425618
+    [checkpoint] salvo: model_txt_mstl_20260917_191040_seed42.pt
+    [seed=42] test_mse=0.3989 | test_mae=0.4256 | best_val=0.8532 (ep 2) | estouros=0 | 2242.7s
+  [debug] load_state_dict concluido
+  [debug] freeze concluido
+  [mole-residual] MLP congelado + adapter | 370,723 params total (149,186 adapter + 1 alpha)
+  [debug] model.eval() concluido
+  [model] Parametros Treinaveis: 2.517 milhoes | Parametros Congelados: 124.884 milhoes (1.98% treinaveis)
+  [model] backbone GPT-2 100%% congelado: True
+  [mount seed=1234] treinaveis=2,516,931
+  [otimizador] Adam recebe APENAS treinaveis: 17 tensores (2.517M de 127.400M)
+    [ep 1/10] train=0.365561 | val_mse_pred=0.767800 val_mae_pred=0.598324 | test_mse_pred=0.387847 | 219.6s (46.7 ms/batch)
+    [ep 2/10] train=0.319007 | val_mse_pred=0.813143 val_mae_pred=0.613754 | test_mse_pred=0.391244 | 221.1s (47.06 ms/batch)
+    [ep 3/10] train=0.298106 | val_mse_pred=0.804249 val_mae_pred=0.612977 | test_mse_pred=0.404814 | 221.0s (46.99 ms/batch)
+    [ep 4/10] train=0.281180 | val_mse_pred=0.793648 val_mae_pred=0.613482 | test_mse_pred=0.402322 | 223.8s (47.99 ms/batch)
+    [ep 5/10] train=0.267246 | val_mse_pred=0.847169 val_mae_pred=0.635843 | test_mse_pred=0.417796 | 223.1s (47.46 ms/batch)
+    [ep 6/10] train=0.255876 | val_mse_pred=0.836872 val_mae_pred=0.628582 | test_mse_pred=0.431196 | 219.9s (46.93 ms/batch)
+    [ep 7/10] train=0.245393 | val_mse_pred=0.843365 val_mae_pred=0.631156 | test_mse_pred=0.436773 | 220.7s (46.94 ms/batch)
+    [ep 8/10] train=0.237413 | val_mse_pred=0.814645 val_mae_pred=0.622570 | test_mse_pred=0.437044 | 220.3s (46.94 ms/batch)
+    [ep 9/10] train=0.231688 | val_mse_pred=0.830232 val_mae_pred=0.629340 | test_mse_pred=0.437289 | 226.5s (46.67 ms/batch)
+    [ep 10/10] train=0.228172 | val_mse_pred=0.828305 val_mae_pred=0.628310 | test_mse_pred=0.438828 | 254.2s (54.43 ms/batch)
+    [restore_best] estado da epoca 1 restaurado -> test_mse_pred=0.387847 test_mae_pred=0.414636
+    [checkpoint] salvo: model_txt_mstl_20260917_191040_seed1234.pt
+    [seed=1234] test_mse=0.3878 | test_mae=0.4146 | best_val=0.7678 (ep 1) | estouros=0 | 2283.9s
+
+--- Char-by-Char ---
+  [debug] load_state_dict concluido
+  [debug] freeze concluido
+  [mole-residual] MLP congelado + adapter | 370,723 params total (149,186 adapter + 1 alpha)
+  [debug] model.eval() concluido
+  [model] Parametros Treinaveis: 2.517 milhoes | Parametros Congelados: 124.884 milhoes (1.98% treinaveis)
+  [model] backbone GPT-2 100%% congelado: True
+  [mount seed=2021] treinaveis=2,516,931
+  [otimizador] Adam recebe APENAS treinaveis: 17 tensores (2.517M de 127.400M)
+    [ep 1/10] train=0.370026 | val_mse_pred=0.806542 val_mae_pred=0.598997 | test_mse_pred=0.378120 | 202.8s (43.65 ms/batch)
+    [ep 2/10] train=0.321014 | val_mse_pred=0.863711 val_mae_pred=0.623994 | test_mse_pred=0.380240 | 196.7s (40.55 ms/batch)
+    [ep 3/10] train=0.300325 | val_mse_pred=0.857180 val_mae_pred=0.624942 | test_mse_pred=0.401265 | 195.5s (41.56 ms/batch)
+    [ep 4/10] train=0.283994 | val_mse_pred=0.873837 val_mae_pred=0.630800 | test_mse_pred=0.391509 | 190.9s (40.17 ms/batch)
+    [ep 5/10] train=0.269661 | val_mse_pred=0.892387 val_mae_pred=0.642573 | test_mse_pred=0.420981 | 190.8s (40.17 ms/batch)
+    [ep 6/10] train=0.257431 | val_mse_pred=0.874114 val_mae_pred=0.634903 | test_mse_pred=0.417380 | 190.8s (40.22 ms/batch)
+    [ep 7/10] train=0.246579 | val_mse_pred=0.883582 val_mae_pred=0.636995 | test_mse_pred=0.439593 | 223.7s (46.48 ms/batch)
+    [ep 8/10] train=0.237806 | val_mse_pred=0.891866 val_mae_pred=0.645040 | test_mse_pred=0.431726 | 257.9s (54.41 ms/batch)
+    [ep 9/10] train=0.232154 | val_mse_pred=0.906611 val_mae_pred=0.648672 | test_mse_pred=0.441157 | 244.4s (51.98 ms/batch)
+    [ep 10/10] train=0.228711 | val_mse_pred=0.903879 val_mae_pred=0.647204 | test_mse_pred=0.443611 | 246.7s (53.38 ms/batch)
+    [restore_best] estado da epoca 1 restaurado -> test_mse_pred=0.378120 test_mae_pred=0.410761
+    [checkpoint] salvo: model_txt_mstl_20260917_210359_seed2021.pt
+    [seed=2021] test_mse=0.3781 | test_mae=0.4108 | best_val=0.8065 (ep 1) | estouros=0 | 2171.8s
+  [debug] load_state_dict concluido
+  [debug] freeze concluido
+  [mole-residual] MLP congelado + adapter | 370,723 params total (149,186 adapter + 1 alpha)
+  [debug] model.eval() concluido
+  [model] Parametros Treinaveis: 2.517 milhoes | Parametros Congelados: 124.884 milhoes (1.98% treinaveis)
+  [model] backbone GPT-2 100%% congelado: True
+  [mount seed=42] treinaveis=2,516,931
+  [otimizador] Adam recebe APENAS treinaveis: 17 tensores (2.517M de 127.400M)
+    [ep 1/10] train=0.365522 | val_mse_pred=0.816758 val_mae_pred=0.614447 | test_mse_pred=0.380412 | 257.7s (53.62 ms/batch)
+    [ep 2/10] train=0.317002 | val_mse_pred=0.788827 val_mae_pred=0.599979 | test_mse_pred=0.391629 | 255.9s (54.32 ms/batch)
+    [ep 3/10] train=0.295811 | val_mse_pred=0.857561 val_mae_pred=0.623845 | test_mse_pred=0.419389 | 249.7s (52.4 ms/batch)
+    [ep 4/10] train=0.278749 | val_mse_pred=0.831583 val_mae_pred=0.621966 | test_mse_pred=0.427424 | 260.8s (54.48 ms/batch)
+    [ep 5/10] train=0.263782 | val_mse_pred=0.891097 val_mae_pred=0.645552 | test_mse_pred=0.428568 | 259.0s (55.06 ms/batch)
+    [ep 6/10] train=0.250855 | val_mse_pred=0.902137 val_mae_pred=0.648136 | test_mse_pred=0.461983 | 258.5s (53.77 ms/batch)
+    [ep 7/10] train=0.239765 | val_mse_pred=0.863559 val_mae_pred=0.638194 | test_mse_pred=0.438924 | 253.8s (53.81 ms/batch)
+    [ep 8/10] train=0.231332 | val_mse_pred=0.891903 val_mae_pred=0.643707 | test_mse_pred=0.440665 | 263.8s (57.23 ms/batch)
+    [ep 9/10] train=0.225413 | val_mse_pred=0.887562 val_mae_pred=0.643675 | test_mse_pred=0.456597 | 267.4s (57.66 ms/batch)
+    [ep 10/10] train=0.222249 | val_mse_pred=0.880531 val_mae_pred=0.641919 | test_mse_pred=0.449810 | 244.1s (53.16 ms/batch)
+    [restore_best] estado da epoca 2 restaurado -> test_mse_pred=0.391629 test_mae_pred=0.416310
+    [checkpoint] salvo: model_txt_mstl_20260917_210359_seed42.pt
+    [seed=42] test_mse=0.3916 | test_mae=0.4163 | best_val=0.7888 (ep 2) | estouros=0 | 2601.6s
+  [debug] load_state_dict concluido
+  [debug] freeze concluido
+  [mole-residual] MLP congelado + adapter | 370,723 params total (149,186 adapter + 1 alpha)
+  [debug] model.eval() concluido
+  [model] Parametros Treinaveis: 2.517 milhoes | Parametros Congelados: 124.884 milhoes (1.98% treinaveis)
+  [model] backbone GPT-2 100%% congelado: True
+  [mount seed=1234] treinaveis=2,516,931
+  [otimizador] Adam recebe APENAS treinaveis: 17 tensores (2.517M de 127.400M)
+    [ep 1/10] train=0.366259 | val_mse_pred=0.803944 val_mae_pred=0.615992 | test_mse_pred=0.381393 | 230.0s (48.98 ms/batch)
+    [ep 2/10] train=0.316802 | val_mse_pred=0.843354 val_mae_pred=0.625962 | test_mse_pred=0.373288 | 230.8s (49.06 ms/batch)
+    [ep 3/10] train=0.295935 | val_mse_pred=0.889629 val_mae_pred=0.636600 | test_mse_pred=0.425801 | 225.5s (48.22 ms/batch)
+    [ep 4/10] train=0.278586 | val_mse_pred=0.897573 val_mae_pred=0.642640 | test_mse_pred=0.409282 | 226.3s (48.52 ms/batch)
+    [ep 5/10] train=0.264537 | val_mse_pred=0.892703 val_mae_pred=0.641664 | test_mse_pred=0.417309 | 224.9s (48.2 ms/batch)
+    [ep 6/10] train=0.252480 | val_mse_pred=0.936781 val_mae_pred=0.656532 | test_mse_pred=0.439579 | 228.2s (48.82 ms/batch)
+    [ep 7/10] train=0.242308 | val_mse_pred=0.955240 val_mae_pred=0.663431 | test_mse_pred=0.456889 | 230.4s (49.13 ms/batch)
+    [ep 8/10] train=0.233616 | val_mse_pred=0.935961 val_mae_pred=0.655767 | test_mse_pred=0.464069 | 227.7s (48.75 ms/batch)
+    [ep 9/10] train=0.227646 | val_mse_pred=0.929259 val_mae_pred=0.655807 | test_mse_pred=0.448530 | 229.5s (48.92 ms/batch)
+    [ep 10/10] train=0.224215 | val_mse_pred=0.938412 val_mae_pred=0.657497 | test_mse_pred=0.463218 | 235.4s (50.75 ms/batch)
+    [restore_best] estado da epoca 1 restaurado -> test_mse_pred=0.381393 test_mae_pred=0.412164
+    [checkpoint] salvo: model_txt_mstl_20260917_210359_seed1234.pt
+    [seed=1234] test_mse=0.3814 | test_mae=0.4122 | best_val=0.8039 (ep 1) | estouros=0 | 2318.7s
+
+====================================================================================================
+VEREDITO FINAL APPLES-TO-APPLES (z-score, 10 epocas x 3 seeds)
+====================================================================================================
+Modelo                 Test MSE       Test MAE     best_val estouros
+----------------------------------------------------------------------------------------------------
+Numerico                 0.3539         0.3919            -        -
+Pseudo-JSON ES           0.3846 ±   0.0131  0.4149 ±  0.0086       0.7998        0
+Char-by-Char             0.3837 ±   0.0058  0.4131 ±  0.0024       0.7998        0
+----------------------------------------------------------------------------------------------------
+Formato: media ± desvio padrao sobre 3 seeds (menor MSE vence).
+====================================================================================================
+[ok] JSON: E:\2026.1\Viplab\AutoTimes\testes_letras\quinta_noite\veredito_trio_txt_mstl_20260917_191031.json
+[ok] JSON copiado: E:\2026.1\Viplab\AutoTimes\testes_letras\recente\logs\veredito_trio_txt_mstl_20260917_191031.json
+[graficos] E:\2026.1\Viplab\AutoTimes\testes_letras\recente\convergencia_trio_txt_mstl_20260917_230244.png
+[graficos] E:\2026.1\Viplab\AutoTimes\testes_letras\recente\barras_veredito_trio_txt_mstl_20260917_230244.png
+[ok] grafico: E:\2026.1\Viplab\AutoTimes\testes_letras\recente\convergencia_trio_txt_mstl_20260917_230244.png
+[ok] grafico: E:\2026.1\Viplab\AutoTimes\testes_letras\recente\barras_veredito_trio_txt_mstl_20260917_230244.png
+Confronto Apples-to-Apples concluido.
