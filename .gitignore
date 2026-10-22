@@ -173,9 +173,9 @@ __pycache__/
 # Ferramenta interna do harness (config local)
 /.opencode/
 
-# Acervo de PDFs do arXiv (redistribuicao nao permitida; regeneravel via
-# pesquisas/baixararquivo.py -- o manifesto CSV versiona o catalogo)
-pesquisas/acervo_arxiv_autotimes_2026/**/*.pdf
+# Nota: os PDFs do acervo (pesquisas/acervo_arxiv_autotimes_2026/) sao
+# versionados como backup pessoal; para recriar do zero, rode
+# pesquisas/baixararquivo.py (baixa apenas o que faltar).
 
 # Caches de treino regeneraveis (apples-to-apples)
 *.npz
