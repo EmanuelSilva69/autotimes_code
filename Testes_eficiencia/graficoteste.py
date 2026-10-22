@@ -11,6 +11,15 @@ def plot_tradeoff_from_json(json_file_path):
     with open(json_file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    # Identifica o tipo de ablation (numérico ou textual) pelo meta do JSON
+    meta = data.get("meta", {})
+    textual = bool(meta.get("textual"))
+    modo = "Ablação Textual" if textual else "Ablação Numérica"
+    sufixo = "textual" if textual else "numerica"
+    ts = str(meta.get("timestamp", "")).replace("-", "").replace(":", "").strip()
+    if ts:
+        sufixo = f"{sufixo}_{ts}"
+
     runs = data.get("runs", {})
     
     names = []
@@ -36,7 +45,7 @@ def plot_tradeoff_from_json(json_file_path):
         clean_name = name.replace("_", " ")
         ax.scatter(times[i], mses[i], color=colors[i], s=140, alpha=0.9, edgecolor='k', linewidth=1.2, zorder=3, label=clean_name)
 
-    ax.set_title("Trade-off: Custo Computacional (Tempo Total) vs. Erro de Predição (Test MSE)", fontsize=13, fontweight='bold', pad=15)
+    ax.set_title(f"Trade-off: Custo Computacional (Tempo Total) vs. Erro de Predição (Test MSE) - {modo}", fontsize=13, fontweight='bold', pad=15)
     ax.set_xlabel("Tempo Total de Treinamento (segundos)", fontsize=11, fontweight='semibold')
     ax.set_ylabel("Test MSE (menor = melhor)", fontsize=11, fontweight='semibold')
     ax.grid(True, linestyle="--", alpha=0.5, zorder=1)
@@ -57,9 +66,9 @@ def plot_tradeoff_from_json(json_file_path):
 
     # bbox_inches='tight' garante que a legenda externa não seja cortada ao salvar
     plt.tight_layout()
-    plt.savefig("tradeoff_json_legend_only.png", dpi=300, bbox_inches='tight')
+    plt.savefig(f"tradeoff_{sufixo}.png", dpi=300, bbox_inches='tight')
     plt.show()
-    print("Gráfico de Trade-off limpo gerado e salvo como 'tradeoff_json_legend_only.png' com sucesso!")
+    print(f"Gráfico de Trade-off ({modo}) gerado e salvo como 'tradeoff_{sufixo}.png' com sucesso!")
 
 if __name__ == "__main__":
     # Salve o JSON fornecido em um arquivo local (ex: benchmark_results.json) e aponte o caminho aqui

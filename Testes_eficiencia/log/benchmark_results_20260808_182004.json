@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "seq_len": 672,
+    "label_len": 576,
+    "pred_len": 96,
+    "n_vars": 7,
+    "token_len": 96,
+    "d_model": 768,
+    "backbone": "gpt2-base (transformers, local: ..\\gpt2)",
+    "epochs": 1,
+    "lr_base": 0.001,
+    "lr_llm": 2e-05,
+    "lr_new": 0.001,
+    "mlp_hidden_dim": 256,
+    "mlp_hidden_layers": 2,
+    "mlp_activation": "tanh",
+    "unfreeze_layers": 0,
+    "hybrid_robust": "huber",
+    "hybrid_lambda": 0.5,
+    "hybrid_delta": 1.0,
+    "textual": true,
+    "text_step": 24,
+    "block_max": 128,
+    "use_amp": true,
+    "cosine": true,
+    "tmax": 10,
+    "device": "cuda",
+    "torch": "2.9.1+rocmsdk20260116",
+    "seed": 2021,
+    "data": "..\\dataset\\ETT-small/ETTh1.csv",
+    "timestamp": "2026-08-08T18:22:42"
+  },
+  "runs": {
+    "Run 0_Padrao": {
+      "name": "Run 0_Padrao",
+      "flags": {
+        "use_robust": false,
+        "use_vol_loss": false,
+        "use_overlap": false,
+        "use_disc_optim": false,
+        "use_vol_gate": false,
+        "use_unfreeze": false,
+        "use_hybrid_loss": false
+      },
+      "epochs": 1,
+      "total_time_s": 137.623,
+      "time_per_epoch_s": [
+        108.5105
+      ],
+      "train_loss": [
+        4.953801472232027
+      ],
+      "val_loss": [
+        6.783450838051322
+      ],
+      "test_loss": [
+        7.873818873735415
+      ],
+      "test_mse_per_epoch": [
+        7.8738179206848145
+      ],
+      "test_mae_per_epoch": [
+        1.505164623260498
+      ],
+      "final_test_mse": 7.8738179206848145,
+      "final_test_mae": 1.505164623260498,
+      "final_test_loss": 7.873818873735415,
+      "best_val_loss": 6.783450838051322,
+      "best_epoch": 1,
+      "checkpoint": "E:\\2026.1\\Viplab\\AutoTimes\\Testes_eficiencia\\checkpoints\\Run-0_Padrao__ETTh1__20260808_182214.pt",
+      "early_stop": false,
+      "patience": 3,
+      "early_stop_epoch": null,
+      "grad_stats": {
+        "trainable": 12,
+        "missing": 0,
+        "nan": 0,
+        "inf": 0
+      }
+    }
+  }
+}

@@ -84,7 +84,7 @@ from modules import textual as _textual  # noqa: E402
 
 # Versao do schema de serializacao textual. Bump ao mudar a formatacao dos
 # textos (pt-BR) para invalidar caches antigos em text_cache\.
-_TEXTUAL_VERSION: int = 2
+_TEXTUAL_VERSION: int = 3  # v3: cache com x numerico (multimodal) + ids+lens+y
 
 SEED: int = 2021
 
@@ -366,22 +366,8 @@ class AutoTimesModel(nn.Module):
             else StandardRevIN(num_vars=1, affine=False)  # z-score da bateria
         )
 
-        if textual:
-            # Modo textual: o encoder é o embedding textual (wte) do GPT-2;
-            # o decoder MLP mapeia cada bloco textual de volta para valores.
-            # Textual é mutuamente exclusivo com overlap (que opera na
-            # representação numerica): aqui ele tem precedência.
-            self.use_overlap = False
-            self.n_patches = seq_len // self.token_len
-            self.encoder = None
-            self.decoder = (
-                MLP(hidden, self.token_len, mlp_hidden_dim,
-                    mlp_hidden_layers, dropout, mlp_activation)
-                if mlp_hidden_layers > 0
-                else nn.Linear(hidden, self.token_len)
-            )
-            self.revin = None  # valores reais; sem RevIN no fluxo textual
-        elif use_overlap:
+        # ---- Fluxo numerico SEMPRE presente (encoder/decoder de patches) ----
+        if use_overlap:
             self.encoder = OverlappingPatchEmbedding(
                 patch_len=self.token_len, stride=self.token_len // 2,
                 d_model=hidden, dropout=dropout,
@@ -399,22 +385,43 @@ class AutoTimesModel(nn.Module):
             self.encoder = nn.Linear(self.token_len, hidden)
             self.decoder = nn.Linear(hidden, self.token_len)
 
+        # ---- Modo textual: fusaoo (bug 1 corrigido) ----
+        # O texto NAO desvia a rota numerica. O fluxo agora eh SEMPRE:
+        #   Passo A) RevIN + patching/overlap sobre o tensor numerico;
+        #   Passo B) embedding do texto (wte + pooling por bloco);
+        #   Passo C) fusao cat+Linear+LayerNorm antes do GPT-2.
+        # As flags de ablacao (use_robust/use_overlap) portanto valem
+        # tambem no modo textual, eliminando o bypass observado.
+        self.n_blocks_text = seq_len // self.token_len
+        if textual:
+            self.fusion = nn.Sequential(
+                nn.Linear(hidden * 2, hidden),
+                nn.LayerNorm(hidden),
+            )
+        else:
+            self.fusion = None
+
         self.gate = AdaptiveFusion(hidden, n_stat_feats=4) if use_vol_gate else None
 
-    def forward(self, x_enc: Optional[Tensor] = None, x_lens: Optional[Tensor] = None) -> Tensor:
+    def forward(
+        self,
+        x_enc: Optional[Tensor] = None,
+        x_ids: Optional[Tensor] = None,
+        x_lens: Optional[Tensor] = None,
+    ) -> Tensor:
         """Pipeline fiel a forecast() do AutoTimes_Gpt2.
 
         Args:
-            x_enc: Sinal bruto (B, seq_len, 1) - janela univariada, OU no
-                modo textual: (B, n_patches*block_max) com os tokens GPT-2.
-            x_lens: (B, n_patches) comprimento real de cada bloco textual.
+            x_enc: Sinal bruto (B, seq_len, 1) - janela univariada.
+            x_ids: Somente modo textual: (B, n_blocks*block_max) tokens GPT-2.
+            x_lens: Somente modo textual: (B, n_blocks) len real por bloco.
 
         Returns:
             Tensor: Reconstrucao completa (B, seq_len, 1), desnormalizada
-            (ou na escala real no modo textual).
+            (escala real).
         """
         if self.textual:
-            return self._forward_textual(x_enc, x_lens)
+            return self._forward_multimodal(x_enc, x_ids, x_lens)
         b, l, v = x_enc.shape
         x_norm = self.revin.normalize(x_enc)                            # (B,L,1)
 
@@ -441,46 +448,76 @@ class AutoTimesModel(nn.Module):
         rec = rec.view(b, v, self.seq_len).permute(0, 2, 1)              # (B,L,1)
         return self.revin.denormalize(rec)
 
-    def _forward_textual(self, x_ids: Tensor, x_lens: Tensor) -> Tensor:
-        """Modo textual: wte(word_ids) -> pooling por bloco -> GPT-2(blocos)
-        -> decoder MLP -> reconstrucao (B, seq_len, 1).
+    def _forward_multimodal(self, x_enc: Tensor, x_ids: Tensor, x_lens: Tensor) -> Tensor:
+            """Pipeline multimodal text+NUMERICO em rigorosa ordem de operacoes.
 
-        Em vez de alimentar o GPT-2 com os 896 tokens textuais (inviável:
-        atencao O(T^2) com T=896), cada bloco de 96h e resumido pelo
-        EMBEDDING MEAN ponderado por mask dos seus tokens reais (wte, congelado)
-        -> (B, n_blocos, D), e o GPT-2 atende sobre esses 7 vetores de bloco
-        (mesmo custo do modo numerico).
+            Passo A: matematica numerica SEMPRE primeiro, isolada e independente
+                    do texto: RevIN normalize -> patching (ou overlap) -> tokens.
+            Passo B: texto embedado por wte (congelado) + pooling mean por bloco.
+            Passo C: fusao ALINHADA cat([text, num]) -> Linear -> LayerNorm
+                (estabiliza magnitudes/explosao de gradientes) -> GPT-2.
+            Saida: decoder sobre a rota numerica e revin.denormalize() aplicado
+                SOMENTE na reconstrucao numerica (desacopla texto da desnorm).
 
-        Args:
-            x_ids: (B, n_patches*block_max) tokens GPT-2 (ids numericos dos
-                textos descritivos).
-            x_lens: (B, n_patches) comprimento real (sem pad) de cada bloco.
+            Args:
+                x_enc: (B, seq_len, 1) janela univariada REAL (sem z-score).
+                x_ids: (B, n_blocks_text*block_max) tokens GPT-2 dos textos.
+                x_lens: (B, n_blocks_text) comprimento real de cada bloco.
 
-        Returns:
-            Tensor: (B, seq_len, 1) na escala real (sem RevIN).
-        """
-        b = x_ids.shape[0]
-        t = self.n_patches
-        block = self.block_max
+            Returns:
+                (B, seq_len, 1) na escala real.
+            """
+            b = x_ids.shape[0]
+            if x_enc is None:
+                raise ValueError("Modo textual exige x_enc numerico (multimodal)")
 
-        emb = self.gpt2.wte(x_ids)                                     # (B, T*block, D)
-        emb = emb.view(b, t, block, -1)                   # (B, T, block, D)
+            # ---------- Passo A: numerica primeiro (sempre) ------------------
+            x_norm = self.revin.normalize(x_enc)                            # (B,L,1)
+            flat = x_norm.permute(0, 2, 1).reshape(b, self.seq_len)         # (B,L)
+            if self.use_overlap:
+                patches = flat.unfold(-1, self.token_len, self.token_len // 2)  # (B,Tp,96)
+                num_tokens = self.encoder(flat)                             # (B,Tp,D)
+                t_num = patches.shape[1]
+            else:
+                patches = flat.unfold(-1, self.token_len, self.token_len)   # (B,T,96)
+                num_tokens = self.encoder(patches)                          # (B,T,D)
+                t_num = patches.shape[1]
 
-        # Mascara dos tokens reais (exclui pads) + pooling mean por bloco.
-        # arange: (1, 1, block, 1) ; x_lens[:, :, None, None]: (B, T, 1, 1)
-        arange = torch.arange(block, device=emb.device)[None, None, :, None]
-        mask = (arange < x_lens[:, :, None, None]).to(emb.dtype)  # (B, T, block, 1)
-        lens = x_lens.clamp(min=1).to(emb.dtype).unsqueeze(-1)      # (B, T, 1)
-        pooled = (emb * mask).sum(dim=2) / lens                    # (B, T, D)
+            # ---------- Passo B: texto (wte congelado + pooling por bloco) ---
+            emb = self.gpt2.wte(x_ids)                                      # (B,Tt*block,D)
+            emb = emb.view(b, self.n_blocks_text, self.block_max, -1)       # (B,Tt,block,D)
+            arange = torch.arange(self.block_max, device=emb.device)[None, None, :, None]
+            mask = (arange < x_lens[:, :, None, None]).to(emb.dtype)        # (B,Tt,block,1)
+            lens = x_lens.clamp(min=1).to(emb.dtype).unsqueeze(-1)
+            txt_tokens = (emb * mask).sum(dim=2) / lens                     # (B,Tt,D)
 
-        # GPT-2 sobre os T = 7 vetores de bloco (um por 96h).
-        hidden = self.gpt2(
-            inputs_embeds=pooled.contiguous(), use_cache=False
-        ).last_hidden_state                              # (B, T, D)
+            # Overlap gera mais tokens que blocos textuais (13 vs 7): alinha por
+            # interpolacao linear para o mesmo T, senao o cat trava.
+            if txt_tokens.shape[1] != num_tokens.shape[1]:
+                txt_tokens = torch.nn.functional.interpolate(
+                    txt_tokens.permute(0, 2, 1), size=num_tokens.shape[1],
+                    mode="linear", align_corners=False,
+                ).permute(0, 2, 1)
 
-        dec = self.decoder(hidden.to(next(self.decoder.parameters()).dtype))  # (B, T, 96)
-        rec = dec.reshape(b, self.n_patches * self.token_len)          # (B, L)
-        return rec.unsqueeze(-1)                         # (B, L, 1)
+            if self.gate is not None:
+                num_tokens = self.gate(num_tokens, compute_token_stats(patches))
+
+            # ---------- Passo C: fusao + estabilizacao ----------------------
+            fused = torch.cat([txt_tokens, num_tokens], dim=-1)             # (B,T,2D)
+            fused = self.fusion(fused)                                      # (B,T,D)
+            latent = self.gpt2(
+                inputs_embeds=fused.contiguous(), use_cache=False
+            ).last_hidden_state                                            # (B,T,D)
+
+            if self.use_overlap:
+                rec = self.encoder.deembed(latent, output_len=self.seq_len)  # (B,L)
+            else:
+                dec = self.decoder(latent.to(
+                    next(self.decoder.parameters()).dtype))                 # (B,T,96)
+                rec = dec.reshape(b, self.n_patches * self.token_len)       # (B,L)
+
+            rec = rec.view(b, 1, self.seq_len).permute(0, 2, 1)             # (B,L,1)
+            return self.revin.denormalize(rec)  # desnorm so no fluxo numerico
 
 
 # --------------------------------------------------------------------- #
@@ -706,12 +743,12 @@ def load_textual_split(
     cache_file = TEXT_CACHE_DIR / cache_key
     if cache_file.exists() and not force_rebuild:
         _cached = torch.load(cache_file, weights_only=False)
-        train_ds = TensorDataset(_cached["train_x"], _cached["train_lens"],
-                                 _cached["train_y"])
-        val_ds = TensorDataset(_cached["val_x"], _cached["val_lens"],
-                               _cached["val_y"])
-        test_ds = TensorDataset(_cached["test_x"], _cached["test_lens"],
-                                _cached["test_y"])
+        train_ds = TensorDataset(_cached["train_x"], _cached["train_ids"],
+                                 _cached["train_lens"], _cached["train_y"])
+        val_ds = TensorDataset(_cached["val_x"], _cached["val_ids"],
+                               _cached["val_lens"], _cached["val_y"])
+        test_ds = TensorDataset(_cached["test_x"], _cached["test_ids"],
+                                _cached["test_lens"], _cached["test_y"])
         print(f"  [textual] tensor cache carregado: {cache_file}")
     else:
         df_raw = pd.read_csv(src)
@@ -726,7 +763,7 @@ def load_textual_split(
             sub = _df[_df["split"] == split].sort_values(
                 ["feat", "start", "block"], kind="mergesort"
             )
-            xs, ls, ys = [], [], []
+            xs, ls, ys, xns = [], [], [], []
             for (feat, start), grp in sub.groupby(["feat", "start"], sort=False):
                 textos = grp["text"].tolist()
                 ids_blocos: List[int] = []
@@ -744,8 +781,14 @@ def load_textual_split(
                 xs.append(torch.tensor(ids_blocos, dtype=torch.int64))
                 ls.append(torch.tensor(lens, dtype=torch.int64))
                 ys.append(values[r_begin:r_end, feat:feat + 1].astype(np.float32))
-            return TensorDataset(torch.stack(xs), torch.stack(ls),
-                                 torch.stack([torch.from_numpy(v) for v in ys]))
+                # x numerico (multimodal): janela bruta de entrada.
+                xns.append(values[start:start + seq_len, feat:feat + 1].astype(np.float32))
+            return TensorDataset(
+                torch.from_numpy(np.stack(xns)),
+                torch.stack(xs),
+                torch.stack(ls),
+                torch.stack([torch.from_numpy(v) for v in ys]),
+            )
 
         train_ds = _build_csv("split0", b1s[0], b2s[0], window_stride)
         val_ds = _build_csv("split1", b1s[1], b2s[1], window_stride)
@@ -754,12 +797,12 @@ def load_textual_split(
             TEXT_CACHE_DIR.mkdir(parents=True, exist_ok=True)
             torch.save(
                 {
-                    "train_x": train_ds.tensors[0], "train_lens": train_ds.tensors[1],
-                    "train_y": train_ds.tensors[2],
-                    "val_x": val_ds.tensors[0], "val_lens": val_ds.tensors[1],
-                    "val_y": val_ds.tensors[2],
-                    "test_x": test_ds.tensors[0], "test_lens": test_ds.tensors[1],
-                    "test_y": test_ds.tensors[2],
+                    "train_x": train_ds.tensors[0], "train_ids": train_ds.tensors[1],
+                    "train_lens": train_ds.tensors[2], "train_y": train_ds.tensors[3],
+                    "val_x": val_ds.tensors[0], "val_ids": val_ds.tensors[1],
+                    "val_lens": val_ds.tensors[2], "val_y": val_ds.tensors[3],
+                    "test_x": test_ds.tensors[0], "test_ids": test_ds.tensors[1],
+                    "test_lens": test_ds.tensors[2], "test_y": test_ds.tensors[3],
                 },
                 cache_file,
             )
@@ -826,6 +869,9 @@ def train_one_epoch(
     use_amp: bool = False,
     scaler: Optional[torch.amp.GradScaler] = None,
     desc: str = "treino",
+    batch_log_path: Optional[Path] = None,
+    batch_tag: str = "",
+    epoch: int = 0,
 ) -> float:
     """Treina UMA epoca completa, iterando por 100% dos batches.
 
@@ -851,7 +897,12 @@ def train_one_epoch(
     running = 0.0
     count = 0
     pbar = _progress(loader, desc)
-    for batch in pbar:
+    batch_log: Optional[object] = None
+    if batch_log_path is not None:
+        batch_log = open(batch_log_path, "a", encoding="utf-8")
+        if batch_log.tell() == 0:
+            batch_log.write("run,epoch,batch,loss,grad_norm,status\n")
+    for bi, batch in enumerate(pbar, start=1):
         xs, y = batch[:-1], batch[-1]
         x = xs[0].to(device, non_blocking=True)
         sargs = [t.to(device, non_blocking=True) for t in xs[1:]]
@@ -878,10 +929,28 @@ def train_one_epoch(
             f"loss={loss.item():.6f} "
             f"grad_norm={total_norm.item():.6f}"
         )
+        finite = torch.isfinite(loss) and torch.isfinite(total_norm)
+        if batch_log is not None:
+            batch_log.write(
+                f"{batch_tag},{epoch},{bi},{loss.item():.9f},"
+                f"{total_norm.item():.9f},"
+                f"{'ok' if finite else 'skip'}\n"
+            )
+        # Trava de seguranca: batch com loss NaN/Inf ou gradiente NaN/Inf e
+        # pulado (zero_grad + continue), sem derrubar o run inteiro.
+        if not finite:
+            print(
+                f"    [AVISO] batch estourou (loss={loss.item():.6f}, "
+                f"grad_norm={total_norm.item():.6f}) -> pulando batch"
+            )
+            optimizer.zero_grad(set_to_none=True)
+            if scaler is not None:
+                scaler.update()
+            continue
         torch.nn.utils.clip_grad_norm_(
             model.parameters(),
             max_norm=1.0,
-            error_if_nonfinite=True
+            error_if_nonfinite=False
         )
         if grad_tracker is not None and not grad_tracker["done"]:
             grad_tracker["stats"] = check_gradients(model)
@@ -898,6 +967,8 @@ def train_one_epoch(
             pbar.set_postfix(loss=f"{loss.item():.6f}", tl=f"{running / count:.6f}", refresh=False)
     if hasattr(pbar, "close"):
         pbar.close()
+    if batch_log is not None:
+        batch_log.close()
     return running / max(count, 1)
 
 
@@ -1220,8 +1291,9 @@ def run_single_experiment(
         criterion = nn.MSELoss()
 
     # Feature de variancia e passada a perda sempre que o criterio precisar.
-    # No modo textual nao ha sinal numerico normalizado para a variancia.
-    needs_variance = bool((flags["use_vol_loss"] or hybrid_on) and not args.textual)
+    # (No modo textual multimodal o x numerico existe de novo, entao a
+    #  variancia e valida nos dois modos.)
+    needs_variance = bool(flags["use_vol_loss"] or hybrid_on)
 
     train_loader, val_loader, test_loader = build_loaders(
         train_ds, val_ds, test_ds, args.batch_size, args.num_workers
@@ -1248,6 +1320,9 @@ def run_single_experiment(
             model, train_loader, optimizer, criterion, device,
             needs_variance, grad_tracker, use_amp=amp_on,
             scaler=scaler if amp_on else None, desc=f"{run_tag} treino",
+            batch_log_path=(LOG_DIR / f"batches_{_session_stamp()}.csv")
+            if args.log_batches else None,
+            batch_tag=cfg["name"], epoch=epoch,
         )
         val_loss, _, _ = evaluate(model, val_loader, criterion, device,
                                   needs_variance, use_amp=amp_on,
@@ -1439,6 +1514,9 @@ def parse_args() -> argparse.Namespace:
                         help="Para o treino se a val_loss nao melhorar por 'patience' epocas")
     parser.add_argument("--patience", type=int, default=3,
                         help="Epocas sem melhora na val_loss antes de acionar o early stopping")
+    parser.add_argument("--log-batches", dest="log_batches", action="store_true",
+                        help="Grava em log/batches_<sessao>.csv UMA linha por batch "
+                             "(run,epoch,batch,loss,grad_norm,status)")
     parser.add_argument("--run-filter", type=str, default="",
                         help="Runs a executar (ex: '0,1,4' ou 'Overlap,Frankenstein'). 'all' = todas")
     parser.add_argument("--combos", type=str, default="",
@@ -1582,9 +1660,11 @@ def run_sanity_checks(args: argparse.Namespace, device: torch.device) -> None:
             unfreeze_layers=0, textual=True, block_max=args.block_max,
         ).to(device).eval()
         with torch.no_grad():
-            xi, xl, y = tr[0]
-            xi, xl, y = xi.unsqueeze(0).to(device), xl.unsqueeze(0).to(device), y.unsqueeze(0).to(device)
-            out = model_t(xi, xl)
+            xn, xi, xl, y = tr[0]
+            xn = xn.unsqueeze(0).to(device)
+            xi = xi.unsqueeze(0).to(device)
+            xl = xl.unsqueeze(0).to(device)
+            out = model_t(xn, xi, xl)
         if out.shape != (1, args.seq_len, 1):
             _fail(f"forward textual shape={tuple(out.shape)} != (1, {args.seq_len}, 1)")
         else:

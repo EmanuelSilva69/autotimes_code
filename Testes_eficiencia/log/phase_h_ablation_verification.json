@@ -1,0 +1,42 @@
+{
+  "use_robust": {
+    "flag": "use_robust",
+    "value": true,
+    "max_diff": 2.5271730422973633,
+    "mean_diff": 0.4908508062362671,
+    "outputs_identical": false,
+    "baseline_revin_type": "StandardRevIN",
+    "flag_revin_type": "RobustRevIN",
+    "types_differ": true
+  },
+  "use_overlap": {
+    "flag": "use_overlap",
+    "value": true,
+    "max_diff": 8.227500915527344,
+    "mean_diff": 1.8752343654632568,
+    "outputs_identical": false,
+    "baseline_revin_type": "StandardRevIN",
+    "flag_revin_type": "StandardRevIN",
+    "types_differ": false
+  },
+  "use_vol_gate": {
+    "flag": "use_vol_gate",
+    "value": true,
+    "max_diff": 2.4058470726013184,
+    "mean_diff": 0.5066456198692322,
+    "outputs_identical": false,
+    "baseline_revin_type": "StandardRevIN",
+    "flag_revin_type": "StandardRevIN",
+    "types_differ": false
+  },
+  "unfreeze_layers": {
+    "flag": "unfreeze_layers",
+    "value": 2,
+    "max_diff": 2.412546157836914,
+    "mean_diff": 0.4841562509536743,
+    "outputs_identical": false,
+    "baseline_revin_type": "StandardRevIN",
+    "flag_revin_type": "StandardRevIN",
+    "types_differ": false
+  }
+}

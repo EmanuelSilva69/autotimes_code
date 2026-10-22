@@ -62,6 +62,26 @@ SHORT_NAMES: Dict[str, str] = {
 # --------------------------------------------------------------------- #
 # Carga e validacao de dados                                              #
 # --------------------------------------------------------------------- #
+def ablation_mode(meta: Dict) -> Tuple[str, str]:
+    """Identifica o tipo de ablation pelo meta do JSON.
+
+    Args:
+        meta: Dict meta lido do benchmark_results.json.
+
+    Returns:
+        (rotulo_titulo, sufixo_arquivo): "Ablação Textual"/"textual" quando
+        meta["textual"] == true, senao "Ablação Numérica"/"numerica".
+        O sufixo inclui o timestamp da sessao (ex: "textual_20260806_211250")
+        para que rodadas diferentes nunca sobrescrevam os mesmos arquivos.
+    """
+    textual = bool(meta.get("textual"))
+    base = "textual" if textual else "numerica"
+    modo = "Ablação Textual" if textual else "Ablação Numérica"
+    ts = str(meta.get("timestamp", "")).replace("-", "").replace(":", "").strip()
+    sufixo = f"{base}_{ts}" if ts else base
+    return modo, sufixo
+
+
 def load_results(json_path: Path = JSON_PATH) -> Tuple[Dict, List[Dict]]:
     """Le benchmark_results.json e devolve (meta, runs_ordenadas).
 
@@ -129,13 +149,17 @@ try:
     import plotly.graph_objects as go
 
     HAS_PLOTLY = True
+except ImportError:
+    HAS_PLOTLY = False
+
+try:
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+
     HAS_MPL = True
 except ImportError:
-    HAS_PLOTLY = False
     HAS_MPL = False
 
 try:
@@ -175,11 +199,14 @@ def save_figure(fig, stem: str) -> Path:
 # ---------------------------------------------------------------------
 # Grafico 1: Barras comparativas (MSE e MAE) por run
 # ---------------------------------------------------------------------
-def plot_comparative_mse_mae(runs: List[Dict]) -> Path:
+def plot_comparative_mse_mae(runs: List[Dict], modo: str = "Ablação Numérica",
+                             sufixo: str = "numerica") -> Path:
     """Barras lado a lado do Test MSE e Test MAE final de todas as runs.
 
     Args:
         runs: Lista ordenada de resultados (Run 0 .. Run 6).
+        modo: Rotulo do tipo de ablation (usado no titulo do grafico).
+        sufixo: Sufixo de arquivo ("numerica" ou "textual").
 
     Returns:
         Path da figura gerada.
@@ -198,7 +225,7 @@ def plot_comparative_mse_mae(runs: List[Dict]) -> Path:
         fig.add_annotation(x=names[best], y=mse[best], text="melhor", showarrow=True,
                            arrowhead=2, ax=0, ay=-40, font=dict(color="green"))
         fig.update_layout(
-            title="Benchmark - Test MSE e Test MAE por Run (menor = melhor)",
+            title=f"{modo} - Test MSE e Test MAE por Run (menor = melhor)",
             xaxis_title="Run", yaxis_title="Erro",
             barmode="group", template="plotly_white", height=480,
             legend=dict(orientation="h", y=1.08),
@@ -212,7 +239,7 @@ def plot_comparative_mse_mae(runs: List[Dict]) -> Path:
         ax.set_xticks(x)
         ax.set_xticklabels(names, rotation=18)
         ax.set_ylabel("Erro")
-        ax.set_title("Test MSE e Test MAE por Run")
+        ax.set_title(f"{modo} - Test MSE e Test MAE por Run")
         ax.legend()
         ax.grid(alpha=0.3, axis="y")
         for xi, m in zip(x - w / 2, mse):
@@ -220,7 +247,7 @@ def plot_comparative_mse_mae(runs: List[Dict]) -> Path:
         for xi, m in zip(x + w / 2, mae):
             ax.text(xi, m, f"{m:.3f}", ha="center", va="bottom", fontsize=8)
         fig.tight_layout()
-    return save_figure(fig, "comparativo_mse_mae")
+    return save_figure(fig, f"comparativo_mse_mae_{sufixo}")
 
 
 # ---------------------------------------------------------------------
@@ -234,7 +261,8 @@ def _trend_slope(ys: List[float]) -> float:
     return float(np.polyfit(np.arange(len(window)), window, 1)[0])
 
 
-def plot_convergence(runs: List[Dict]) -> Path:
+def plot_convergence(runs: List[Dict], modo: str = "Ablação Numérica",
+                     sufixo: str = "numerica") -> Path:
     """Sobrepoe a val loss por epoca de todas as runs, destacando 3 e 4.
 
     Tambem avalia se Run 3 (Overlap) ou Run 4 (DiscOptim) previnem
@@ -242,6 +270,8 @@ def plot_convergence(runs: List[Dict]) -> Path:
 
     Args:
         runs: Resultados (Run 0 primeiro).
+        modo: Rotulo do tipo de ablation (usado no titulo do grafico).
+        sufixo: Sufixo de arquivo ("numerica" ou "textual" + timestamp).
 
     Returns:
         Path da figura.
@@ -261,7 +291,7 @@ def plot_convergence(runs: List[Dict]) -> Path:
                           color=color),
             ))
         fig.update_layout(
-            title="Convergencia da Loss de Validacao por Epoca",
+            title=f"{modo} - Convergencia da Loss de Validacao por Epoca",
             xaxis_title="Epoca", yaxis_title="Val Loss",
             template="plotly_white", height=520,
             legend=dict(font=dict(size=10)),
@@ -288,21 +318,24 @@ def plot_convergence(runs: List[Dict]) -> Path:
             ax.plot(epochs, r["val_loss"], label=short_name(r["name"]), ls=ls, lw=lw)
         ax.set_xlabel("Epoca")
         ax.set_ylabel("Val Loss")
-        ax.set_title("Convergencia da Loss de Validacao por Run")
+        ax.set_title(f"{modo} - Convergencia da Loss de Validacao por Run")
         ax.legend(fontsize=8)
         ax.grid(alpha=0.3)
         fig.tight_layout()
-    return save_figure(fig, "convergencia_val_loss")
+    return save_figure(fig, f"convergencia_val_loss_{sufixo}")
 # ---------------------------------------------------------------------
 # Grafico 3: Melhoria relativa (% de reducao do Test MSE vs baseline)
 # ---------------------------------------------------------------------
-def plot_relative_improvement(runs: List[Dict]) -> Path:
+def plot_relative_improvement(runs: List[Dict], modo: str = "Ablação Numérica",
+                              sufixo: str = "numerica") -> Path:
     """Barras da variacao percentual do Test MSE de cada run vs Run 0.
 
     Valores negativos = melhoria (reducao do erro); positivos = regressao.
 
     Args:
         runs: Resultados ordenados (Run 0 primeiro).
+        modo: Rotulo do tipo de ablation (usado no titulo do grafico).
+        sufixo: Sufixo de arquivo ("numerica" ou "textual" + timestamp).
 
     Returns:
         Path da figura.
@@ -322,7 +355,7 @@ def plot_relative_improvement(runs: List[Dict]) -> Path:
         fig.add_hline(y=0, line_dash="dash", line_color="gray",
                       annotation_text="baseline (Run 0)")
         fig.update_layout(
-            title=f"Melhoria Relativa do Test MSE vs Baseline (Run 0 = {base_mse:.4f})",
+            title=f"{modo} - Melhoria Relativa do Test MSE vs Baseline (Run 0 = {base_mse:.4f})",
             xaxis_title="Run", yaxis_title="Delta % (negativo = melhoria)",
             template="plotly_white", height=480,
         )
@@ -333,10 +366,10 @@ def plot_relative_improvement(runs: List[Dict]) -> Path:
             ax.text(xi, d, f"{d:+.2f}%", ha="center", va="bottom" if d >= 0 else "top")
         ax.axhline(0, color="gray", ls="--", lw=1)
         ax.set_ylabel("Delta % (negativo = melhoria)")
-        ax.set_title("Melhoria Relativa do Test MSE vs Baseline")
+        ax.set_title(f"{modo} - Melhoria Relativa do Test MSE vs Baseline")
         ax.grid(alpha=0.3, axis="y")
         fig.tight_layout()
-    return save_figure(fig, "melhorias_relativas")
+    return save_figure(fig, f"melhorias_relativas_{sufixo}")
 
 
 # ---------------------------------------------------------------------
@@ -381,10 +414,13 @@ def main() -> None:
 
     print(f"Resultados carregados: {len(runs)} runs | meta: {meta}")
 
+    modo, sufixo = ablation_mode(meta)
+    print(f"Tipo de ablation detectado: {modo} | sufixo dos arquivos: {sufixo}")
+
     steps = [
-        ("Graf 1 - Barras MSE/MAE", lambda: plot_comparative_mse_mae(runs)),
-        ("Graf 2 - Convergencia val loss", lambda: plot_convergence(runs)),
-        ("Graf 3 - Melhoria relativa", lambda: plot_relative_improvement(runs)),
+        ("Graf 1 - Barras MSE/MAE", lambda: plot_comparative_mse_mae(runs, modo, sufixo)),
+        ("Graf 2 - Convergencia val loss", lambda: plot_convergence(runs, modo, sufixo)),
+        ("Graf 3 - Melhoria relativa", lambda: plot_relative_improvement(runs, modo, sufixo)),
     ]
     for label, fn in steps:
         print(f"\n[{label}]")
